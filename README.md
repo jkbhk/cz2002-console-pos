@@ -8,6 +8,6 @@
 - Kim Minseo
 
 ## Goal / Learning Points:
-The focus of the project is to consider various design principles when implementing systems like restaurant POS.
+The focus of this project is to consider various design principles when implementing systems like restaurant POS.
 
 
