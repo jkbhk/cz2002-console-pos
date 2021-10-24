@@ -9,11 +9,12 @@ public class GenericFileReader {
     
     private static BufferedReader buffer;
     private static String filePathSuffix = "../data/";
+    private static String delimiter = ",";
 
-    public static ArrayList<String> read(String filename){
+    public static void read(IReceivable r, String filename){
         String path = filePathSuffix + filename;
 
-        ArrayList<String> fetched = new ArrayList<>();
+        //ArrayList<String> fetched = new ArrayList<>();
         String line;
 
         try
@@ -22,7 +23,9 @@ public class GenericFileReader {
             
             while ((line = buffer.readLine()) != null)
             {
-                fetched.add(line);
+                String[] stream = line.split(delimiter);
+                r.receive(stream);
+         
             }
         }
         catch (Exception e)
@@ -47,7 +50,6 @@ public class GenericFileReader {
        
 
         System.out.println("data fetch from "+filename+" complete.");        
-        return fetched;
 
     } 
 }
