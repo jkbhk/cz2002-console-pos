@@ -20,6 +20,7 @@ public class Application {
 	public static void injectDependancies(){
 		
 		interactableComponent.interactables.add(new ReserveInteractable());
+		interactableComponent.interactables.add(new DebugInteractable());
 
 	}
 

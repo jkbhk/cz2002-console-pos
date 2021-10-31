@@ -6,6 +6,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class GenericFileReader {
+
+    // usage:
+    // 1) implement IReceivable
+    // 2) call read(<instance of your class>, <file name>)
+    // eg. GenericFileReader.read(this, "stock_data.csv")
+    
+
     
     private static BufferedReader buffer;
     private static String filePathSuffix = "../data/";
