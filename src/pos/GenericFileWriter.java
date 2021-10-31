@@ -8,20 +8,30 @@ public class GenericFileWriter {
     
     private static String filePathSuffix = "../data/";
 
-    public static void writeFile(String filename){
+    public static void writeFile(String[] properties,String filename){
         try (PrintWriter writer = new PrintWriter(filePathSuffix + filename)) {
 
             StringBuilder sb = new StringBuilder();
-            sb.append("Id");
+            /*sb.append("Id");
             sb.append(',');
             sb.append("Name");
             sb.append('\n');
       
-            sb.append("1");
+            sb.append(IDGenerator.GenerateUniqueID());
             sb.append(',');
             sb.append("Chicken rice");
             sb.append('\n');
-      
+      */
+            
+            sb.append(IDGenerator.GenerateUniqueID());
+            sb.append(',');
+            for(int i = 0; i<properties.length;i++){
+                
+                sb.append(properties[i]);
+                sb.append(',');
+            }
+            sb.append('\n');
+            
             writer.write(sb.toString());
       
             System.out.println("write complete!");
