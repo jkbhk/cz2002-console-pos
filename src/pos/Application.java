@@ -1,19 +1,40 @@
 package pos;
 // Hello Test
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Application {
 
 	static ArrayList<ISerializable> serializableGroup;
 	static InteractableComponent interactableComponent = new InteractableComponent();
-	
-	
+	public static Scanner scanner = new Scanner(System.in);
+
+	// called before injectDependancies
+	public static void initialize(){
+		serializableGroup = new ArrayList<>();
+		interactableComponent = new InteractableComponent();
+	}
+
+
+	// inject all dependencies here
+	public static void injectDependancies(){
+		
+		interactableComponent.interactables.add(new ReserveInteractable());
+
+	}
+
+
 	public static void main(String[] args) {
 		
-		MenuManager menuManager = new MenuManager();
-		interactableComponent.interactables.add(new ReserveInteractable());
-		//serializableGroup.add(menuManager);
-		interactableComponent.showInteractables();
+		initialize();
+		injectDependancies();
+		
+		while(interactableComponent.IsEnabled()){
+			interactableComponent.showInteractables();
+		}
+
+		// broke from interactableComponent
+		onExit();
 		
 	}
 	
