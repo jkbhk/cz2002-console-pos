@@ -10,6 +10,7 @@ public class Reservation {
 	private String reservationID;
 	private String customerID;
 	private String contactNo;
+	private String name;
 	
 	public Date getDate()
 	{
@@ -41,9 +42,23 @@ public class Reservation {
 		return reservationID;
 	}
 	
+	public String getCustomerID()
+	{
+		return customerID;
+	}
+	
+	public String getName()
+	{
+		return name;
+	}
+	
 	public void makeReservation(Date date, String time, int noPax, String name, String contactNo)
 	{
-		// To-Do
+		this.date = date; 
+		this.time = time;
+		this.noPax = noPax;
+		this.name = name;
+		this.contactNo = contactNo;
 	}
 	
 }
