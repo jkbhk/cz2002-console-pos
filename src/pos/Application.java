@@ -13,14 +13,18 @@ public class Application {
 	public static void initialize(){
 		serializableGroup = new ArrayList<>();
 		interactableComponent = new InteractableComponent();
+
+		// create all your managers here
+		ExampleManager exampleManager = new ExampleManager();
 	}
 
 
-	// inject all dependencies here
+	// inject all dependencies here (add your interactables to the interatableComponent)
 	public static void injectDependancies(){
 		
 		interactableComponent.interactables.add(new ReserveInteractable());
 		interactableComponent.interactables.add(new DebugInteractable());
+		interactableComponent.interactables.add(new ExampleInteractable());
 
 	}
 
