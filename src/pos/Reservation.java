@@ -1,9 +1,10 @@
 package pos;
+import java.time.LocalDate;
 import java.util.*;
 
 public class Reservation {
 
-	private Date date;
+	private LocalDate date;
 	private String time;
 	private int noPax;
 	private int tableNo;
@@ -12,7 +13,7 @@ public class Reservation {
 	private String contactNo;
 	private String name;
 	
-	public Date getDate()
+	public LocalDate getDate()
 	{
 		return date;
 	}
@@ -52,7 +53,7 @@ public class Reservation {
 		return name;
 	}
 	
-	public void makeReservation(Date date, String time, int noPax, String name, String contactNo)
+	public void makeReservation(LocalDate date, String time, int noPax, String name, String contactNo)
 	{
 		this.date = date; 
 		this.time = time;
@@ -61,7 +62,7 @@ public class Reservation {
 		this.contactNo = contactNo;
 	}
 	
-	public void setDate(Date date)
+	public void setDate(LocalDate date)
 	{
 		this.date = date;
 	}
@@ -69,6 +70,21 @@ public class Reservation {
 	public void setTime(String time)
 	{
 		this.time = time;
+	}
+	
+	public void setCustomerID(String customerID)
+	{
+		this.customerID = customerID;
+	}
+	
+	public void setReservationID(String reservationID)
+	{
+		this.reservationID = reservationID;
+	}
+	
+	public void setTablNo(int tableNo)
+	{
+		this.tableNo = tableNo;
 	}
 	
 }

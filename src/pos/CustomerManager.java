@@ -27,7 +27,6 @@ public class CustomerManager {
 			//System.out.println("customerList is not Empty");
 			for (x = 0; x < customerList.size(); x++)
 			{
-				System.out.println("Checking loop"+x);
 				if (customerList.get(x).getCustomerID().equals(customerID))
 				{
 					//System.out.println("There is a customerID that is the same");
@@ -68,9 +67,22 @@ public class CustomerManager {
 	
 	public void deleteCustomer(String customerID) //Delete Customer but custID and membershipID is not reusable
 	{
-		int indexNo = Integer.parseInt(customerID)-1;
-		Customer deletedCust = customerList.get(indexNo);
-		customerList.remove(indexNo);
+		
+		if (customerList.isEmpty())
+		{
+			System.out.println("customerList is Empty. Unable to delete Customer.");
+		}
+		else 
+		{
+			for (int x = 0; x < customerList.size(); x++)
+			{
+				if (customerList.get(x).getCustomerID().equals(customerID))
+				{
+					customerList.remove(x);
+					System.out.println("Customer is deleted.");
+				}
+			}
+		}
 		
 	}
 	

@@ -2,6 +2,8 @@ package pos;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class ReserveInteractable implements IInteractable {
@@ -15,7 +17,7 @@ public class ReserveInteractable implements IInteractable {
 		System.out.println("3) View Reservation Details");
 		System.out.println("4) Delete Reservation"); // Ask for Customer's ID
 		int choice = Application.scanner.nextInt();
-		while (choice!=4)
+		while (choice!=5)
 		{
 			switch(choice)
 			{
@@ -27,25 +29,29 @@ public class ReserveInteractable implements IInteractable {
 					int noPax = Application.scanner.nextInt();
 					System.out.println("Enter Date of Reservation in DD-MM-YYYY");
 					String dateString = Application.scanner.next();
-					DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy"); // This maybe can implement method or smth
-					Date date = null;
-					try {
-						date = formatter.parse(dateString);
-					} catch (ParseException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+					  
+					  //convert String to LocalDate
+					LocalDate localDate = LocalDate.parse(dateString, formatter);
+					
+					
 					System.out.println("Enter Time of Reservation");
 					String time = Application.scanner.next();
 					
 					
 					// TODO Need to call CustomerManager
-					Customer currcus = CustomerManager.instance.getCustomer(customerID);
-					String custName = currcus.getName();
-					String custContactNo = currcus.getContactNo();
+					Customer currCus = CustomerManager.instance.getCustomer(customerID);
+					String custName = currCus.getName();
+					String custContactNo = currCus.getContactNo();
+					
+					//TODO Need to call TableManager
 					
 					//TODO change reservationManager
-					ReservationManager.instance.createReservation(custName, custContactNo, noPax, date, time);
+					ReservationManager.instance.createReservation(custName, custContactNo, noPax, localDate, time);
+					Reservation currRes = ReservationManager.instance.getReservation(custName, custContactNo, localDate, time);
+					currRes.setCustomerID(customerID);
+					
+					
 					break;
 				}
 					
@@ -70,14 +76,10 @@ public class ReserveInteractable implements IInteractable {
 							{
 								System.out.println("Choose Selected Date.");
 								String dateString1 = Application.scanner.next();
-								DateFormat formatter1 = new SimpleDateFormat("dd-MM-yyyy");
-								Date date1 = null;
-								try {
-									date1 = formatter1.parse(dateString1);
-								} catch (ParseException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
+								DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+								  
+								  //convert String to LocalDate
+								LocalDate date1 = LocalDate.parse(dateString1, formatter);
 								reservation1.setDate(date1);
 								System.out.println("Reservation Date have been successfully changed!");
 								break;
@@ -92,6 +94,7 @@ public class ReserveInteractable implements IInteractable {
 								break;
 							}
 						}
+						break;
 					}
 					break;
 				}
@@ -101,12 +104,23 @@ public class ReserveInteractable implements IInteractable {
 					System.out.println("Enter ReservationID");
 					String ReservationID = Application.scanner.next();
 					Reservation curr = ReservationManager.instance.getReservation(ReservationID);
-					System.out.println("Reservation Date: " + curr.getDate());
-					System.out.println("Reservation Time: " + curr.getTime());
-					System.out.println("Reservation Table No. : " + curr.getTableNo());
-					System.out.println("Reservation Number of Pax: " + curr.getNoPax());
+					if (curr != null)
+					{
+						System.out.println("Reservation Date: " + curr.getDate());
+						System.out.println("Reservation Time: " + curr.getTime());
+						System.out.println("Reservation Table No. : " + curr.getTableNo()); // TODO Need to get Table
+						System.out.println("Reservation Number of Pax: " + curr.getNoPax());
+					}
+					else 
+						System.out.println("No Reservation Found");
+					
 					break;
 				}
+				
+				case 4: //TODO
+					System.out.println("Enter ReservationID to delete");
+					String currResID = Application.scanner.next();
+					
 			}
 			break;
 		}
