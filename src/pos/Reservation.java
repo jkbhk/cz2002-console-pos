@@ -61,4 +61,14 @@ public class Reservation {
 		this.contactNo = contactNo;
 	}
 	
+	public void setDate(Date date)
+	{
+		this.date = date;
+	}
+	
+	public void setTime(String time)
+	{
+		this.time = time;
+	}
+	
 }

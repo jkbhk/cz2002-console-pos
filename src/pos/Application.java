@@ -16,6 +16,8 @@ public class Application {
 
 		// create all your managers here
 		ExampleManager exampleManager = new ExampleManager();
+		ReservationManager reservationManager = new ReservationManager();
+		CustomerManager customerManager = new CustomerManager();
 	}
 
 
@@ -23,6 +25,7 @@ public class Application {
 	public static void injectDependancies(){
 		
 		interactableComponent.interactables.add(new ReserveInteractable());
+		interactableComponent.interactables.add(new CustomerInteractable());
 		interactableComponent.interactables.add(new DebugInteractable());
 		interactableComponent.interactables.add(new ExampleInteractable());
 
