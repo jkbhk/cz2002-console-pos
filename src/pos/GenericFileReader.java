@@ -15,7 +15,7 @@ public class GenericFileReader {
 
 
     private static BufferedReader buffer;
-    private static String filePathSuffix = "../data/";
+    private static String filePathSuffix = "src/data/";
     private static String delimiter = ",";
 
     public static ArrayList<String[]> read(String filename){
