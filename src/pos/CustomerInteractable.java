@@ -21,7 +21,8 @@ public class CustomerInteractable implements IInteractable {
 			case 1: 
 			{
 				System.out.println("Enter Customer's Name");
-				String name = Application.scanner.next();
+				Application.scanner.nextLine();
+				String name = Application.scanner.nextLine();
 				System.out.println("Enter Customer's Contact Number");
 				String contactNo = Application.scanner.next();
 				CustomerManager.instance.createCustomer(name, contactNo);

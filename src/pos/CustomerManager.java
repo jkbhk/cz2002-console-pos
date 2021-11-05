@@ -101,7 +101,7 @@ public class CustomerManager {
 				System.out.println("Name: " + customerList.get(x).getName());
 				System.out.println("Contact Number: " + customerList.get(x).getContactNo());
 				System.out.println("CustomerID: " + customerList.get(x).getCustomerID());
-				System.out.println("MemebershipID: " + customerList.get(x).getMembershipID());
+				System.out.println("MembershipID: " + customerList.get(x).getMembershipID());
 			}
 		}
 	}
