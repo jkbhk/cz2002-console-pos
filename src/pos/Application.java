@@ -1,28 +1,29 @@
 package pos;
-// Hello Test
 import java.util.ArrayList;
 import java.util.Scanner;
 
+// inject dependecies from this class
 public class Application {
 
 	static ArrayList<ISerializable> serializableGroup;
 	static InteractableComponent interactableComponent = new InteractableComponent();
 	public static Scanner scanner = new Scanner(System.in);
 
-	// called before injectDependancies
+	// called before injectInteractables
 	public static void initialize(){
 		serializableGroup = new ArrayList<>();
 		interactableComponent = new InteractableComponent();
 
-		// create all your managers here
+		// create all your managers here and inject dependencies if required
+		StockManager stockManager = new StockManager(new StockDao());
 		ExampleManager exampleManager = new ExampleManager();
 		ReservationManager reservationManager = new ReservationManager();
 		CustomerManager customerManager = new CustomerManager();
 	}
 
 
-	// inject all dependencies here (add your interactables to the interatableComponent)
-	public static void injectDependancies(){
+	// inject all interactables here (add your interactables to the interatableComponent)
+	public static void injectInteractables(){
 		
 		interactableComponent.interactables.add(new ReserveInteractable());
 		interactableComponent.interactables.add(new CustomerInteractable());
@@ -35,7 +36,7 @@ public class Application {
 	public static void main(String[] args) {
 		
 		initialize();
-		injectDependancies();
+		injectInteractables();
 		
 		while(interactableComponent.IsEnabled()){
 			interactableComponent.showInteractables();

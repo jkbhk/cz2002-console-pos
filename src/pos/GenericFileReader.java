@@ -13,12 +13,14 @@ public class GenericFileReader {
     // eg. GenericFileReader.read(this, "stock_data.csv")
     
 
-    
+
     private static BufferedReader buffer;
     private static String filePathSuffix = "../data/";
     private static String delimiter = ",";
 
-    public static void read(IReceivable r, String filename){
+    public static ArrayList<String[]> read(String filename){
+
+        ArrayList<String[]> retrieved = new ArrayList<>();
         String path = filePathSuffix + filename;
 
         //ArrayList<String> fetched = new ArrayList<>();
@@ -31,9 +33,12 @@ public class GenericFileReader {
             while ((line = buffer.readLine()) != null)
             {
                 String[] stream = line.split(delimiter);
-                r.receive(stream);
-         
+                //r.receive(stream);
+                retrieved.add(stream);
             }
+
+
+            return retrieved;
         }
         catch (Exception e)
         {
@@ -55,8 +60,8 @@ public class GenericFileReader {
             }
         }
        
-
         System.out.println("data fetch from "+filename+" complete.");        
+        return null;
 
     } 
 }

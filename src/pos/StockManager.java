@@ -9,6 +9,11 @@ public class StockManager implements ISerializable{
    public StockManager(Dao<Stock> d){
        //stocks = new ArrayList<>();
        dao = d;
+       stocks = d.read();
+      
+       for (Stock stock : stocks) {
+          System.out.println(stock.getName() + " " + stock.getQuantity() + " "+ stock.getStockID()); 
+       }
    }
 
     @Override

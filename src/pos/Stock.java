@@ -3,7 +3,13 @@ package pos;
 public class Stock {
     private String stockID;
     private String name;
-    private String quantity;
+    private int quantity;
+
+    public Stock(String stockID, String name, int quantity){
+        this.stockID = stockID;
+        this.name = name;
+        this.quantity = quantity;
+    }
 
     public String getStockID() {
         return this.stockID;
@@ -21,11 +27,11 @@ public class Stock {
         this.name = name;
     }
 
-    public String getQuantity() {
+    public int getQuantity() {
         return this.quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
     

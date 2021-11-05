@@ -5,20 +5,26 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class StockDao implements Dao<Stock>, IReceivable{
-
-    @Override
-    public void receive(String[] properties) {
-        // TODO Auto-generated method stub
-        System.out.println(properties[0]);
-        
-    }
+public class StockDao implements Dao<Stock> {
 
     @Override
     public ArrayList<Stock> read() {
         // TODO Auto-generated method stub
-        GenericFileReader.read(this, "stock_data.csv");
-        return null;
+        ArrayList<String[]> result = GenericFileReader.read("stock_data.csv");
+
+        ArrayList<Stock> stocks = new ArrayList<>();
+
+        if(result == null){
+            System.out.println("failed to read stock_data.csv");
+            return stocks;
+        }
+
+        for (String[] props : result) {
+            Stock s = new Stock(props[0],props[1],Integer.parseInt(props[2]));
+            stocks.add(s);
+        }        
+
+        return stocks;
     }
 
     @Override
