@@ -1,17 +1,15 @@
 package pos;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class StockDao implements Dao<Stock> {
 
-    @Override
-    public ArrayList<Stock> read() {
-        // TODO Auto-generated method stub
-        ArrayList<String[]> result = GenericFileReader.read("stock_data.csv");
+    private static final String filename = "stock_data.csv";
 
+    @Override
+    public ArrayList<Stock> read() 
+    {
+        ArrayList<String[]> result = GenericFileReader.read(filename);
         ArrayList<Stock> stocks = new ArrayList<>();
 
         if(result == null){
@@ -29,7 +27,19 @@ public class StockDao implements Dao<Stock> {
 
     @Override
     public void write(ArrayList<Stock> list) {
-        // TODO Auto-generated method stub
+
+        String[][] unwrapped = new String[list.size()][3];
+        
+        for(int i = 0; i < list.size(); i++){
+            
+            Stock temp = list.get(i);
+            unwrapped[i][0] = temp.getStockID();
+            unwrapped[i][1] = temp.getName();
+            unwrapped[i][2] = ""+temp.getQuantity();
+        }
+
+        GenericFileWriter.writeFile(unwrapped, filename);
+
         
     }
 

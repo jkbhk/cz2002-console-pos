@@ -23,7 +23,7 @@ public class InteractableComponent {
 		while (choice -1 < 0 || choice -1 > interactables.size() - 1 )
 		{
 			System.out.println("Please Select Your Choice");
-			choice = Application.scanner.nextInt();
+			choice = Integer.parseInt(Application.scanner.next());
 			
 			if(choice == interactables.size()+1){
 				enabled = false;

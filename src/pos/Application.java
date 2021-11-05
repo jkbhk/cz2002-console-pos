@@ -19,6 +19,10 @@ public class Application {
 		ExampleManager exampleManager = new ExampleManager();
 		ReservationManager reservationManager = new ReservationManager();
 		CustomerManager customerManager = new CustomerManager();
+
+		
+		// add serializables here
+		serializableGroup.add(stockManager);
 	}
 
 
@@ -27,8 +31,9 @@ public class Application {
 		
 		interactableComponent.interactables.add(new ReserveInteractable());
 		interactableComponent.interactables.add(new CustomerInteractable());
-		interactableComponent.interactables.add(new DebugInteractable());
+		//interactableComponent.interactables.add(new DebugInteractable());
 		interactableComponent.interactables.add(new ExampleInteractable());
+		interactableComponent.interactables.add(new StockInteractable());
 
 	}
 

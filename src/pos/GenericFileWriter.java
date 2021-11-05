@@ -17,39 +17,16 @@ public class GenericFileWriter {
 
             for(String[] item : items){
 
-                sb.append(IDGenerator.GenerateUniqueID());
-
-                for(String p : item){
-                    sb.append(DELIMITTER);
-                    sb.append(p);
+                for(int i = 0; i < item.length; i++){
+                    sb.append(item[i]);
+                    if(i != item.length-1)
+                        sb.append(DELIMITTER);
                 }
 
                 sb.append('\n');
             }
 
             
-            /*sb.append("Id");
-            sb.append(',');
-            sb.append("Name");
-            sb.append('\n');
-      
-            sb.append(IDGenerator.GenerateUniqueID());
-            sb.append(',');
-            sb.append("Chicken rice");
-            sb.append('\n');
-      
-            
-            sb.append(IDGenerator.GenerateUniqueID());
-            sb.append(',');
-            for(int i = 0; i<properties.length;i++){
-                
-                sb.append(properties[i]);
-                sb.append(',');
-            }
-            sb.append('\n');
-            */
-
-
             writer.write(sb.toString());
       
             System.out.println("write complete!");
@@ -76,8 +53,6 @@ public class GenericFileWriter {
             sb.append('\n');
       */
             
-            sb.append(IDGenerator.GenerateUniqueID());
-            sb.append(',');
             for(int i = 0; i<properties.length;i++){
                 
                 sb.append(properties[i]);
