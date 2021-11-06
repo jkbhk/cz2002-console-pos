@@ -7,15 +7,9 @@ public class StockDao implements Dao<Stock> {
     private static final String filename = "stock_data.csv";
 
     @Override
-    public ArrayList<Stock> read() 
-    {
+    public ArrayList<Stock> read() {
         ArrayList<String[]> result = GenericFileReader.read(filename);
         ArrayList<Stock> stocks = new ArrayList<>();
-
-        if(result == null){
-            System.out.println("failed to read stock_data.csv");
-            return stocks;
-        }
 
         for (String[] props : result) {
             Stock s = new Stock(props[0],props[1],Integer.parseInt(props[2]));
@@ -27,7 +21,6 @@ public class StockDao implements Dao<Stock> {
 
     @Override
     public void write(ArrayList<Stock> list) {
-
         String[][] unwrapped = new String[list.size()][3];
         
         for(int i = 0; i < list.size(); i++){
@@ -39,8 +32,6 @@ public class StockDao implements Dao<Stock> {
         }
 
         GenericFileWriter.writeFile(unwrapped, filename);
-
-        
     }
 
     
