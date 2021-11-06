@@ -11,13 +11,7 @@ public class Application {
 	// called before injectInteractables
 	public static void initialize(){
 		interactableComponent = new InteractableComponent(true);
-
-		// create all your managers here and inject dependencies if required
-		StockManager stockManager = new StockManager(new StockDao());
-		MenuManager menuManager = new MenuManager(new MenuItemDao());
-		ExampleManager exampleManager = new ExampleManager();
-		ReservationManager reservationManager = new ReservationManager();
-		CustomerManager customerManager = new CustomerManager(new CustomerDao());
+		AppDependencies.initilializeDependencies();
 
 	}
 
@@ -48,13 +42,8 @@ public class Application {
 	}
 	
 	public static void onExit() {
-		StockManager.instance.save();
-		MenuManager.instance.save();
-		
+		AppDependencies.onExit();
 	}
-	
-	
-	
 	
 	
 }
