@@ -2,7 +2,7 @@ package pos;
 
 import java.util.ArrayList;
 
-public class StockManager implements ISerializable{
+public class StockManager {
    
     public static StockManager instance;
 
@@ -16,11 +16,6 @@ public class StockManager implements ISerializable{
        stocks = d.read();
     }
 
-    @Override
-    public void serialize() {
-        
-        dao.write(stocks);
-    }
 
     public void createNewStock(String id, String stockName, int stockQuantity){
         Stock stock = new Stock(id,stockName,stockQuantity);
@@ -70,5 +65,9 @@ public class StockManager implements ISerializable{
             }
         }
 
+    }
+    
+    public void save() {
+    	dao.write(stocks);
     }
 }

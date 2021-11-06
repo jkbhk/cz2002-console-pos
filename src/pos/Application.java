@@ -5,13 +5,11 @@ import java.util.Scanner;
 // inject dependecies from this class
 public class Application {
 
-	static ArrayList<ISerializable> serializableGroup;
 	static InteractableComponent interactableComponent;
 	public static Scanner scanner = new Scanner(System.in);
 
 	// called before injectInteractables
 	public static void initialize(){
-		serializableGroup = new ArrayList<>();
 		interactableComponent = new InteractableComponent(true);
 
 		// create all your managers here and inject dependencies if required
@@ -20,13 +18,7 @@ public class Application {
 		ExampleManager exampleManager = new ExampleManager();
 		ReservationManager reservationManager = new ReservationManager();
 		CustomerManager customerManager = new CustomerManager(new CustomerDao());
-		
 
-
-		// add serializables here
-		serializableGroup.add(stockManager);
-		serializableGroup.add(menuManager);
-		serializableGroup.add(customerManager);
 	}
 
 
@@ -51,17 +43,17 @@ public class Application {
 		injectInteractables();
 		
 		interactableComponent.start();
-
-		// broke from interactableComponent
-		onExit();
 		
+		onExit();
 	}
 	
 	public static void onExit() {
-		for(ISerializable s : serializableGroup) {
-			s.serialize();
-		}
+		StockManager.instance.save();
+		MenuManager.instance.save();
+		
 	}
+	
+	
 	
 	
 	

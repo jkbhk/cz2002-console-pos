@@ -2,7 +2,7 @@ package pos;
 
 import java.util.ArrayList;
 
-public class MenuManager implements ISerializable {
+public class MenuManager{
 
 	public static MenuManager instance;	
 	private Dao<MenuItem> dao;
@@ -14,10 +14,6 @@ public class MenuManager implements ISerializable {
 		menuItems = dao.read();
 	}
 
-	@Override
-	public void serialize() {
-		dao.write(menuItems);
-	}
 
 	public void createNewMenuItem(String id, String name, String description, double price, String tag, ArrayList<String> stockReferenceIDs) {
 		MenuItem item = new MenuItem(id, name, description, price, tag, stockReferenceIDs);
@@ -60,5 +56,9 @@ public class MenuManager implements ISerializable {
 			}
 		}
 	}
-
+	
+	public void save() {
+		dao.write(menuItems);
+	}
+	
 }
