@@ -147,10 +147,10 @@ public class OrderInteractable implements IInteractable{
 						System.out.println(count++ + ") " + MenuManager.instance.getMenuItem(oiw.getMenuItemID()).getName() 
 								+ "  $" + String.format("%.2f", MenuManager.instance.getMenuItem(oiw.getMenuItemID()).getPrice()) + 
 										"  Qty: " + oiw.getQuantity() + " Item Price: $" + oiw.getItemPrices());
-						System.out.println("");
 					}
-					
+					System.out.println("------------------------------");
 					System.out.println("Sub Total Price: $" + o.getTotalPrice());
+					System.out.println("------------------------------");
 				}
 			
 			}

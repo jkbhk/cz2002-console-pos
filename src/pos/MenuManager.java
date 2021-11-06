@@ -24,7 +24,7 @@ public class MenuManager{
 	public void displayMenu() {
 		for (int i = 0; i < menuItems.size(); i++) {
 			MenuItem temp = menuItems.get(i);
-			System.out.println((i + 1) + ") " + temp.getName() + "  $" + String.format("%.2f", temp.getPrice()));
+			System.out.println((i + 1) + ") " + temp.getName() + "  $" + String.format("%.2f", temp.getPrice()) + "\n" + temp.getDescription() + "\n");
 		}
 	}
 
