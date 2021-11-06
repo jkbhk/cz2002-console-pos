@@ -12,7 +12,6 @@ public class MenuInteractable implements IInteractable{
             @Override
             public void handleInput() {
                 System.out.println("Enter name for new menu item:");
-                Application.scanner.nextLine();
                 String name = Application.scanner.nextLine();
                 System.out.println("Enter description for \'"+name+"\'");
                 String description = Application.scanner.nextLine();
@@ -61,7 +60,16 @@ public class MenuInteractable implements IInteractable{
 
             @Override
             public void handleInput() {
-                
+               MenuManager.instance.displayMenu();
+               System.out.println("Select item to remove:");
+               int choice = Integer.parseInt(Application.scanner.nextLine());
+               MenuItem removed = MenuManager.instance.getMenuItem(choice-1);
+               MenuManager.instance.removeMenuItem(choice-1);
+               
+               if(removed != null)
+            	   System.out.println("item removed");
+               else
+            	   System.out.println("invalid choice");
             }
 
             @Override
