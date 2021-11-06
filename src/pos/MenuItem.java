@@ -1,13 +1,20 @@
 package pos;
 
 public class MenuItem {
+    private String menuItemID;
     private String name;
     private String description;
     private double price;
-    public MenuItem(String name, String description, double price) {
+    
+    public MenuItem(String id, String name, String description, double price) {
+        this.menuItemID = id;
         this.name = name;
         this.description = description;
         this.price = price;
+    }
+
+    public String getMenuItemID(){
+        return this.menuItemID;
     }
 
     public String getName() {

@@ -20,21 +20,24 @@ public class StockInteractable implements IInteractable{
             System.out.println("Enter initial quantity for \'" + name + "\':");
             int q =Integer.parseInt(Application.scanner.next());
 
-            Stock stock = new Stock(IDGenerator.GenerateUniqueID(),name,q);
-            StockManager.instance.getStocks().add(stock);  
+            StockManager.instance.createNewStock(IDGenerator.GenerateUniqueID(), name, q);
 
         }else if(choice == 2){
             
-            System.out.println("select stock to delete:");
-            displayAllStocks(true);
+            System.out.println("Select stock to delete:");
+            StockManager.instance.displayAllStocks(true);
             int index = Integer.parseInt(Application.scanner.next());
-            String removed = StockManager.instance.getStocks().get(index-1).getName();
-            StockManager.instance.getStocks().remove(index-1);
-            System.out.println("\'" + removed + "\' removed.");
+            Stock removed = StockManager.instance.getstock(index);
+            if(removed != null){
+                StockManager.instance.removeStock(index-1);
+                System.out.println("\'" + removed + "\' removed.");
+            }else{
+                System.out.println("invalid choice");
+            }
 
         }else if (choice == 3){
             System.out.println("Current inventory:");
-            displayAllStocks(false);
+            StockManager.instance.displayAllStocks(false);
             System.out.println();
         }
     }
@@ -45,22 +48,4 @@ public class StockInteractable implements IInteractable{
         return "Manage stock";
     }
 
-    private void displayAllStocks(boolean showIndexing){
-
-        ArrayList<Stock> ref = StockManager.instance.getStocks();
-       
-        for(int i = 0; i < ref.size(); i++){
-
-            Stock temp = ref.get(i);
-
-            if(showIndexing)
-                System.out.println((i+1) + ") " + temp.getName() + " " + temp.getQuantity());
-            else
-                System.out.println(temp.getName() + " " + temp.getQuantity());
-        }
-    
-    }
-
-    
-    
 }
