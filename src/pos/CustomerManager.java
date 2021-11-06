@@ -2,15 +2,18 @@ package pos;
 
 import java.util.*;
 
-public class CustomerManager {
+public class CustomerManager implements ISerializable {
 	
+	private Dao<Customer> customerDao;
 	private Customer customer;
 	private ArrayList<Customer> customerList = new ArrayList<Customer>();
 	public static CustomerManager instance;
 	
-	public CustomerManager()
+	public CustomerManager(Dao<Customer> customerDao)
 	{
 		instance = this;
+		this.customerDao = customerDao;
+		customerList = customerDao.read();
 	}
 	
 	public Customer getCustomer(String customerID)
@@ -115,6 +118,12 @@ public class CustomerManager {
 	public ArrayList<Customer> getCustomerList()
 	{
 		return customerList;
+	}
+
+	@Override
+	public void serialize() {
+		// TODO Auto-generated method stub
+		customerDao.write(customerList);
 	}
 
 }

@@ -2,7 +2,7 @@ package pos;
 
 import java.util.ArrayList;
 
-public class CustomerDAO implements Dao<Customer>{
+public class CustomerDao implements Dao<Customer>{
 
 	private static final String filename = "customer_data.csv";
 	
@@ -16,7 +16,7 @@ public class CustomerDAO implements Dao<Customer>{
 		{
 			for (String[] props : result)
 			{
-				Customer customer = new Customer(props[0],props[1],props[2],props[4]);
+				Customer customer = new Customer(props[0],props[1],props[2],props[3]);
 				customerList.add(customer);
 			}
 		}
