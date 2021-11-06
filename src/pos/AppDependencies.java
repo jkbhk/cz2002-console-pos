@@ -10,6 +10,7 @@ public class AppDependencies {
 		ExampleManager exampleManager = new ExampleManager();
 		//ReservationManager reservationManager = new ReservationManager();
 		CustomerManager customerManager = new CustomerManager(new CustomerDao());
+		OrderManager orderManager = new OrderManager();
 		
 	}
 	

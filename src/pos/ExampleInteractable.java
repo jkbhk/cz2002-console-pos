@@ -18,7 +18,7 @@ public class ExampleInteractable implements IInteractable {
     
         //request whatever u need
         // use the static scanner object from the Application class like this 
-        int choice = Application.scanner.nextInt();
+        int choice = Integer.parseInt(Application.scanner.nextLine());
      
         // do anything to complete ur task
         ExampleManager.instance.exampleMethod(choice);

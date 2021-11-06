@@ -8,8 +8,6 @@ public class OrderInteractable implements IInteractable{
 	
 	public OrderInteractable() {
 		
-		OrderManager.instance.startNewOrder();
-		
 		//Add Menu Item
 		orderAssistant.addInteractable(new IInteractable() {
 
@@ -144,14 +142,15 @@ public class OrderInteractable implements IInteractable{
 					System.out.println("There's no items in this order.");
 				}
 				else {
+					int count = 1;
 					for (OrderItemWrapper oiw : o.getMenuItemIDList()) {
-						int count = 1;
-						System.out.println(count + ") " + MenuManager.instance.getMenuItem(oiw.getMenuItemID()).getName() 
+						System.out.println(count++ + ") " + MenuManager.instance.getMenuItem(oiw.getMenuItemID()).getName() 
 								+ "  $" + String.format("%.2f", MenuManager.instance.getMenuItem(oiw.getMenuItemID()).getPrice()) + 
 										"  Qty: " + oiw.getQuantity() + " Item Price: $" + oiw.getItemPrices());
 						System.out.println("");
-						System.out.println("Sub Total Price: $" + oiw.getItemPrices());
 					}
+					
+					System.out.println("Sub Total Price: $" + o.getTotalPrice());
 				}
 			
 			}
@@ -202,7 +201,7 @@ public class OrderInteractable implements IInteractable{
 	
 	@Override
 	public void handleInput() {
-		
+		OrderManager.instance.startNewOrder();
 		orderAssistant.start();
 	}
 
