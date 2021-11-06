@@ -5,40 +5,28 @@ import java.util.Scanner;
 // inject dependecies from this class
 public class Application {
 
-	static ArrayList<ISerializable> serializableGroup;
 	static InteractableComponent interactableComponent;
 	public static Scanner scanner = new Scanner(System.in);
 
 	// called before injectInteractables
 	public static void initialize(){
-		serializableGroup = new ArrayList<>();
 		interactableComponent = new InteractableComponent(true);
-
-		// create all your managers here and inject dependencies if required
-		StockManager stockManager = new StockManager(new StockDao());
-		MenuManager menuManager = new MenuManager(new MenuItemDao());
-		ExampleManager exampleManager = new ExampleManager();
-		ReservationManager reservationManager = new ReservationManager();
-		CustomerManager customerManager = new CustomerManager();
-		OrderManager orderManager = new OrderManager();
-		
-
-
-		// add serializables here
-		serializableGroup.add(stockManager);
-		serializableGroup.add(menuManager);
+		AppDependencies.initilializeDependencies();
 	}
 
 
 	// inject all interactables here (add your interactables to the interatableComponent)
 	public static void injectInteractables(){
-		interactableComponent.addInteractable(new OrderInteractable());
+				
+		ManagementToolsInteractable mtools = new ManagementToolsInteractable();
+		mtools.managementTools.addInteractable(new StockInteractable());
+		mtools.managementTools.addInteractable(new MenuInteractable());
+		mtools.managementTools.addInteractable(new CustomerInteractable());
+		
+		interactableComponent.addInteractable(mtools);
 		interactableComponent.addInteractable(new ReserveInteractable());
-		interactableComponent.addInteractable(new CustomerInteractable());
 		interactableComponent.addInteractable(new ExampleInteractable());
-		interactableComponent.addInteractable(new StockInteractable());
-		interactableComponent.addInteractable(new MenuInteractable());
-
+		interactableComponent.addInteractable(new OrderInteractable());
 	}
 
 
@@ -48,18 +36,13 @@ public class Application {
 		injectInteractables();
 		
 		interactableComponent.start();
-
-		// broke from interactableComponent
-		onExit();
 		
+		onExit();
 	}
 	
 	public static void onExit() {
-		for(ISerializable s : serializableGroup) {
-			s.serialize();
-		}
+		AppDependencies.onExit();
 	}
-	
 	
 	
 }

@@ -8,6 +8,18 @@ public class Customer {
 	private String membershipID;
 	private String customerID;
 	
+	public Customer()
+	{
+		
+	}
+	
+	public Customer(String name, String contactNo, String membershipID, String customerID) {
+		this.name = name;
+		this.contactNo = contactNo;
+		this.membershipID = membershipID;
+		this.customerID = customerID;
+	}
+	
 	public String getMembershipID()
 	{
 		return membershipID;
