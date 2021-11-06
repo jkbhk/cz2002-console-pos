@@ -16,7 +16,7 @@ public class ReserveInteractable implements IInteractable {
 		System.out.println("2) Edit Reservation"); // Ask for Customer's ID
 		System.out.println("3) View Reservation Details");
 		System.out.println("4) Delete Reservation"); // Ask for Customer's ID
-		int choice = Application.scanner.nextInt();
+		int choice = Integer.parseInt(Application.scanner.nextLine());
 		
 		while (choice!=5)
 		{
