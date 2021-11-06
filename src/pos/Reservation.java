@@ -13,6 +13,23 @@ public class Reservation {
 	private String contactNo;
 	private String name;
 	
+	public Reservation()
+	{
+		
+	}
+	
+	public Reservation(LocalDate date, String time, int noPax, int tableNo, String reservationID, String customerID, String contactNo , String name)
+	{
+		this.date = date;
+		this.time = time;
+		this.noPax = noPax;
+		this.tableNo = tableNo;
+		this.reservationID = reservationID;
+		this.customerID = customerID;
+		this.contactNo = contactNo;
+		this.name = name;
+	}
+	
 	public LocalDate getDate()
 	{
 		return date;

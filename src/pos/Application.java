@@ -18,7 +18,7 @@ public class Application {
 		StockManager stockManager = new StockManager(new StockDao());
 		MenuManager menuManager = new MenuManager(new MenuItemDao());
 		ExampleManager exampleManager = new ExampleManager();
-		ReservationManager reservationManager = new ReservationManager();
+		ReservationManager reservationManager = new ReservationManager(new ReservationDao());
 		CustomerManager customerManager = new CustomerManager(new CustomerDao());
 		
 
@@ -27,6 +27,7 @@ public class Application {
 		serializableGroup.add(stockManager);
 		serializableGroup.add(menuManager);
 		serializableGroup.add(customerManager);
+		serializableGroup.add(reservationManager);
 	}
 
 
