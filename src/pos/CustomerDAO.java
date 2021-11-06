@@ -32,8 +32,8 @@ public class CustomerDAO implements Dao<Customer>{
             Customer temp = list.get(i);
             unwrapped[i][0] = temp.getName();
             unwrapped[i][1] = temp.getContactNo();
-            unwrapped[i][2] = ""+temp.getMembershipID();
-            unwrapped[i][3] = ""+temp.getCustomerID();
+            unwrapped[i][2] = temp.getMembershipID();
+            unwrapped[i][3] = temp.getCustomerID();
         }
 
         GenericFileWriter.writeFile(unwrapped, filename);
