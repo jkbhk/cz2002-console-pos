@@ -48,38 +48,43 @@ public class CustomerManager {
 		Customer customer = new Customer();
 		customer.setName(name);
 		customer.setContactNo(contactNo);
-		if (!customerList.isEmpty())
-		{
+		customer.setMembershipID(IDGenerator.GenerateUniqueID());
+		customer.setCustomerID(IDGenerator.GenerateUniqueID());
+		customerList.add(customer);
 			
-			customer.setMembershipID(Integer.toString(Integer.parseInt(customerList.get(customerList.size()-1).getMembershipID()) +1 ));
-			String custNewID = Integer.toString( Integer.parseInt(customerList.get(customerList.size()-1).getCustomerID()) + 1);
-			customer.setCustomerID(custNewID);
-			customerList.add(customer);
-	
-		}
-		else 
-		{
-			customer.setMembershipID("1");
-			customer.setCustomerID("1");
-			customerList.add(customer);
-		}
+		
 	}
 	
-	public void deleteCustomer(String customerID) //Delete Customer but custID and membershipID is not reusable
+	public void deleteCustomer() //Delete Customer but custID and membershipID is not reusable
 	{
 		
 		if (customerList.isEmpty())
 		{
 			System.out.println("customerList is Empty. Unable to delete Customer.");
+			
 		}
 		else 
 		{
+			System.out.println("Select Customer you wish to delete.");
 			for (int x = 0; x < customerList.size(); x++)
 			{
-				if (customerList.get(x).getCustomerID().equals(customerID))
+				System.out.println((x+1) + ". " + customerList.get(x).getName()+ " " + customerList.get(x).getContactNo() );
+			}
+			
+			int choice = Integer.parseInt(Application.scanner.nextLine());
+			while(choice > 0)
+			{
+				if (choice <= customerList.size())
 				{
-					customerList.remove(x);
-					System.out.println("Customer is deleted.");
+					customerList.remove(choice-1);
+					System.out.println("Customer has been deleted");
+					break;
+				}
+				
+				else 
+				{
+					System.out.println("Select Customer Correctly or -1 (Back) to Exit.");
+					choice = Integer.parseInt(Application.scanner.nextLine());
 				}
 			}
 		}
@@ -125,6 +130,51 @@ public class CustomerManager {
 		}
 		
 		return null;
+	}
+	
+	public void editCustomer()
+	{
+		if (customerList.isEmpty())
+		{
+			System.out.println("customerList is Empty. Unable to edit Customer details.");
+			
+		}
+		else 
+		{
+			System.out.println("Select Customer you wish to edit.");
+			for (int x = 0; x < customerList.size(); x++)
+			{
+				System.out.println((x+1) + ". Name: " + customerList.get(x).getName()+ " Contact Number: " + customerList.get(x).getContactNo() );
+			}
+			
+			int choice = Application.scanner.nextInt();
+			Customer toEdit = customerList.get(choice-1);
+			System.out.println("Select Details to Edit");
+			System.out.println("1) Customer's Name");
+			System.out.println("2) Customer's Contact Number");
+			
+			int choiceEdit = Integer.parseInt(Application.scanner.nextLine());
+			if (choiceEdit == 1)
+			{
+				System.out.println("Enter Customer's updated name");
+				String oldName = toEdit.getName();
+				Application.scanner.nextLine();
+				String newName = Application.scanner.nextLine();
+				toEdit.setName(newName);
+				System.out.println("Customer's Name " + oldName + " is Updated to " + newName);
+			}
+			
+			else if (choiceEdit == 2)
+			{
+				System.out.println("Enter Customer's updated Contact Number");
+				String newNumber = Application.scanner.next();
+				String oldNumber = toEdit.getContactNo();
+				toEdit.setContactNo(newNumber);
+				System.out.println("Customer's Number " + oldNumber + " is Updated to " + newNumber);
+			}
+			
+			System.out.println("Customer's information has been edited");
+		}
 	}
 
 }
