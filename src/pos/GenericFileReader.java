@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.plaf.metal.MetalIconFactory.FileIcon16;
+
 public class GenericFileReader {
 
     // usage:
@@ -60,7 +62,7 @@ public class GenericFileReader {
             }
         }
        
-        System.out.println("data fetch from "+filename+" complete.");        
+        System.out.println("failed to read from " + filename);        
         return null;
 
     } 
