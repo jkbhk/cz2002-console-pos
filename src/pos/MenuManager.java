@@ -39,7 +39,7 @@ public class MenuManager implements ISerializable {
 		return null;
 	}
 
-	public MenuItem getstock(String id) {
+	public MenuItem getMenuItem(String id) {
 		for (MenuItem m : menuItems) {
 			if (m.getMenuItemID() == id)
 				return m;

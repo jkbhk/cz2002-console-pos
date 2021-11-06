@@ -20,6 +20,7 @@ public class Application {
 		ExampleManager exampleManager = new ExampleManager();
 		ReservationManager reservationManager = new ReservationManager();
 		CustomerManager customerManager = new CustomerManager();
+		OrderManager orderManager = new OrderManager();
 		
 
 
@@ -31,6 +32,7 @@ public class Application {
 
 	// inject all interactables here (add your interactables to the interatableComponent)
 	public static void injectInteractables(){
+		interactableComponent.addInteractable(new OrderInteractable());
 		interactableComponent.addInteractable(new ReserveInteractable());
 		interactableComponent.addInteractable(new CustomerInteractable());
 		interactableComponent.addInteractable(new ExampleInteractable());

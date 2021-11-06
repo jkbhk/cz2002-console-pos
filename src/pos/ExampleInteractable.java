@@ -6,7 +6,11 @@ public class ExampleInteractable implements IInteractable {
     public void handleInput() {
     
         // print whatever sub menu u want
-    
+    	
+    	for (Order o : OrderManager.instance.getOrderList()) {
+    		System.out.println("Order: " + o.getTotalPrice());
+    	}
+    	
         System.out.println("Cook what?");
         System.out.println("1) chicken");
         System.out.println("2) cabbage");

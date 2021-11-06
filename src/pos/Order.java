@@ -9,21 +9,21 @@ public class Order {
 	private int orderID;
 	private String staffName;
 	private String employeeID;
-	private float price;
+	private double totalPrice;
 	private String staffGender;
 	private String staffJobTitle;
 	private int tableNo;
 	private String time;
-	private ArrayList<String> menuItemIDList;
+	private ArrayList<OrderItemWrapper> menuItemIDList = new ArrayList<OrderItemWrapper>();
 	
 	public Order(Date date, int orderID, String staffName, String employeeID, 
-			float price, String staffGender, String staffJobTitle, int tableNo, String time, ArrayList<String> menuItemIDList) {
+			double price, String staffGender, String staffJobTitle, int tableNo, String time, ArrayList<OrderItemWrapper> menuItemIDList) {
 		
 		this.setDate(date);
 		this.setOrderID(orderID);
 		this.setStaffName(staffName);
 		this.setEmployeeID(employeeID);
-		this.setPrice(price);
+		this.setTotalPrice(price);
 		this.setStaffGender(staffGender);
 		this.setStaffJobTitle(staffJobTitle);
 		this.setTableNo(tableNo);
@@ -68,12 +68,16 @@ public class Order {
 		this.employeeID = employeeID;
 	}
 
-	public float getPrice() {
-		return price;
+	public double getTotalPrice() {
+		double temp = 0;
+		for (OrderItemWrapper oiw : menuItemIDList) {
+			temp += oiw.getItemPrices();
+		}
+		return temp;
 	}
 
-	public void setPrice(float price) {
-		this.price = price;
+	public void setTotalPrice(double price) {
+		this.totalPrice = price;
 	}
 
 	public String getStaffGender() {
@@ -108,13 +112,12 @@ public class Order {
 		this.time = time;
 	}
 
-	public ArrayList<String> getMenuItemIDList() {
+	public ArrayList<OrderItemWrapper> getMenuItemIDList() {
 		return menuItemIDList;
 	}
 
-	public void setMenuItemIDList(ArrayList<String> menuItemIDList) {
+	public void setMenuItemIDList(ArrayList<OrderItemWrapper> menuItemIDList) {
 		this.menuItemIDList = menuItemIDList;
 	}
-
 	
 }

@@ -6,7 +6,7 @@ public class OrderManager{
 	
 	public static OrderManager instance;
 	private Order currentOrder;
-	private ArrayList<Order> orderList;
+	private ArrayList<Order> orderList = new ArrayList<Order>();
 	
 	public OrderManager() {
 		instance = this;
@@ -39,6 +39,10 @@ public class OrderManager{
 		return order;
 	}
 	
+	public Order getCurrentOrder() {
+		return currentOrder;
+	}
+	
 	public boolean deleteOrder(int tableNo) {
 		boolean result = false;
 		
@@ -65,10 +69,9 @@ public class OrderManager{
 		currentOrder = new Order();
 		
 	}
-
-	public Order getCurrentOrder() {
-		return currentOrder;
+	
+	public void addNewOrder(Order o) {
+		orderList.add(o);
 	}
-	
-	
+
 }
