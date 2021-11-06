@@ -5,8 +5,20 @@ import java.util.*;
 public class InteractableComponent {
 
 	public ArrayList<IInteractable> interactables = new ArrayList<IInteractable>();
-	private boolean enabled = true;
-	
+	protected boolean enabled = false;
+	protected String exit_option_title;
+	protected boolean loopable = false;
+
+	public InteractableComponent(String exitOption,boolean loopable){
+		this.loopable = loopable;
+		this.exit_option_title = exitOption;
+	}
+
+	public InteractableComponent(boolean loopable){
+		this.loopable = loopable;
+		this.exit_option_title = "Exit";
+	}
+
 	public void showInteractables()
 	{
 		int x = 1; 
@@ -16,7 +28,7 @@ public class InteractableComponent {
 			x ++;
 		}
 
-		System.out.println(x + " : " + "Exit application.");
+		System.out.println(x + " : " + exit_option_title);
 
 		int choice = -1;
 		
@@ -26,7 +38,7 @@ public class InteractableComponent {
 			choice = Integer.parseInt(Application.scanner.next());
 			
 			if(choice == interactables.size()+1){
-				enabled = false;
+				terminate();
 				return;
 			}
 		}
@@ -34,9 +46,27 @@ public class InteractableComponent {
 		interactables.get(choice-1).handleInput();
 	}
 
-	public boolean IsEnabled(){
-		return this.enabled;
+	public void start(){
+		
+		if(loopable)
+			startLoop();
+		else
+			showInteractables();
 	}
-	
-	
+
+	public void terminate(){
+		this.enabled = false;
+		onTerminate();
+	}
+
+	protected void startLoop(){
+		enabled = true;
+
+		while(enabled){
+			showInteractables();			
+		}
+	}
+
+	protected void onTerminate(){
+	}
 }

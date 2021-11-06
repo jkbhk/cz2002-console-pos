@@ -6,13 +6,13 @@ import java.util.Scanner;
 public class Application {
 
 	static ArrayList<ISerializable> serializableGroup;
-	static InteractableComponent interactableComponent = new InteractableComponent();
+	static InteractableComponent interactableComponent;
 	public static Scanner scanner = new Scanner(System.in);
 
 	// called before injectInteractables
 	public static void initialize(){
 		serializableGroup = new ArrayList<>();
-		interactableComponent = new InteractableComponent();
+		interactableComponent = new InteractableComponent(true);
 
 		// create all your managers here and inject dependencies if required
 		StockManager stockManager = new StockManager(new StockDao());
@@ -20,7 +20,7 @@ public class Application {
 		ReservationManager reservationManager = new ReservationManager();
 		CustomerManager customerManager = new CustomerManager();
 
-		
+
 		// add serializables here
 		serializableGroup.add(stockManager);
 	}
@@ -43,9 +43,7 @@ public class Application {
 		initialize();
 		injectInteractables();
 		
-		while(interactableComponent.IsEnabled()){
-			interactableComponent.showInteractables();
-		}
+		interactableComponent.start();
 
 		// broke from interactableComponent
 		onExit();
