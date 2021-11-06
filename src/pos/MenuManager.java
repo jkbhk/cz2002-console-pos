@@ -22,10 +22,29 @@ public class MenuManager{
 	}
 
 	public void displayMenu() {
+		
+		
+		String leftAlignFormat = "| %-17s             %-5s |\n";
+		String descAlignFormat = "| %-36s|\n";
+
+		System.out.println("=========== Promotional Set ===========");
+		System.out.println("|                                     |");
+		System.out.println("| Menu item                     Cost  |");
+		System.out.println("|-------------------------------------|");
+		
 		for (int i = 0; i < menuItems.size(); i++) {
 			MenuItem temp = menuItems.get(i);
-			System.out.println((i + 1) + ") " + temp.getName() + "  $" + String.format("%.2f", temp.getPrice()) + "\n" + temp.getDescription() + "\n");
+		    System.out.printf(leftAlignFormat, (i+1) + ") " + temp.getName(), String.format("%.2f", temp.getPrice()));
+		    System.out.printf(descAlignFormat, temp.getDescription());
+		    System.out.println("|                                     |");
 		}
+		
+		System.out.println("|=====================================|");
+		
+		//for (int i = 0; i < menuItems.size(); i++) {
+		//	MenuItem temp = menuItems.get(i);
+		//	System.out.println((i + 1) + ") " + temp.getName() + "  $" + String.format("%.2f", temp.getPrice()) + "\n" + temp.getDescription() + "\n");
+		//}
 	}
 
 	public MenuItem getMenuItem(int index) {
