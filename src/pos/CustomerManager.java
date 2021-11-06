@@ -2,10 +2,10 @@ package pos;
 
 import java.util.*;
 
-public class CustomerManager implements ISerializable {
+public class CustomerManager {
 	
 	private Dao<Customer> customerDao;
-	private Customer customer;
+	//private Customer customer;
 	private ArrayList<Customer> customerList = new ArrayList<Customer>();
 	public static CustomerManager instance;
 	
@@ -19,11 +19,11 @@ public class CustomerManager implements ISerializable {
 	public Customer getCustomer(String customerID)
 	{
 		int x = 0;
-		customer = null;
+		Customer currcust = new Customer();
 		if (customerList.isEmpty())
 		{
 			//System.out.println("customerList is Empty");
-			return customer = null;
+			return currcust = null;
 		}
 		else 
 		{
@@ -33,12 +33,41 @@ public class CustomerManager implements ISerializable {
 				if (customerList.get(x).getCustomerID().equals(customerID))
 				{
 					//System.out.println("There is a customerID that is the same");
-					customer = customerList.get(x);
+					currcust = customerList.get(x);
 				}
 			}
 		}
 		
-		return customer;
+		return currcust;
+		
+			
+		
+		
+	}
+	
+	public Customer getCustomer(String name, String contactNo)
+	{
+		int x = 0;
+		Customer currcust = new Customer();
+		if (customerList.isEmpty())
+		{
+			//System.out.println("customerList is Empty");
+			return currcust = null;
+		}
+		else 
+		{
+			//System.out.println("customerList is not Empty");
+			for (x = 0; x < customerList.size(); x++)
+			{
+				if (customerList.get(x).getName().equals(name) && customerList.get(x).getContactNo().equals(contactNo))
+				{
+					//System.out.println("There is a customerID that is the same");
+					currcust = customerList.get(x);
+				}
+			}
+		}
+		
+		return currcust;
 		
 			
 		
@@ -120,8 +149,8 @@ public class CustomerManager implements ISerializable {
 		return customerList;
 	}
 
-	@Override
-	public void serialize() {
+	
+	public void save() {
 		// TODO Auto-generated method stub
 		customerDao.write(customerList);
 	}

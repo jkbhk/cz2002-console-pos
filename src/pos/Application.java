@@ -12,7 +12,6 @@ public class Application {
 	public static void initialize(){
 		interactableComponent = new InteractableComponent(true);
 		AppDependencies.initilializeDependencies();
-
 	}
 
 
