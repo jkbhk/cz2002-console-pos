@@ -3,7 +3,7 @@ package pos;
 import java.time.LocalDate;
 import java.util.*;
 
-public class ReservationManager implements ISerializable {
+public class ReservationManager{
 
 	private Reservation reservation;
 	private ArrayList<Reservation> reservationList = new ArrayList<Reservation>();
@@ -192,8 +192,8 @@ public class ReservationManager implements ISerializable {
 		}
 	}
 
-	@Override
-	public void serialize() {
+
+	public void save() {
 		// TODO Auto-generated method stub
 		reservationDao.write(reservationList);
 	}

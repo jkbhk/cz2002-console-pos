@@ -52,6 +52,8 @@ public class Application {
 	public static void onExit() {
 		StockManager.instance.save();
 		MenuManager.instance.save();
+		CustomerManager.instance.save();
+		
 		
 	}
 	

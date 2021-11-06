@@ -2,7 +2,7 @@ package pos;
 
 import java.util.*;
 
-public class CustomerManager implements ISerializable {
+public class CustomerManager {
 	
 	private Dao<Customer> customerDao;
 	//private Customer customer;
@@ -149,8 +149,8 @@ public class CustomerManager implements ISerializable {
 		return customerList;
 	}
 
-	@Override
-	public void serialize() {
+	
+	public void save() {
 		// TODO Auto-generated method stub
 		customerDao.write(customerList);
 	}
