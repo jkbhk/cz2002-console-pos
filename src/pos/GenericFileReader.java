@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class GenericFileReader {
 
     private static BufferedReader buffer;
-    private static String filePathSuffix = "data/";
+    private static String filePathSuffix = "src/data/";
     private static String delimiter = ",";
 
     // each row in the csv will be read as a string array, representing the columns of the row

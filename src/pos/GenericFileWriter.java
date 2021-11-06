@@ -2,12 +2,10 @@ package pos;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 
 public class GenericFileWriter {
     
-    
-    private static String filePathSuffix = "data/";
+    private static String filePathSuffix = "src/data/";
     private static final char DELIMITTER = ',';
 
     public static void writeFile(String[][] items,String filename){
