@@ -31,6 +31,10 @@ public class Order {
 		this.setMenuItemIDList(menuItemIDList);
 		
 	}
+	
+	public Order() {
+		
+	}
 
 	public Date getDate() {
 		return date;

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class OrderManager{
 	
 	public static OrderManager instance;
-	private Order order;
+	private Order currentOrder;
 	private ArrayList<Order> orderList;
 	
 	public OrderManager() {
@@ -18,8 +18,8 @@ public class OrderManager{
 	}
 	
 	public Order getOrder(int tableNo) {
-		
-		order = null;
+				
+		Order order = null;
 		if (orderList.isEmpty()) {
 			
 			return order = null;
@@ -40,9 +40,11 @@ public class OrderManager{
 	}
 	
 	public boolean deleteOrder(int tableNo) {
+		boolean result = false;
 		
 		if (orderList.isEmpty()) {
 			System.out.println("Order List is empty, unable to delete order.");
+			result = false;
 		}
 		else {
 			
@@ -51,51 +53,22 @@ public class OrderManager{
 					
 					orderList.remove(i);
 					System.out.println("Order is deleted.");
+					result = true;
 				}
 			}
 		}
 		
-		return false;
+		return result;
 	}
 	
-	public void addOrder(Order o) {
-		orderList.add(o);
-		System.out.println("Order successfully added.");
+	public void startNewOrder() {
+		currentOrder = new Order();
+		
 	}
-	
-	/*
+
 	public Order getCurrentOrder() {
-		
-		
+		return currentOrder;
 	}
-	*/
 	
-	public void displayOrder() {
-		
-		if (orderList.isEmpty()) {
-			System.out.println("Order is empty, there's nothing to display.");
-		}
-		else {
-			
-			for (int i = 0; i < orderList.size(); i++) {
-				Order temp = orderList.get(i);
-				System.out.println((i+1) + ") " + "Created by: " + temp.getStaffName() + " | " + temp.getStaffGender() + " | " + temp.getStaffJobTitle());
-				
-				if (temp.getMenuItemIDList().isEmpty()) {
-					System.out.println("There's no items in orders.");
-				}
-				else {
-					
-					for (int j = 0; j < temp.getMenuItemIDList().size(); j++) {
-						
-						
-					}
-					
-				}
-				
-				
-			}
-		}
-		
-	}
+	
 }
