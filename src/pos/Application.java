@@ -19,13 +19,14 @@ public class Application {
 		MenuManager menuManager = new MenuManager(new MenuItemDao());
 		ExampleManager exampleManager = new ExampleManager();
 		ReservationManager reservationManager = new ReservationManager();
-		CustomerManager customerManager = new CustomerManager();
+		CustomerManager customerManager = new CustomerManager(new CustomerDao());
 		
 
 
 		// add serializables here
 		serializableGroup.add(stockManager);
 		serializableGroup.add(menuManager);
+		serializableGroup.add(customerManager);
 	}
 
 
