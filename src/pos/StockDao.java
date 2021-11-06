@@ -11,10 +11,12 @@ public class StockDao implements Dao<Stock> {
         ArrayList<String[]> result = GenericFileReader.read(filename);
         ArrayList<Stock> stocks = new ArrayList<>();
 
-        for (String[] props : result) {
-            Stock s = new Stock(props[0],props[1],Integer.parseInt(props[2]));
-            stocks.add(s);
-        }        
+        if(result != null){
+            for (String[] props : result) {
+                Stock s = new Stock(props[0],props[1],Integer.parseInt(props[2]));
+                stocks.add(s);
+            }        
+        }
 
         return stocks;
     }

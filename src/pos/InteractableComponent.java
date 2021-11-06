@@ -4,10 +4,10 @@ import java.util.*;
 
 public class InteractableComponent {
 
-	public ArrayList<IInteractable> interactables = new ArrayList<IInteractable>();
-	protected boolean enabled = false;
-	protected String exit_option_title;
-	protected boolean loopable = false;
+	private ArrayList<IInteractable> interactables = new ArrayList<IInteractable>();
+	private boolean enabled = false;
+	private String exit_option_title;
+	private boolean loopable = false;
 
 	public InteractableComponent(String exitOption,boolean loopable){
 		this.loopable = loopable;
@@ -19,7 +19,19 @@ public class InteractableComponent {
 		this.exit_option_title = "Exit";
 	}
 
-	public void showInteractables()
+	public void start(){
+		
+		if(loopable)
+			startLoop();
+		else
+			showInteractables();
+	}
+
+	public void addInteractable(IInteractable i){
+		interactables.add(i);
+	}
+
+	protected void showInteractables()
 	{
 		int x = 1; 
 		for (IInteractable i : interactables)
@@ -35,7 +47,7 @@ public class InteractableComponent {
 		while (choice -1 < 0 || choice -1 > interactables.size() - 1 )
 		{
 			System.out.println("Please Select Your Choice");
-			choice = Integer.parseInt(Application.scanner.next());
+			choice = Integer.parseInt(Application.scanner.nextLine());
 			
 			if(choice == interactables.size()+1){
 				terminate();
@@ -44,14 +56,6 @@ public class InteractableComponent {
 		}
 		
 		interactables.get(choice-1).handleInput();
-	}
-
-	public void start(){
-		
-		if(loopable)
-			startLoop();
-		else
-			showInteractables();
 	}
 
 	public void terminate(){

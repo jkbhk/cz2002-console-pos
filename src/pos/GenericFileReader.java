@@ -5,27 +5,18 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.swing.plaf.metal.MetalIconFactory.FileIcon16;
-
 public class GenericFileReader {
 
-    // usage:
-    // 1) implement IReceivable
-    // 2) call read(<instance of your class>, <file name>)
-    // eg. GenericFileReader.read(this, "stock_data.csv")
-    
-
-
     private static BufferedReader buffer;
-    private static String filePathSuffix = "src/data/";
+    private static String filePathSuffix = "data/";
     private static String delimiter = ",";
 
+    // each row in the csv will be read as a string array, representing the columns of the row
+    // the array list will be the collection of these rows
     public static ArrayList<String[]> read(String filename){
 
         ArrayList<String[]> retrieved = new ArrayList<>();
         String path = filePathSuffix + filename;
-
-        //ArrayList<String> fetched = new ArrayList<>();
         String line;
 
         try

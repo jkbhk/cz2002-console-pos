@@ -16,24 +16,26 @@ public class Application {
 
 		// create all your managers here and inject dependencies if required
 		StockManager stockManager = new StockManager(new StockDao());
+		MenuManager menuManager = new MenuManager(new MenuItemDao());
 		ExampleManager exampleManager = new ExampleManager();
 		ReservationManager reservationManager = new ReservationManager();
 		CustomerManager customerManager = new CustomerManager();
+		
 
 
 		// add serializables here
 		serializableGroup.add(stockManager);
+		serializableGroup.add(menuManager);
 	}
 
 
 	// inject all interactables here (add your interactables to the interatableComponent)
 	public static void injectInteractables(){
-		
-		interactableComponent.interactables.add(new ReserveInteractable());
-		interactableComponent.interactables.add(new CustomerInteractable());
-		//interactableComponent.interactables.add(new DebugInteractable());
-		interactableComponent.interactables.add(new ExampleInteractable());
-		interactableComponent.interactables.add(new StockInteractable());
+		interactableComponent.addInteractable(new ReserveInteractable());
+		interactableComponent.addInteractable(new CustomerInteractable());
+		interactableComponent.addInteractable(new ExampleInteractable());
+		interactableComponent.addInteractable(new StockInteractable());
+		interactableComponent.addInteractable(new MenuInteractable());
 
 	}
 

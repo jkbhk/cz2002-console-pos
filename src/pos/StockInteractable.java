@@ -6,19 +6,17 @@ public class StockInteractable implements IInteractable{
 
     @Override
     public void handleInput() {
-        // TODO Auto-generated method stub
         System.out.println("1) Add Stock");
         System.out.println("2) Remove Stock");
         System.out.println("3) Display all current stock");
 
-        int choice = Integer.parseInt(Application.scanner.next());
+        int choice = Integer.parseInt(Application.scanner.nextLine());
 
         if(choice == 1){
             System.out.println("Enter stock name for new stock:");
-            Application.scanner.nextLine();
             String name = Application.scanner.nextLine();
             System.out.println("Enter initial quantity for \'" + name + "\':");
-            int q =Integer.parseInt(Application.scanner.next());
+            int q =Integer.parseInt(Application.scanner.nextLine());
 
             StockManager.instance.createNewStock(IDGenerator.GenerateUniqueID(), name, q);
 
@@ -26,7 +24,7 @@ public class StockInteractable implements IInteractable{
             
             System.out.println("Select stock to delete:");
             StockManager.instance.displayAllStocks(true);
-            int index = Integer.parseInt(Application.scanner.next());
+            int index = Integer.parseInt(Application.scanner.nextLine());
             Stock removed = StockManager.instance.getstock(index);
             if(removed != null){
                 StockManager.instance.removeStock(index-1);
