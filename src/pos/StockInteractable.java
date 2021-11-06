@@ -6,7 +6,6 @@ public class StockInteractable implements IInteractable{
 
     @Override
     public void handleInput() {
-        // TODO Auto-generated method stub
         System.out.println("1) Add Stock");
         System.out.println("2) Remove Stock");
         System.out.println("3) Display all current stock");

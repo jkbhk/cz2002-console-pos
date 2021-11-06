@@ -4,10 +4,12 @@ import java.util.ArrayList;
 
 public class MenuManager implements ISerializable {
 
+	public static MenuManager instance;	
 	private Dao<MenuItem> dao;
 	private ArrayList<MenuItem> menuItems;
 
 	public MenuManager(Dao<MenuItem> d) {
+		instance = this;		
 		dao = d;
 		menuItems = dao.read();
 	}
@@ -17,9 +19,10 @@ public class MenuManager implements ISerializable {
 		dao.write(menuItems);
 	}
 
-	public void createNewMenuItem(String id, String name, String description, double price) {
-		MenuItem item = new MenuItem(id, name, description, price);
+	public void createNewMenuItem(String id, String name, String description, double price, String tag, ArrayList<String> stockReferenceIDs) {
+		MenuItem item = new MenuItem(id, name, description, price, tag, stockReferenceIDs);
 		menuItems.add(item);
+		System.out.println(name + " added to menu");
 	}
 
 	public void displayMenu() {
