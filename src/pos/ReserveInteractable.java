@@ -17,18 +17,19 @@ public class ReserveInteractable implements IInteractable {
 		System.out.println("3) View Reservation Details");
 		System.out.println("4) Delete Reservation"); // Ask for Customer's ID
 		int choice = Application.scanner.nextInt();
+		
 		while (choice!=5)
 		{
 			switch(choice)
 			{
 				case 1: // Ask for Customer Details and Reservation Requirements
 				{
-					System.out.println("Enter CustomerID");
-					String customerID = Application.scanner.next();
+					System.out.println("Enter Customer Name");
+					String customerName = Application.scanner.nextLine();
 					System.out.println("Enter Number of Pax");
-					int noPax = Application.scanner.nextInt();
+					int noPax = Integer.parseInt(Application.scanner.nextLine()) ;
 					System.out.println("Enter Date of Reservation in DD-MM-YYYY");
-					String dateString = Application.scanner.next();
+					String dateString = Application.scanner.nextLine();
 					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 					  
 					  //convert String to LocalDate
@@ -40,6 +41,7 @@ public class ReserveInteractable implements IInteractable {
 					
 					
 					// TODO Need to call CustomerManager
+					String customerID = CustomerManager.instance.getCustomerID(customerName);
 					Customer currCus = CustomerManager.instance.getCustomer(customerID);
 					String custName = currCus.getName();
 					String custContactNo = currCus.getContactNo();
@@ -66,7 +68,8 @@ public class ReserveInteractable implements IInteractable {
 					System.out.println("2) Change Reservation Time.");
 					System.out.println("3) Exit.");
 					
-					int x = Application.scanner.nextInt();
+					
+					int x = Integer.parseInt(Application.scanner.nextLine());
 					
 					while ( x != 3)
 					{
