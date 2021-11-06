@@ -31,11 +31,15 @@ public class Application {
 
 	// inject all interactables here (add your interactables to the interatableComponent)
 	public static void injectInteractables(){
+		
+		ManagementToolsInteractable mtools = new ManagementToolsInteractable();
+		mtools.managementTools.addInteractable(new StockInteractable());
+		mtools.managementTools.addInteractable(new MenuInteractable());
+		mtools.managementTools.addInteractable(new CustomerInteractable());
+		
+		interactableComponent.addInteractable(mtools);
 		interactableComponent.addInteractable(new ReserveInteractable());
-		interactableComponent.addInteractable(new CustomerInteractable());
 		interactableComponent.addInteractable(new ExampleInteractable());
-		interactableComponent.addInteractable(new StockInteractable());
-		interactableComponent.addInteractable(new MenuInteractable());
 
 	}
 
