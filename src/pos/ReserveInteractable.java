@@ -12,6 +12,38 @@ public class ReserveInteractable implements IInteractable {
 	public static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH");
 	InteractableComponent reservationAssistant = new InteractableComponent("Back",true);
 	
+	
+	
+	private LocalTime requestTime() {
+		
+		System.out.println("Enter time in HH");
+		String timeString = Application.scanner.nextLine();
+				
+		if(timeString.matches("\\d{2}")) {  
+				//convert String to LocalDate
+			LocalTime localTime = LocalTime.parse(timeString, dtf);
+			return localTime;
+		}
+		
+		
+		return null;
+	}
+	
+	private LocalDate requestDate() {
+		
+		System.out.println("Enter Date of Reservation in DD-MM-YYYY");
+		String dateString = Application.scanner.nextLine();
+				
+		if(dateString.matches("\\d{2}-\\d{2}-\\d{4}")) {  
+				//convert String to LocalDate
+			LocalDate localDate = LocalDate.parse(dateString, formatter);
+			return localDate;
+		}
+		
+		
+		return null;
+	}
+	
 	public ReserveInteractable()
 	{
 		reservationAssistant.addInteractable(new IInteractable() {
@@ -19,6 +51,16 @@ public class ReserveInteractable implements IInteractable {
 			@Override
 			public void handleInput() {
 				// TODO Auto-generated method stub
+				
+				LocalDate localDate = requestDate();
+				if(localDate == null)
+					return;
+				
+				LocalTime time = requestTime();
+				if(time == null)
+					return;
+				
+				
 				System.out.println("Enter Customer Name");
 				String customerName = Application.scanner.nextLine();
 				System.out.println("Enter Customer Contact Number");
@@ -26,17 +68,8 @@ public class ReserveInteractable implements IInteractable {
 				
 				System.out.println("Enter Number of Pax");
 				int noPax = Integer.parseInt(Application.scanner.nextLine()) ;
-				System.out.println("Enter Date of Reservation in DD-MM-YYYY");
-				String dateString = Application.scanner.nextLine();
-				
-				  
-				  //convert String to LocalDate
-				LocalDate localDate = LocalDate.parse(dateString, formatter);
 				
 				
-				System.out.println("Enter Time of Reservation in HH Hours (24Hours)");
-				String timeString = Application.scanner.nextLine();
-				LocalTime time = LocalTime.parse(timeString,dtf);
 				
 				//To Check if the date and time is available.
 				
@@ -69,6 +102,7 @@ public class ReserveInteractable implements IInteractable {
 					ReservationManager.instance.createReservation(customerName, contactNo, noPax, localDate, time);
 					//ReservationManager.instance.displayReservationList(ReservationManager.instance.getReservationList(contactNo));
 				}
+			
 				
 			}
 
@@ -85,14 +119,19 @@ public class ReserveInteractable implements IInteractable {
 			@Override
 			public void handleInput() {
 				// TODO Auto-generated method stub
+				
+				LocalDate date = requestDate();
+				if(date == null)
+					return;
+				
+				LocalTime time = requestTime();
+				if(time == null)
+					return;
+				
+				
 				System.out.println("Enter Customer's Contact Number");
                 String contactNo = Application.scanner.nextLine();
-                System.out.println("Enter Previous Reservation Date in DD-MM-YYYY");
-                String dateString = Application.scanner.nextLine();
-                LocalDate date = LocalDate.parse(dateString, formatter);
-                System.out.println("Enter Previous Reservation Time in HH Hours (24Hours)");
-                String timeString = Application.scanner.nextLine();
-				LocalTime time = LocalTime.parse(timeString,dtf);
+                
 				if (ReservationManager.instance.reservationChecker(date,time) && ReservationManager.instance.getReservation(date, time, contactNo).getContactNo().equals(contactNo))
 				{
 					Reservation reservation1 = ReservationManager.instance.getReservation(date,time, contactNo);
