@@ -11,12 +11,16 @@ public class PaymentManager {
 	private final double SERVICE_RATE;
 	
 	
-	public PaymentManager(double gstRate,double serviceChargeRate, IPaymentMethod[] paymentMethods) {
+	public PaymentManager(double gstRate,double serviceChargeRate, IPaymentMethod...methods ) {
+		
+		instance = this;
 		
 		this.GST_RATE = gstRate;
 		this.SERVICE_RATE = serviceChargeRate;
 		
-		for(IPaymentMethod p: paymentMethods) {
+		paymentMethods = new ArrayList<>();
+		
+		for(IPaymentMethod p: methods) {
 			this.paymentMethods.add(p);
 		}
 	}
@@ -32,14 +36,13 @@ public class PaymentManager {
 		
 		while(!done) {
 		
-			double gstAmount = total * GST_RATE;
-			double serviceAmount = total * SERVICE_RATE;
+			double gstAmount = (total/100)  * GST_RATE;
+			double serviceAmount = (total/100) * SERVICE_RATE;
 			
 		
 			total = total + gstAmount + serviceAmount;
 			
-			
-			System.out.println("Choose payment method:");
+			System.out.println("Total payable: "+String.format("$%.2f", total) + "\nChoose payment method:");
 			int counter = 1;
 			for(IPaymentMethod p : paymentMethods) {
 				System.out.println(counter++ + ") " + p.getPaymentMethodName() );

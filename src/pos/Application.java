@@ -1,5 +1,4 @@
 package pos;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 // inject dependencies from this class
@@ -27,6 +26,7 @@ public class Application {
 		interactableComponent.addInteractable(new ReserveInteractable());
 		interactableComponent.addInteractable(new ExampleInteractable());
 		interactableComponent.addInteractable(new OrderInteractable());
+		interactableComponent.addInteractable(new DebugInteractable());
 	}
 
 
