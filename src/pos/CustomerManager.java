@@ -114,11 +114,13 @@ public class CustomerManager {
 		{
 			for (int x = 0; x < customerList.size(); x++)
 			{
-				System.out.println(x+1 + ". Customer:");
+				System.out.println("Customer " + (x+1));
 				System.out.println("Name: " + customerList.get(x).getName());
 				System.out.println("Contact Number: " + customerList.get(x).getContactNo());
 				System.out.println("CustomerID: " + customerList.get(x).getCustomerID());
 				System.out.println("MembershipID: " + customerList.get(x).getMembershipID());
+				System.out.println(" ");
+				
 			}
 		}
 	}
@@ -171,12 +173,18 @@ public class CustomerManager {
 		return checker;
 	}
 	
-	public boolean checkMembership(Customer customer)
+	public boolean checkMembership(String customerID)
 	{
-		if (customer.isMember())
-			return true;
-		else
-			return false;
+		boolean checker = false;
+		for (int x = 0; x < customerList.size(); x++)
+		{
+			if (customerList.get(x).getName().equals(customerID) )
+			{
+				checker = true;
+				return checker;
+			}
+		}
+		return checker;
 	}
 
 	

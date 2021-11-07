@@ -30,7 +30,7 @@ public class Order {
 		this.setTableNo(tableNo);
 		this.setTime(time);
 		this.setMenuItemIDList(menuItemIDList);
-		this.customerID = customerID;
+		this.setCustomerID(customerID);
 		
 	}
 	
@@ -122,5 +122,11 @@ public class Order {
 		this.menuItemIDList = menuItemIDList;
 	}
 	 
+	public String getCustomerID() {
+		return customerID;
+	}
 	
+	public void setCustomerID(String customerID) {
+		this.customerID = customerID;
+	}
 }

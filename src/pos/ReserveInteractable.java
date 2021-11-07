@@ -82,6 +82,7 @@ public class ReserveInteractable implements IInteractable {
 			@Override
 			public void handleInput() {
 				// TODO Auto-generated method stub
+				refreshReservationList(); //Refresh List
 				
 				LocalDate localDate = requestDate();
 				if(localDate == null)
@@ -104,9 +105,11 @@ public class ReserveInteractable implements IInteractable {
 				//TODO Need to call TableManager
 				//To set table as book and set tableNo in reservation.
 				ArrayList<Table> tableList = TableManager.instance.getTableList();
-				Table currTable = null;
-				int tableNumber = 0;
 				
+				
+				
+				TableManager.instance.printTables();
+								
 				
 				if (tableList.isEmpty())
 				{
@@ -114,22 +117,19 @@ public class ReserveInteractable implements IInteractable {
 					return;
 				}
 				//Check if table is available & number of pax == tableSize
-				for (int x = tableNumber; x < tableList.size(); x++)
+				System.out.println("Select Table Number for Reservation.");
+				int tableNo = Integer.parseInt(Application.scanner.nextLine());
+				
+				if (ReservationManager.instance.reservationChecker(localDate, time,TableManager.instance.getTable(tableNo).getTableNo()))
 				{
-					if (tableList.get(x).getTableSize() == noPax && !ReservationManager.instance.reservationChecker(localDate, time,tableNumber))
-					{
-						currTable = tableList.get(x);
-						tableNumber = x+1;
-						break;
-					}
-					else;
+					System.out.println("This Reservation has already been booked");
 				}
 				
-				if (currTable == null) //Exits and Let User Know No reservation available at that time.
-					{
-						System.out.println("There is no available reservation.");
-						return;
-					}
+				else if (TableManager.instance.getTable(tableNo).getTableSize() != noPax)
+				{
+					System.out.println("This Table is Not Suitable for Number of Pax.");
+				}
+				
 				else
 				{
 					// TODO Need to call CustomerManager
@@ -143,18 +143,15 @@ public class ReserveInteractable implements IInteractable {
 						currCus = CustomerManager.instance.getCustomer(customerName,contactNo);
 					}
 					
-					CustomerManager.instance.displayCustomerList();
+					//CustomerManager.instance.displayCustomerList();
 					
 					//TODO change reservationManager
 					ReservationManager.instance.createReservation(customerName, contactNo, noPax, localDate, time);
-					ReservationManager.instance.getReservation(localDate,time,contactNo).setTablNo(tableNumber);
-					refreshReservationList();
+					ReservationManager.instance.getReservation(localDate,time,contactNo).setTablNo(tableNo);
+					
 				}
 				
-				//To Check if the date and time is available.
 				
-					//ReservationManager.instance.getReservation(localDate, time, contactNo).setTablNo(availTable);
-					//ReservationManager.instance.displayReservationList(ReservationManager.instance.getReservationList(contactNo));
 				
 			
 				
