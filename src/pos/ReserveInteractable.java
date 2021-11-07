@@ -6,10 +6,13 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.time.Duration;
 
 public class ReserveInteractable implements IInteractable {
 	public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 	public static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH");
+	public LocalTime currentTime;
+	public LocalDate currentDate;
 	InteractableComponent reservationAssistant = new InteractableComponent("Back",true);
 	
 	private boolean tableNo[] = new boolean[5];
@@ -21,6 +24,26 @@ public class ReserveInteractable implements IInteractable {
 		}
 	}
 	
+	private void refreshReservationList()
+	{
+		currentTime = LocalTime.now();
+		currentDate = LocalDate.now();
+		
+		ArrayList<Reservation> rList = ReservationManager.instance.getReservationList();
+		
+		for (int x = 0; x < rList.size(); x++)
+		{
+			LocalTime resTime = rList.get(x).getTime();
+			LocalDate resDate = rList.get(x).getDate();
+			Duration duration = Duration.between(resTime, currentTime);
+			long difference = duration.toMinutes();
+			
+			if (currentDate.equals(resDate) && difference < 20)  //Orders Cancel in 20 Minutes 
+			{
+				
+			}
+		}
+	}
 	
 	
 	private LocalTime requestTime() {
@@ -283,6 +306,7 @@ public class ReserveInteractable implements IInteractable {
 			}
 			
 		});
+		
 	}
 
 	@Override
