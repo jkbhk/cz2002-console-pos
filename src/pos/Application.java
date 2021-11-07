@@ -2,7 +2,7 @@ package pos;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-// inject dependecies from this class
+// inject dependencies from this class
 public class Application {
 
 	static InteractableComponent interactableComponent;
