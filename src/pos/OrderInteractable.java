@@ -190,7 +190,7 @@ public class OrderInteractable implements IInteractable{
 						
 						Invoice i = new Invoice(o.getDate(), o.getOrderID(), o.getStaffName(), o.getEmployeeID(), 
 								o.getTotalPrice(), o.getStaffGender(), o.getStaffJobTitle(), o.getTableNo(), o.getTime(), 
-								o.getMenuItemIDList(), GST_RATE, 10, "1");
+								o.getMenuItemIDList(), GST_RATE, MEMBERSHIP_RATE, o.customerID);
 						
 						double netTotal = calculateTotalAmountPayable(i);
 						printInvoice(i);
@@ -253,20 +253,14 @@ public class OrderInteractable implements IInteractable{
 		return result;
 	}
 	
-	private boolean getCustomerMembership() {
+	private double getApplicableRate(String customerID) {
 		
-		System.out.println("Are you a member?");
-		System.out.println("(1) for yes.");
-		System.out.println("(2) for no.");
+		if (CustomerManager.instance.checkMembership(customerID)) {
+			return MEMBERSHIP_RATE;
+		}
+		else
+			return 0;
 		
-		int choice = Integer.parseInt(Application.scanner.nextLine());
-		
-		CustomerManager.instance.displayCustomerList();
-		System.out.println("Are you one of those member?");
-		System.out.println("If yes, select the number.");
-		System.out.println("If no, ");
-		
-		return true;
 	}
 	
 	private double applyDiscount(double amount, Customer id) {
@@ -313,7 +307,7 @@ public class OrderInteractable implements IInteractable{
 		System.out.println(l + l + l + "----");
 		System.out.printf(calculationFormat, "Subtotal: ", "$" + String.format("%.2f", i.getTotalPrice()));
 		
-		if (i.getMemberShipDiscount() > 0)
+		if (CustomerManager.instance.checkMembership(i.customerID))
 			System.out.printf(calculationFormat, "Membership Discount (" + i.getMemberShipDiscount() + "%):", "$" + String.format("%.2f", (i.getMemberShipDiscount()/100) * i.getTotalPrice()));
 		
 		System.out.printf(calculationFormat, "GST (" + i.getGst() + "%):", "$" + String.format("%.2f", (i.getGst()/100) * i.getTotalPrice()));
