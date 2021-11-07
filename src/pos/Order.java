@@ -14,10 +14,11 @@ public class Order {
 	protected String staffJobTitle;
 	protected int tableNo;
 	protected String time;
+	protected String customerID;
 	protected ArrayList<OrderItemWrapper> menuItemIDList = new ArrayList<OrderItemWrapper>();
 	
 	public Order(String date, int orderID, String staffName, String employeeID, 
-			double price, String staffGender, String staffJobTitle, int tableNo, String time, ArrayList<OrderItemWrapper> menuItemIDList) {
+			double price, String staffGender, String staffJobTitle, int tableNo, String time, ArrayList<OrderItemWrapper> menuItemIDList, String customerID) {
 		
 		this.setDate(date);
 		this.setOrderID(orderID);
@@ -29,6 +30,7 @@ public class Order {
 		this.setTableNo(tableNo);
 		this.setTime(time);
 		this.setMenuItemIDList(menuItemIDList);
+		this.customerID = customerID;
 		
 	}
 	
@@ -119,5 +121,6 @@ public class Order {
 	public void setMenuItemIDList(ArrayList<OrderItemWrapper> menuItemIDList) {
 		this.menuItemIDList = menuItemIDList;
 	}
+	 
 	
 }
