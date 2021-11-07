@@ -5,18 +5,18 @@ import java.util.Date;
 
 public class Order {
 	
-	private Date date;
-	private int orderID;
-	private String staffName;
-	private String employeeID;
-	private double totalPrice;
-	private String staffGender;
-	private String staffJobTitle;
-	private int tableNo;
-	private String time;
-	private ArrayList<OrderItemWrapper> menuItemIDList = new ArrayList<OrderItemWrapper>();
+	protected String date;
+	protected int orderID;
+	protected String staffName;
+	protected String employeeID;
+	protected double totalPrice;
+	protected String staffGender;
+	protected String staffJobTitle;
+	protected int tableNo;
+	protected String time;
+	protected ArrayList<OrderItemWrapper> menuItemIDList = new ArrayList<OrderItemWrapper>();
 	
-	public Order(Date date, int orderID, String staffName, String employeeID, 
+	public Order(String date, int orderID, String staffName, String employeeID, 
 			double price, String staffGender, String staffJobTitle, int tableNo, String time, ArrayList<OrderItemWrapper> menuItemIDList) {
 		
 		this.setDate(date);
@@ -36,11 +36,11 @@ public class Order {
 		
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
