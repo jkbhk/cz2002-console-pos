@@ -9,9 +9,9 @@ public class Invoice extends Order {
 
 
 	public Invoice(String date, int orderID, String staffName, String employeeID, double totalPrice, 
-			String staffGender, String staffJobTitle, int tableNo, String time, ArrayList<OrderItemWrapper> oiw, double gst, double membershipDiscount) {
+			String staffGender, String staffJobTitle, int tableNo, String time, ArrayList<OrderItemWrapper> oiw, double gst, double membershipDiscount, String customerID) {
 		super(date, orderID, staffName, employeeID, totalPrice, 
-				staffGender,staffJobTitle, tableNo, time, oiw);
+				staffGender,staffJobTitle, tableNo, time, oiw, customerID);
 
 		this.gst = gst;
 		this.membershipDiscount = membershipDiscount;

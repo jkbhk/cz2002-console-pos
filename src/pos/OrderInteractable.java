@@ -6,6 +6,10 @@ public class OrderInteractable implements IInteractable{
 	
 	InteractableComponent orderAssistant = new InteractableComponent("Back", true);
 	
+	private final double GST_RATE = 7;
+	private final double SERVICE_RATE = 10;
+	private final double MEMBERSHIP_RATE = 5;
+	
 	public OrderInteractable() {
 		
 		//Add Menu Item
@@ -184,15 +188,25 @@ public class OrderInteractable implements IInteractable{
 						OrderManager.instance.addNewOrder(o);
 						System.out.println("You've successfully checked out.");
 						
-						double gst = 9;
-						double membershipDiscount = 5;
-						
 						Invoice i = new Invoice(o.getDate(), o.getOrderID(), o.getStaffName(), o.getEmployeeID(), 
 								o.getTotalPrice(), o.getStaffGender(), o.getStaffJobTitle(), o.getTableNo(), o.getTime(), 
-								o.getMenuItemIDList(), gst, membershipDiscount);
+								o.getMenuItemIDList(), GST_RATE, 10, "1");
 						
-						InvoiceManager.instance.printInvoice(i);
-											
+						double netTotal = calculateTotalAmountPayable(i);
+						printInvoice(i);
+						
+						boolean okay = false;
+						
+						while(okay == false)
+							if (PaymentManager.instance.requestPayment(netTotal)) {
+								InvoiceManager.instance.addInvoiceToList(i);
+								okay = true;
+							}
+							else {
+								System.out.println("Failed to pay.");
+								System.out.println("Please enter the appropriate amount again.");
+							}
+						
 						orderAssistant.terminate();
 					}
 				}
@@ -212,6 +226,7 @@ public class OrderInteractable implements IInteractable{
 	@Override
 	public void handleInput() {
 		OrderManager.instance.startNewOrder();
+		
 		orderAssistant.start();
 	}
 
@@ -219,6 +234,91 @@ public class OrderInteractable implements IInteractable{
 	public String getTitle() {
 		
 		return "Start Ordering";
+	}
+	
+	private void occupyRandomTable() {
+		//will go to the reservation manager to see if there's any reservation for the day.
+		//for all the reservation, check if the reservation is within this timing.
+		//if its in this timing, i'll filter the 
+	}
+	
+	private double calculateTotalAmountPayable(Invoice i) {
+		double result = 0;
+		
+		double totalPrice = i.getTotalPrice();
+		double gst = (i.getGst()/100) * totalPrice;
+		double membershipDiscount = (i.getMemberShipDiscount()/100) * totalPrice;
+		
+		result = totalPrice + membershipDiscount - gst;
+		return result;
+	}
+	
+	private boolean getCustomerMembership() {
+		
+		System.out.println("Are you a member?");
+		System.out.println("(1) for yes.");
+		System.out.println("(2) for no.");
+		
+		int choice = Integer.parseInt(Application.scanner.nextLine());
+		
+		CustomerManager.instance.displayCustomerList();
+		System.out.println("Are you one of those member?");
+		System.out.println("If yes, select the number.");
+		System.out.println("If no, ");
+		
+		return true;
+	}
+	
+	private double applyDiscount(double amount, Customer id) {
+		
+		return 0;
+	}
+	
+	private void printInvoice(Invoice i) {
+		
+		String x = "=";
+		String m = "";
+		int number = 15;
+		for (int j = 0; j < number; j++) {
+			m += x;
+		}
+		
+		String c = "-";
+		String l = "";
+		for (int w = 0; w < number; w++) {
+			l += c;
+		}
+		
+		String itemFormat = "| %-13s%-12s%-14s%-6s |\n";
+		String titleFormat = "-19s%-19s";
+		String calculationFormat = "%-40s%-2s\n";
+		
+		System.out.printf("==================== INVOICE ====================");
+		System.out.println("");
+		System.out.println(Application.storeName);
+		System.out.println(Application.storeAddress);
+		System.out.println(Application.storeNumber);
+		System.out.println(m + m + m + "====");
+		System.out.println("Order Number: " + i.getOrderID());
+		System.out.println("Order Date: " + i.getDate());
+		System.out.println("Order Time: " + i.getTime());
+		System.out.println("Staff: " + i.getStaffName() + "  Gender: " + i.getStaffGender() + "  Job Title: " + i.getStaffJobTitle());
+		System.out.println(m + m + m + "====");
+		System.out.println("|"+ l + "- Item Details --" + l +"|");
+		System.out.println("| Item      Quantity      UnitPrice      Amount |");
+		
+		i.printItems(itemFormat);
+		
+		System.out.println("|-" + l + l + l +"-|");
+		System.out.println(l + l + l + "----");
+		System.out.printf(calculationFormat, "Subtotal: ", "$" + String.format("%.2f", i.getTotalPrice()));
+		
+		if (i.getMemberShipDiscount() > 0)
+			System.out.printf(calculationFormat, "Membership Discount (" + i.getMemberShipDiscount() + "%):", "$" + String.format("%.2f", (i.getMemberShipDiscount()/100) * i.getTotalPrice()));
+		
+		System.out.printf(calculationFormat, "GST (" + i.getGst() + "%):", "$" + String.format("%.2f", (i.getGst()/100) * i.getTotalPrice()));
+		System.out.printf(calculationFormat, "Total Amount Payable:", "$" + String.format("%.2f", calculateTotalAmountPayable(i)));
+		System.out.println(m + m + m + "====");
 	}
 	
 }
