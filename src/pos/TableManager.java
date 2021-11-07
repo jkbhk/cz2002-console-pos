@@ -72,4 +72,20 @@ public class TableManager {
     	
     	return tableList;
     }
+    
+    public Table getTable(int tableNo) {
+    	
+    		for (Table table : tableList) {
+            if(table.getTableNo() == tableNo)
+                return table;
+        }
+
+        return null;
+    }
+    
+    public void printTables() {
+        for (Table table : tableList) {
+            System.out.println("Table Number : " + table.getTableNo() + " Table Size : " + table.getTableSize() + " STATUS:  " + table.getStatus());
+        }
+    }
 }

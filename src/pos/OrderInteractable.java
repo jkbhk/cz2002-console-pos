@@ -183,6 +183,16 @@ public class OrderInteractable implements IInteractable{
 					else {
 						OrderManager.instance.addNewOrder(o);
 						System.out.println("You've successfully checked out.");
+						
+						double gst = 9;
+						double membershipDiscount = 5;
+						
+						Invoice i = new Invoice(o.getDate(), o.getOrderID(), o.getStaffName(), o.getEmployeeID(), 
+								o.getTotalPrice(), o.getStaffGender(), o.getStaffJobTitle(), o.getTableNo(), o.getTime(), 
+								o.getMenuItemIDList(), gst, membershipDiscount);
+						
+						InvoiceManager.instance.printInvoice(i);
+											
 						orderAssistant.terminate();
 					}
 				}
