@@ -108,7 +108,7 @@ public class ReservationManager{
 	{
 		if (reservationList.isEmpty())
 		{
-			System.out.println("Reservation List is empty.");
+			
 			return null;
 		}
 		else 
