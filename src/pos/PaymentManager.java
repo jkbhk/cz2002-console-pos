@@ -10,7 +10,6 @@ public class PaymentManager {
 	private final double GST_RATE;
 	private final double SERVICE_RATE;
 	
-	
 	public PaymentManager(double gstRate,double serviceChargeRate, IPaymentMethod...methods ) {
 		
 		instance = this;
@@ -23,6 +22,14 @@ public class PaymentManager {
 		for(IPaymentMethod p: methods) {
 			this.paymentMethods.add(p);
 		}
+	}
+	
+	public double gst_rate() {
+		return this.GST_RATE;
+	}
+	
+	public double service_rate() {
+		return this.SERVICE_RATE;
 	}
 	
 	public void requestPayment(double total) {
