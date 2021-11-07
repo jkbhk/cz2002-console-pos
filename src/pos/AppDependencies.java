@@ -8,7 +8,7 @@ public class AppDependencies {
 		StockManager stockManager = new StockManager(new StockDao());
 		MenuManager menuManager = new MenuManager(new MenuItemDao());
 		ExampleManager exampleManager = new ExampleManager();
-		//ReservationManager reservationManager = new ReservationManager();
+		ReservationManager reservationManager = new ReservationManager(new ReservationDao());
 		CustomerManager customerManager = new CustomerManager(new CustomerDao());
 		OrderManager orderManager = new OrderManager();
 		

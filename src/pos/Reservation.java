@@ -1,11 +1,12 @@
 package pos;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
 
 public class Reservation {
 
 	private LocalDate date;
-	private String time;
+	private LocalTime time;
 	private int noPax;
 	private int tableNo;
 	private String reservationID;
@@ -18,7 +19,7 @@ public class Reservation {
 		
 	}
 	
-	public Reservation(LocalDate date, String time, int noPax, int tableNo, String reservationID, String customerID, String contactNo , String name)
+	public Reservation(LocalDate date, LocalTime time, int noPax, int tableNo, String reservationID, String customerID, String contactNo , String name)
 	{
 		this.date = date;
 		this.time = time;
@@ -35,7 +36,7 @@ public class Reservation {
 		return date;
 	}
 	
-	public String getTime()
+	public LocalTime getTime()
 	{
 		return time;
 	}
@@ -70,7 +71,7 @@ public class Reservation {
 		return name;
 	}
 	
-	public void makeReservation(LocalDate date, String time, int noPax, String name, String contactNo)
+	public void makeReservation(LocalDate date, LocalTime time, int noPax, String name, String contactNo)
 	{
 		this.date = date; 
 		this.time = time;
@@ -84,7 +85,7 @@ public class Reservation {
 		this.date = date;
 	}
 	
-	public void setTime(String time)
+	public void setTime(LocalTime time)
 	{
 		this.time = time;
 	}

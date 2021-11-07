@@ -157,7 +157,7 @@ public class CustomerManager {
 		{
 			for (int x = 0; x < customerList.size(); x++)
 			{
-				if (customerList.get(x).getName().equals(name) && customerList.get(x).getContactNo().equals(name))
+				if (customerList.get(x).getName().equals(name) && customerList.get(x).getContactNo().equals(contactNo))
 				{
 					checker = true;
 				}

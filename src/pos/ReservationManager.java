@@ -1,6 +1,7 @@
 package pos;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
 
 public class ReservationManager{
@@ -42,7 +43,7 @@ public class ReservationManager{
 	}
 	
 	
-	public void createReservation(String name, String contactNo, int noPax, LocalDate date, String time)
+	public void createReservation(String name, String contactNo, int noPax, LocalDate date, LocalTime time)
 	{
 		// To - Do
 		Reservation reservation1 = new Reservation();
@@ -50,7 +51,7 @@ public class ReservationManager{
 		
 		reservation1.setReservationID(IDGenerator.GenerateUniqueID());
 		reservationList.add(reservation1);
-		System.out.println(reservation1 + "has been created");
+		System.out.println("Reservation " + reservation1.getReservationID() + " has been created for\n" + "Mr/Mrs/Ms " +reservation1.getName() + " on " + reservation1.getDate() + " at " + reservation1.getTime() +" Hrs."  );
 		
 	}
 	
@@ -114,7 +115,7 @@ public class ReservationManager{
 			return reservationList;
 	}
 
-	public Reservation getReservation(String name, String contactNo, LocalDate date, String time)
+	public Reservation getReservation(String name, String contactNo, LocalDate date, LocalTime time)
 	{
 		if (!reservationList.isEmpty())
 		{
@@ -132,7 +133,7 @@ public class ReservationManager{
 		return null;
 	}
 	
-	public Reservation getReservation(LocalDate date, String time)
+	public Reservation getReservation(LocalDate date, LocalTime time, String contactNo)
 	{
 		if (!reservationList.isEmpty())
 		{
@@ -165,6 +166,7 @@ public class ReservationManager{
 				if (currres.getDate().equals(reservation1.getDate()) && currres.getTime().equals(reservation1.getTime()))
 				{
 					reservationList.remove(x);
+					System.out.println("Reservation is deleted.");
 				}
 			}
 		}	
@@ -172,7 +174,7 @@ public class ReservationManager{
 	
 	public void displayReservationList(ArrayList<Reservation> reservationList)
 	{
-		if (reservationList.isEmpty())
+		if (reservationList== null)
 		{
 			System.out.println("There are no reservations");
 		}
@@ -193,10 +195,40 @@ public class ReservationManager{
 			}
 		}
 	}
+	
+	public void displayReservation(Reservation reservation)
+	{
+		if (reservation.getDate() != null & reservation.getTime() != null)
+		{
+			System.out.println("Reservation Date: " + reservation.getDate());
+			System.out.println("Reservation Time: " + reservation.getTime());
+			System.out.println("Reservation Table No. : " + reservation.getTableNo()); // TODO Need to get Table
+			System.out.println("Reservation Number of Pax: " + reservation.getNoPax());
+			System.out.println("Customer's Name: " + reservation.getName());
+			System.out.println("Customer's Contact Number: " + reservation.getContactNo());
+		}
+		else 
+			System.out.println("No Reservation Found!");
+	}
+	
+	public boolean reservationChecker (LocalDate date, LocalTime time)
+	{
+		boolean checker = false; 
+		
+		for (int x = 0; x < reservationList.size(); x++)
+		{
+			Reservation currres = reservationList.get(x);
+			if (currres.getTime().equals(time) && currres.getDate().equals(date)) //will require to check available tables next time
+			{
+				return checker = true;
+			}
+		}
+		return checker;
+	}
 
 
 	public void save() {
-		// TODO Auto-generated method stub
+		
 		reservationDao.write(reservationList);
 	}
 }
