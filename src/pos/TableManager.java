@@ -32,7 +32,7 @@ public class TableManager {
 
     public void fetchTableList() {
  
-        if (tableList == null) {
+        if (tableList.isEmpty()) {
             System.out.println("Empty data set, load default");
             Table newTable1 = new Table("1",1, 8, Table.STATUS.EMPTY);
             Table newTable2 = new Table("2",2, 6, Table.STATUS.EMPTY);
