@@ -2,11 +2,16 @@ package pos;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-// inject dependecies from this class
+// inject dependencies from this class
 public class Application {
 
 	static InteractableComponent interactableComponent;
 	public static Scanner scanner = new Scanner(System.in);
+	
+	//Store Details
+	public static String storeName = "WesternWednesday";
+	public static String storeAddress = "Palau Tekong Drive 1";
+	public static String storeNumber = "6555 5555";
 
 	// called before injectInteractables
 	public static void initialize(){

@@ -11,6 +11,7 @@ public class AppDependencies {
 		ReservationManager reservationManager = new ReservationManager(new ReservationDao());
 		CustomerManager customerManager = new CustomerManager(new CustomerDao());
 		OrderManager orderManager = new OrderManager();
+		InvoiceManager invoiceManager = new InvoiceManager();
 		
 	}
 	
