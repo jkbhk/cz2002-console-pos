@@ -4,12 +4,9 @@ public class DebugInteractable implements IInteractable{
 
     @Override
     public void handleInput() {
-        // TODO Auto-generated method stub
-        String[] temp = {"jelly"};
-
-        String[] temp2 = {"beans"};
-        GenericFileWriter.writeFile(temp,"stock_data.csv");
-        GenericFileWriter.writeFile(temp2,"stock_data.csv");
+        
+    	PaymentManager.instance.requestPayment(100);
+    	
     }
 
     @Override
