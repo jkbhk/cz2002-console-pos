@@ -15,14 +15,7 @@ public class ReserveInteractable implements IInteractable {
 	public LocalDate currentDate;
 	InteractableComponent reservationAssistant = new InteractableComponent("Back",true);
 	
-	private boolean tableNo[] = new boolean[5];
-	{
-		int x =0;
-		for (x = 0; x<5 ; x++)
-		{
-			tableNo[x] = true;
-		}
-	}
+	
 	
 	private void refreshReservationList()
 	{
@@ -30,19 +23,22 @@ public class ReserveInteractable implements IInteractable {
 		currentDate = LocalDate.now();
 		
 		ArrayList<Reservation> rList = ReservationManager.instance.getReservationList();
-		
-		for (int x = 0; x < rList.size(); x++)
+		if (rList != null)
 		{
-			LocalTime resTime = rList.get(x).getTime();
-			LocalDate resDate = rList.get(x).getDate();
-			Duration duration = Duration.between(resTime, currentTime);
-			long difference = duration.toMinutes();
-			
-			if (currentDate.equals(resDate) && difference < 20)  //Orders Cancel in 20 Minutes 
+			for (int x = 0; x < rList.size(); x++)
 			{
+				LocalTime resTime = rList.get(x).getTime();
+				LocalDate resDate = rList.get(x).getDate();
+				Duration duration = Duration.between(resTime, currentTime);
+				long difference = duration.toMinutes();
 				
+				if (currentDate.equals(resDate) && difference > 20)  //Orders Cancel in 20 Minutes 
+				{
+					rList.remove(x);
+				}
 			}
 		}
+		else;
 	}
 	
 	
@@ -133,23 +129,15 @@ public class ReserveInteractable implements IInteractable {
 					
 					
 					//Check if table is available & number of pax == tableSize
-					int availTable = 0; // Temp Table manager will need the new tableManager to come in.
-					for(int x=0; x<5; x ++)
-					{
-						if (tableNo[x] == true)
-						{
-							tableNo[x] = false;
-							availTable = x+1;
-							break;
-						}
-					}
+					
 					
 					
 					
 					//TODO change reservationManager
 					ReservationManager.instance.createReservation(customerName, contactNo, noPax, localDate, time);
-					ReservationManager.instance.getReservation(localDate, time, contactNo).setTablNo(availTable);
+					//ReservationManager.instance.getReservation(localDate, time, contactNo).setTablNo(availTable);
 					//ReservationManager.instance.displayReservationList(ReservationManager.instance.getReservationList(contactNo));
+					refreshReservationList();
 				}
 			
 				
@@ -217,7 +205,7 @@ public class ReserveInteractable implements IInteractable {
 					System.out.println("This Reservation Does Not Exist.");
 				}
                 
-                
+				refreshReservationList();
                      
 				
 			}
@@ -246,7 +234,7 @@ public class ReserveInteractable implements IInteractable {
 					ReservationManager.instance.displayReservationList(ReservationManager.instance.getReservationList(contactNo));
 				}
 				
-				
+				refreshReservationList();
 			}
 
 			@Override
@@ -281,6 +269,7 @@ public class ReserveInteractable implements IInteractable {
 					int choice = Integer.parseInt(Application.scanner.nextLine());
 					ReservationManager.instance.deleteReservation(resList.get(choice-1));
 				}
+				refreshReservationList();
 			}
 
 			@Override
@@ -297,6 +286,7 @@ public class ReserveInteractable implements IInteractable {
 			public void handleInput() {
 				ArrayList<Reservation> resList = ReservationManager.instance.getReservationList();
 				ReservationManager.instance.displayReservationList(resList);
+				refreshReservationList();
 			}
 
 			@Override
