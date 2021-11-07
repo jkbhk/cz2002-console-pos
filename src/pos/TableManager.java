@@ -42,31 +42,23 @@ public class TableManager {
             writeTableToFile(tableList);
         }
         // Set the table 'RESERVED' status if the current time matches the reservation list.
-        ReservationManager reservationManager = new ReservationManager();
-        ArrayList<Reservation> reservationList = reservationManager.getReservation();
-        long currentTime = Instant.now().getEpochSecond();
-        System.out.println(currentTime);
-        for (Reservation reservation : reservationList) {
-            if (currentTime >= reservation.getStartTime() && currentTime <= reservation.getExpiredTime() ) {
-                // Set status to RESERVED.
-//                System.out.println("Setting to RESERVED.");
-                Table newTableStatus = tableList.stream().filter(table -> table.getTableNo() == reservation.getTableNo()).findAny().orElse(null);
-                newTableStatus.setStatus(Table.STATUS.RESERVED);
-            }
-        }
-        writeTableToFile(tableList);
+       
+       
+            
+        
+        //writeTableToFile(tableList);
 
     }
 
     public boolean addTable() {
-        Scanner sc = new Scanner(System.in);
+       
         System.out.println("Table Status: {RESERVED,OCCUPIED,EMPTY}");
-        String status = sc.nextLine();
+        String status = Application.scanner.nextLine();
         System.out.println("Table Size");
-        int tableSize = sc.nextInt();
+        int tableSize = Integer.parseInt(Application.scanner.nextLine());
         System.out.println(tableSize);
         System.out.println("Table Number:");
-        int id = sc.nextInt();
+        int id = Integer.parseInt(Application.scanner.nextLine());
         if ((tableSize >= 2 && tableSize % 2 == 0)) {
             Table newTable = new Table(id, tableSize, Table.STATUS.valueOf(status.toUpperCase()));
             tableList.add(newTable);
@@ -77,9 +69,9 @@ public class TableManager {
     }
 
     public void updateTable() {
-        Scanner sc = new Scanner(System.in);
+      
         System.out.println("Update Table Status To: {RESERVED,OCCUPIED,EMPTY}");
-        String status = sc.nextLine();
+        String status = Application.scanner.nextLine();
         System.out.println("Table Number");
         int tableNo = sc.nextInt();
         Table tableObj = tableList.stream().filter(table -> tableNo == table.getTableNo()).findAny().orElse(null);
@@ -90,7 +82,7 @@ public class TableManager {
 
     public void deleteTable() {
         System.out.println("Remove Table Number : ");
-        Scanner sc = new Scanner(System.in);
+        
         int id = sc.nextInt();
         tableList.removeIf(table -> table.getTableNo() == id);
         writeTableToFile(tableList);
@@ -129,5 +121,10 @@ public class TableManager {
             System.exit(0);
         }
         return null;
+    }
+    
+    public ArrayList<Table> getTableList()
+    {
+    	return tableList;
     }
 }
