@@ -9,28 +9,37 @@ import java.io.ObjectOutputStream;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import pos.Table.STATUS;
+
 import java.lang.reflect.Array;
 
 
 public class TableManager {
+	 
+	public static TableManager instance;
 	private ArrayList<Table> tableList;
+	private Dao<Table> dao;
+	
 
-    public TableManager() {
-        this.fetchTableList();
-    }
+    public TableManager(Dao<Table> d){
+ 
+        instance = this;
+        dao = d;
+        tableList = d.read();
+     }
 
     public void fetchTableList() {
-        tableList = loadTableFromFile();
-        System.out.println(tableList);
+ 
         if (tableList == null) {
             System.out.println("Empty data set, load default");
-            Table newTable1 = new Table(1, 8, Table.STATUS.EMPTY);
-            Table newTable2 = new Table(2, 6, Table.STATUS.EMPTY);
-            Table newTable3 = new Table(3, 4, Table.STATUS.EMPTY);
-            Table newTable4 = new Table(4, 4, Table.STATUS.EMPTY);
-            Table newTable5 = new Table(5, 4, Table.STATUS.EMPTY);
-            Table newTable6 = new Table(6, 2, Table.STATUS.EMPTY);
-            Table newTable7 = new Table(7, 2, Table.STATUS.EMPTY);
+            Table newTable1 = new Table("1",1, 8, Table.STATUS.EMPTY);
+            Table newTable2 = new Table("2",2, 6, Table.STATUS.EMPTY);
+            Table newTable3 = new Table("3",3, 4, Table.STATUS.EMPTY);
+            Table newTable4 = new Table("4",4, 4, Table.STATUS.EMPTY);
+            Table newTable5 = new Table("5",5, 4, Table.STATUS.EMPTY);
+            Table newTable6 = new Table("6",6, 2, Table.STATUS.EMPTY);
+            Table newTable7 = new Table("7",7, 2, Table.STATUS.EMPTY);
             this.tableList = new ArrayList<Table>();
             tableList.add(newTable1);
             tableList.add(newTable2);
@@ -39,92 +48,27 @@ public class TableManager {
             tableList.add(newTable5);
             tableList.add(newTable6);
             tableList.add(newTable7);
-            writeTableToFile(tableList);
         }
-        // Set the table 'RESERVED' status if the current time matches the reservation list.
-       
-       
-            
-        
-        //writeTableToFile(tableList);
 
     }
 
-    public boolean addTable() {
-       
-        System.out.println("Table Status: {RESERVED,OCCUPIED,EMPTY}");
-        String status = Application.scanner.nextLine();
-        System.out.println("Table Size");
-        int tableSize = Integer.parseInt(Application.scanner.nextLine());
-        System.out.println(tableSize);
-        System.out.println("Table Number:");
-        int id = Integer.parseInt(Application.scanner.nextLine());
-        if ((tableSize >= 2 && tableSize % 2 == 0)) {
-            Table newTable = new Table(id, tableSize, Table.STATUS.valueOf(status.toUpperCase()));
-            tableList.add(newTable);
-            System.out.println(newTable);
-            writeTableToFile(tableList);
-        }
-        return tableSize >= 2 && tableSize % 2 == 0;
-    }
-
-    public void updateTable() {
+    public void addTable(String id, int tableNo, int tableSize, String status) {
       
-        System.out.println("Update Table Status To: {RESERVED,OCCUPIED,EMPTY}");
-        String status = Application.scanner.nextLine();
-        System.out.println("Table Number");
-        int tableNo = sc.nextInt();
-        Table tableObj = tableList.stream().filter(table -> tableNo == table.getTableNo()).findAny().orElse(null);
-        System.out.println(tableObj);
-        tableObj.setStatus(Table.STATUS.valueOf(status));
-        writeTableToFile(tableList);
-    }
+            Table newTable = new Table(id, tableNo, tableSize, Table.STATUS.valueOf(status.toUpperCase()));
+            tableList.add(newTable);
 
-    public void deleteTable() {
-        System.out.println("Remove Table Number : ");
-        
-        int id = sc.nextInt();
-        tableList.removeIf(table -> table.getTableNo() == id);
-        writeTableToFile(tableList);
     }
 
 
-    private void writeTableToFile(ArrayList<Table> tableList) {
-        try {
-            FileOutputStream foStream = new FileOutputStream("table.ser");
-            ObjectOutputStream doStream = new ObjectOutputStream(foStream);
-            doStream.writeObject(tableList);
-            doStream.flush();
-            doStream.close();
-            foStream.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("IOError: File not found!" + tableList);
-        } catch (IOException e) {
-            System.out.println("IO Error!" + e.getMessage());
-        }
+    public void deleteTable(int tableNo) {
+    	
+        tableList.removeIf(table -> table.getTableNo() == tableNo);
+ 
     }
 
-    public ArrayList<Table> loadTableFromFile() {
-        try {
-            ArrayList<Table> data;
-            FileInputStream file = new FileInputStream("table.ser");
-            ObjectInputStream in = new ObjectInputStream(file);
-            data = (ArrayList) in.readObject();
-            in.close();
-            file.close();
-            return data;
-        } catch (IOException e) {
-            System.out.println("EMPTY TEXT FILE FROM " + "table.ser");
-            return tableList;
-        } catch (ClassNotFoundException e) {
-            System.out.println("CLASSNOTFOUNDEXCEPTION: " + e);
-            System.exit(0);
-        }
-        return null;
-    }
     
-    public ArrayList<Table> getTableList()
-    {
+    public ArrayList<Table> getTableList(){
+    	
     	return tableList;
     }
 }

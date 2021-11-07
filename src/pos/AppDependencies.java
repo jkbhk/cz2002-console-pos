@@ -12,12 +12,14 @@ public class AppDependencies {
 		CustomerManager customerManager = new CustomerManager(new CustomerDao());
 		OrderManager orderManager = new OrderManager();
 		PaymentManager paymentManager = new PaymentManager(7,10,new CardPaymentMethod());
+		TableManager tableManager = new TableManager(new TableDao());
 		
 	}
 	
 	public static void onExit() {
 		StockManager.instance.save();
 		MenuManager.instance.save();
+		//ReservationManager.instance.save();
 		
 	}
 	

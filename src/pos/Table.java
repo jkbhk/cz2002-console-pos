@@ -2,14 +2,16 @@ package pos;
 
 public class Table {
     private int tableNo;
+    private String id;
     private int tableSize;
     private Table.STATUS status;
     public enum STATUS {OCCUPIED, EMPTY, RESERVED}
 
-    public Table(int tableNo, int tableSize, STATUS status) {
+    public Table(String id, int tableNo, int tableSize, STATUS status) {
         this.tableNo = tableNo;
         this.tableSize= tableSize;
         this.status = status;
+        this.id = id;
     }
 
     public int getTableNo() {
@@ -34,5 +36,9 @@ public class Table {
 
     public void setStatus(STATUS status) {
         this.status = status;
+    }
+    
+    public String getTableId() {
+    	return id;
     }
 }
