@@ -195,6 +195,21 @@ public class ReservationManager{
 			System.out.println("No Reservation Found!");
 	}
 	
+	public boolean reservationChecker (LocalDate date, LocalTime time, int tableNo)
+	{
+		boolean checker = false; 
+		
+		for (int x = 0; x < reservationList.size(); x++)
+		{
+			Reservation currres = reservationList.get(x);
+			if (currres.getTime().equals(time) && currres.getDate().equals(date) && currres.getTableNo() == tableNo) //will require to check available tables next time
+			{
+				return checker = true;
+			}
+		}
+		return checker;
+	}
+	
 	public boolean reservationChecker (LocalDate date, LocalTime time)
 	{
 		boolean checker = false; 

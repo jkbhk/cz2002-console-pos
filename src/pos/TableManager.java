@@ -27,6 +27,7 @@ public class TableManager {
         instance = this;
         dao = d;
         tableList = d.read();
+        fetchTableList();
      }
 
     public void fetchTableList() {
