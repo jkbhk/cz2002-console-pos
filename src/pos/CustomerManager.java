@@ -170,6 +170,14 @@ public class CustomerManager {
 		}
 		return checker;
 	}
+	
+	public boolean checkMembership(Customer customer)
+	{
+		if (customer.isMember())
+			return true;
+		else
+			return false;
+	}
 
 	
 	public void save() {
