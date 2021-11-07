@@ -11,49 +11,46 @@ public class ReservationManager{
 	private Dao<Reservation> reservationDao;
 	public static ReservationManager instance;
 	
-	// To retrieve customer's particular reservation.
-	
-	public Reservation getReservation(String reservationID)
-	{
-		if (!reservationList.isEmpty())
-		{
-			for (int x = 0; x < reservationList.size(); x++)
-			{
-				Reservation currres = reservationList.get(x);
-				if (currres.getReservationID().equals(reservationID))
-				{
-					return currres;
-				}
-			}
-		}
-		else 
-			System.out.println("Reservation List is Empty!");
-		return null;
-	}
 	
 	public ReservationManager(Dao<Reservation> dao)
 	{
 		instance = this;
 		this.reservationDao = dao;
+		//reservationList = reservationDao.read();
 	}
+	// To retrieve customer's particular reservation.
+	
+	public Reservation getReservation(String reservationID)
+	{
+		Reservation reservation = new Reservation();
+		
+		if (!reservationList.isEmpty())
+		{
+			for (int x = 0; x < reservationList.size(); x++)
+			{
+				reservation = reservationList.get(x);
+				if (reservation.getReservationID().equals(reservationID))
+				{
+					return reservation;
+				}
+			}
+		}
+		else 
+			
+			System.out.println("Reservation List is Empty!");
+		return reservation;
+	}
+	
 	
 	public void createReservation(String name, String contactNo, int noPax, LocalDate date, String time)
 	{
 		// To - Do
 		Reservation reservation1 = new Reservation();
 		reservation1.makeReservation(date, time, noPax, name, contactNo);
-		if (reservationList.isEmpty())
-		{
-			reservation1.setReservationID("1");
-			reservationList.add(reservation1);
-			System.out.println("Reservation 1 has been created");
-		}
-		else 
-		{
-			int currIndex = Integer.parseInt(reservationList.get(reservationList.size()-1).getReservationID()+1);
-			reservation1.setReservationID(Integer.toString(currIndex));
-		}
 		
+		reservation1.setReservationID(IDGenerator.GenerateUniqueID());
+		reservationList.add(reservation1);
+		System.out.println(reservation1 + "has been created");
 		
 	}
 	
@@ -108,8 +105,13 @@ public class ReservationManager{
 	
 	public ArrayList<Reservation> getReservationList()
 	{
-		
-		return reservationList;
+		if (reservationList.isEmpty())
+		{
+			System.out.println("Reservation List is empty.");
+			return null;
+		}
+		else 
+			return reservationList;
 	}
 
 	public Reservation getReservation(String name, String contactNo, LocalDate date, String time)
@@ -148,7 +150,7 @@ public class ReservationManager{
 		return null;
 	}
 	
-	public void deleteReservation(Date date, String time)
+	public void deleteReservation(Reservation reservation1)
 	{
 		if (reservationList.isEmpty())
 		{
@@ -160,7 +162,7 @@ public class ReservationManager{
 			for (int x = 0; x < reservationList.size(); x++)
 			{
 				Reservation currres = reservationList.get(x);
-				if (currres.getDate().equals(date) && currres.getTime().equals(time))
+				if (currres.getDate().equals(reservation1.getDate()) && currres.getTime().equals(reservation1.getTime()))
 				{
 					reservationList.remove(x);
 				}

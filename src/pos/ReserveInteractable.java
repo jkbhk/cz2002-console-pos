@@ -37,8 +37,8 @@ public class ReserveInteractable implements IInteractable {
 				
 				// TODO Need to call CustomerManager
 				Customer currCus = new Customer();
-				currCus = CustomerManager.instance.getCustomer(customerName,contactNo);
-				if (currCus == null)
+				boolean checker = CustomerManager.instance.checkCustomerInList(customerName, contactNo);
+				if (!checker)
 				{
 					System.out.println("Customer does not exist, creating new customer");
 					CustomerManager.instance.createCustomer(customerName, contactNo);
@@ -46,13 +46,15 @@ public class ReserveInteractable implements IInteractable {
 					currCus = CustomerManager.instance.getCustomer(customerName,contactNo);
 				}
 				
+				CustomerManager.instance.displayCustomerList();
 				
 				//TODO Need to call TableManager
 				
 				//TODO change reservationManager
 				ReservationManager.instance.createReservation(customerName, contactNo, noPax, localDate, time);
-				Reservation currRes = ReservationManager.instance.getReservation(customerName, contactNo, localDate, time);
-				currRes.setCustomerID(CustomerManager.instance.getCustomerID(customerName));
+				//ReservationManager.instance.displayReservationList(ReservationManager.instance.getReservationList(contactNo));
+				
+				
 			}
 
 			@Override
@@ -143,6 +145,11 @@ public class ReserveInteractable implements IInteractable {
 				{
 					System.out.println((x+1)+".  Date: " + resList.get(x).getDate().toString() + " Time: " + resList.get(x).getTime());
 				}
+				
+				System.out.println("Enter your choice to delete");
+				int choice = Integer.parseInt(Application.scanner.nextLine());
+				ReservationManager.instance.deleteReservation(resList.get(choice-1));
+				
 			}
 
 			@Override

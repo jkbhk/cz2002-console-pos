@@ -7,10 +7,11 @@ public class Customer {
 	private String contactNo;
 	private String membershipID;
 	private String customerID;
+	private boolean isMember;
 	
 	public Customer()
 	{
-		
+		this.setMember(false);
 	}
 	
 	public Customer(String name, String contactNo, String membershipID, String customerID) {
@@ -58,6 +59,14 @@ public class Customer {
 	public void setCustomerID(String customerID)
 	{
 		this.customerID = customerID;
+	}
+
+	public boolean isMember() {
+		return isMember;
+	}
+
+	public void setMember(boolean isMember) {
+		this.isMember = isMember;
 	}
 	
 }

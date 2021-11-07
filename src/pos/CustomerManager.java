@@ -82,6 +82,7 @@ public class CustomerManager {
 		customer.setContactNo(contactNo);
 		customer.setMembershipID(IDGenerator.GenerateUniqueID());
 		customer.setCustomerID(IDGenerator.GenerateUniqueID());
+		
 		customerList.add(customer);
 			
 		
@@ -128,7 +129,7 @@ public class CustomerManager {
 		{
 			for (int x = 0; x < customerList.size(); x++)
 			{
-				if (customerList.get(x).getName() == name)
+				if (customerList.get(x).getName().equals(name))
 				{
 					return customerList.get(x).getCustomerID();
 				}
@@ -147,6 +148,27 @@ public class CustomerManager {
 	public ArrayList<Customer> getCustomerList()
 	{
 		return customerList;
+	}
+	
+	public boolean checkCustomerInList(String name, String contactNo)
+	{
+		boolean checker = false;
+		if (!customerList.isEmpty())
+		{
+			for (int x = 0; x < customerList.size(); x++)
+			{
+				if (customerList.get(x).getName().equals(name) && customerList.get(x).getContactNo().equals(name))
+				{
+					checker = true;
+				}
+			}
+		}
+		else 
+		{
+			System.out.println("Customer List is Empty");
+			checker = false;
+		}
+		return checker;
 	}
 
 	

@@ -16,7 +16,10 @@ public class CustomerInteractable implements IInteractable {
 				String name = Application.scanner.nextLine();
 				System.out.println("Enter Customer's Contact Number");
 				String contactNo = Application.scanner.nextLine();
+				
 				CustomerManager.instance.createCustomer(name, contactNo);
+				
+				
 				System.out.println("CustomerID " + CustomerManager.instance.getCustomerID(name)  + " have been created");
 			}
 
