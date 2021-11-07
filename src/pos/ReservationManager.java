@@ -108,21 +108,21 @@ public class ReservationManager{
 	{
 		if (reservationList.isEmpty())
 		{
-			System.out.println("Reservation List is empty.");
+			
 			return null;
 		}
 		else 
 			return reservationList;
 	}
 
-	public Reservation getReservation(String name, String contactNo, LocalDate date, LocalTime time)
+	public Reservation getReservation( LocalDate date, LocalTime time, String contactNo)
 	{
 		if (!reservationList.isEmpty())
 		{
 			for (int x = 0; x < reservationList.size(); x++)
 			{
 				Reservation currres = reservationList.get(x);
-				if (currres.getName().equals(name) && currres.getContactNo().equals(contactNo) && currres.getTime().equals(time) && currres.getDate().equals(date))
+				if (currres.getContactNo().equals(contactNo) && currres.getTime().equals(time) && currres.getDate().equals(date))
 				{
 					return currres;
 				}
@@ -133,23 +133,7 @@ public class ReservationManager{
 		return null;
 	}
 	
-	public Reservation getReservation(LocalDate date, LocalTime time, String contactNo)
-	{
-		if (!reservationList.isEmpty())
-		{
-			for (int x = 0; x < reservationList.size(); x++)
-			{
-				Reservation currres = reservationList.get(x);
-				if (currres.getTime().equals(time) && currres.getDate().equals(date))
-				{
-					return currres;
-				}
-			}
-		}
-		else 
-			System.out.println("Reservation List is Empty!");
-		return null;
-	}
+
 	
 	public void deleteReservation(Reservation reservation1)
 	{

@@ -6,12 +6,40 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.time.Duration;
 
 public class ReserveInteractable implements IInteractable {
 	public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 	public static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH");
+	public LocalTime currentTime;
+	public LocalDate currentDate;
 	InteractableComponent reservationAssistant = new InteractableComponent("Back",true);
 	
+	
+	
+	private void refreshReservationList()
+	{
+		currentTime = LocalTime.now();
+		currentDate = LocalDate.now();
+		
+		ArrayList<Reservation> rList = ReservationManager.instance.getReservationList();
+		if (rList != null)
+		{
+			for (int x = 0; x < rList.size(); x++)
+			{
+				LocalTime resTime = rList.get(x).getTime();
+				LocalDate resDate = rList.get(x).getDate();
+				Duration duration = Duration.between(resTime, currentTime);
+				long difference = duration.toMinutes();
+				
+				if (currentDate.equals(resDate) && difference > 20)  //Orders Cancel in 20 Minutes 
+				{
+					rList.remove(x);
+				}
+			}
+		}
+		else;
+	}
 	
 	
 	private LocalTime requestTime() {
@@ -24,7 +52,7 @@ public class ReserveInteractable implements IInteractable {
 			LocalTime localTime = LocalTime.parse(timeString, dtf);
 			return localTime;
 		}
-		
+		System.out.println("Time is in the wrong format!");
 		
 		return null;
 	}
@@ -40,7 +68,7 @@ public class ReserveInteractable implements IInteractable {
 			return localDate;
 		}
 		
-		
+		System.out.println("Date is in the wrong format!");
 		return null;
 	}
 	
@@ -73,7 +101,7 @@ public class ReserveInteractable implements IInteractable {
 				
 				//To Check if the date and time is available.
 				
-				if (ReservationManager.instance.reservationChecker(localDate, time))
+				if (ReservationManager.instance.reservationChecker(localDate, time)) // TODO to add to check if Table is Not available.
 					
 				{
 					System.out.println("Reservation has already been made for this date and time");
@@ -95,12 +123,21 @@ public class ReserveInteractable implements IInteractable {
 					
 					CustomerManager.instance.displayCustomerList();
 					
+					
 					//TODO Need to call TableManager
 					//To set table as book and set tableNo in reservation.
 					
+					
+					//Check if table is available & number of pax == tableSize
+					
+					
+					
+					
 					//TODO change reservationManager
 					ReservationManager.instance.createReservation(customerName, contactNo, noPax, localDate, time);
+					//ReservationManager.instance.getReservation(localDate, time, contactNo).setTablNo(availTable);
 					//ReservationManager.instance.displayReservationList(ReservationManager.instance.getReservationList(contactNo));
+					refreshReservationList();
 				}
 			
 				
@@ -135,17 +172,20 @@ public class ReserveInteractable implements IInteractable {
 				if (ReservationManager.instance.reservationChecker(date,time) && ReservationManager.instance.getReservation(date, time, contactNo).getContactNo().equals(contactNo))
 				{
 					Reservation reservation1 = ReservationManager.instance.getReservation(date,time, contactNo);
-	                System.out.println("Choose Selected Date in DD-MM-YYYY.");
-	                String dateString1 = Application.scanner.nextLine();
-	                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-	                  
+	                
+	               
 	                //TableManager maybe can display available Tables to reserve
 	                
+	                System.out.println("Select new date");
+	                LocalDate dateNew = requestDate();
+					if(date == null)
+						return;
+					
+					System.out.println("Select new time");
+					LocalTime timeNew = requestTime();
+					if(time == null)
+						return;
 	                
-	                LocalDate dateNew = LocalDate.parse(dateString1, formatter);
-	                System.out.println("Choose Selected Time in HH Hours (24Hours).");
-	                String timeStringNew = Application.scanner.nextLine();
-					LocalTime timeNew = LocalTime.parse(timeStringNew,dtf);
 	                if(ReservationManager.instance.reservationChecker(dateNew, timeNew))
 	                {
 	                	System.out.println("This reservation is not available to book.");
@@ -165,7 +205,7 @@ public class ReserveInteractable implements IInteractable {
 					System.out.println("This Reservation Does Not Exist.");
 				}
                 
-                
+				refreshReservationList();
                      
 				
 			}
@@ -194,7 +234,7 @@ public class ReserveInteractable implements IInteractable {
 					ReservationManager.instance.displayReservationList(ReservationManager.instance.getReservationList(contactNo));
 				}
 				
-				
+				refreshReservationList();
 			}
 
 			@Override
@@ -229,6 +269,7 @@ public class ReserveInteractable implements IInteractable {
 					int choice = Integer.parseInt(Application.scanner.nextLine());
 					ReservationManager.instance.deleteReservation(resList.get(choice-1));
 				}
+				refreshReservationList();
 			}
 
 			@Override
@@ -245,6 +286,7 @@ public class ReserveInteractable implements IInteractable {
 			public void handleInput() {
 				ArrayList<Reservation> resList = ReservationManager.instance.getReservationList();
 				ReservationManager.instance.displayReservationList(resList);
+				refreshReservationList();
 			}
 
 			@Override
@@ -254,6 +296,7 @@ public class ReserveInteractable implements IInteractable {
 			}
 			
 		});
+		
 	}
 
 	@Override
