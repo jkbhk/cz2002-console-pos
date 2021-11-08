@@ -44,9 +44,9 @@ public class DebugInteractable implements IInteractable{
     	TableManager.instance.printTables();
     
     	*/
+    
     	
-    	
-    	
+    	MenuManager.instance.displayMenuSorted();
     	
     }
 
