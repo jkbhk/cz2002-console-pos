@@ -14,9 +14,11 @@ import java.time.Duration;
 public class ReserveInteractable implements IInteractable {
 	public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 	public static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH");
-	public LocalTime currentTime;
-	public LocalDate currentDate;
+	public LocalTime currentTime = LocalTime.now();
+	public LocalDate currentDate = LocalDate.now();
+	private LocalDate reservationDate;
 	InteractableComponent reservationAssistant = new InteractableComponent("Back",true);
+	private LocalTime timeSlots[] = new LocalTime[14]; 
 	
 	
 	
@@ -47,15 +49,36 @@ public class ReserveInteractable implements IInteractable {
 	
 	private LocalTime requestTime() {
 		
-		System.out.println("Enter time in HH");
-		String timeString = Application.scanner.nextLine();
-				
-		if(timeString.matches("\\d{2}")) {  
-				//convert String to LocalDate
-			LocalTime localTime = LocalTime.parse(timeString, dtf);
-			return localTime;
+	
+		
+		LocalTime timeSlots[] = {LocalTime.parse("10",dtf),LocalTime.parse("11",dtf),LocalTime.parse("12",dtf),LocalTime.parse("13",dtf),LocalTime.parse("14",dtf),LocalTime.parse("15",dtf),LocalTime.parse("16",dtf),LocalTime.parse("17",dtf),LocalTime.parse("18",dtf),LocalTime.parse("19",dtf),LocalTime.parse("20",dtf),LocalTime.parse("21",dtf),LocalTime.parse("22",dtf),LocalTime.parse("23",dtf)};
+		
+		System.out.println("Select your preferred timeslot.");
+		
+		for(int x = 0; x < 14; x++)
+		{
+			System.out.println((x+1)+ ".  Time: " + timeSlots[x]);
 		}
-		System.out.println("Time is in the wrong format!");
+		System.out.println(" ");
+		
+		
+		
+		int choice = -1;
+		while (choice <= 0 || choice > 15)
+		{
+			System.out.println("Select your TimeSlot");
+			choice = Integer.parseInt(Application.scanner.nextLine());
+			LocalTime localTime = timeSlots[choice-1];
+			
+			if (reservationDate.isEqual(currentDate) && localTime.isAfter(currentTime))
+			{
+				return localTime;
+			}
+			else 
+				System.out.println("You cannot book a reservation that has passed.");
+				return null;
+		}
+		
 		
 		return null;
 	}
@@ -68,7 +91,16 @@ public class ReserveInteractable implements IInteractable {
 		if(dateString.matches("\\d{2}-\\d{2}-\\d{4}")) {  
 				//convert String to LocalDate
 			LocalDate localDate = LocalDate.parse(dateString, formatter);
-			return localDate;
+			if (localDate.isAfter(currentDate) || localDate.isEqual(currentDate))
+			{
+				reservationDate = localDate;
+				return localDate;
+			}
+			else 
+			{
+				System.out.println("You cannot book a reservation that has passed.");
+				return null;
+			}
 		}
 		
 		System.out.println("Date is in the wrong format!");
@@ -108,7 +140,7 @@ public class ReserveInteractable implements IInteractable {
 				
 				
 				
-				TableManager.instance.printTables();
+				TableManager.instance.printTablesList();
 								
 				
 				if (tableList.isEmpty())
@@ -125,7 +157,7 @@ public class ReserveInteractable implements IInteractable {
 					System.out.println("This Reservation has already been booked");
 				}
 				
-				else if (TableManager.instance.getTable(tableNo).getTableSize() != noPax)
+				else if (TableManager.instance.getTable(tableNo).getTableSize() < noPax)
 				{
 					System.out.println("This Table is Not Suitable for Number of Pax.");
 				}

@@ -88,4 +88,10 @@ public class TableManager {
             System.out.println("Table Number : " + table.getTableNo() + " Table Size : " + table.getTableSize() + " STATUS:  " + table.getStatus());
         }
     }
+    
+    public void printTablesList() {
+        for (Table table : tableList) {
+            System.out.println("Table Number : " + table.getTableNo() + " Table Size : " + table.getTableSize());
+        }
+    }
 }
