@@ -33,7 +33,12 @@ public class StockInteractable implements IInteractable{
 
 			@Override
 			public void handleInput() {
-				// TODO Auto-generated method stub
+				
+				if(StockManager.instance.getStockCount() <= 0) {
+					System.out.println("stock list is empty!");
+					return;
+				}
+				
 				System.out.println("Select stock to delete:");
 	            StockManager.instance.displayAllStocks(true);
 	            int index = Integer.parseInt(Application.scanner.nextLine());
@@ -59,6 +64,11 @@ public class StockInteractable implements IInteractable{
 
 			@Override
 			public void handleInput() {
+				
+				if(StockManager.instance.getStockCount() <= 0) {
+					System.out.println("stock list is empty!");
+					return;
+				}
 				// TODO Auto-generated method stub
 				 System.out.println("Current inventory:");
 				 StockManager.instance.displayAllStocks(false);

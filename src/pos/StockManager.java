@@ -35,6 +35,10 @@ public class StockManager {
         }
     
     }
+    
+    public int getStockCount() {
+    	return this.stocks.size();
+    }
 
     public Stock getstock(int index){
         if(index >=0 && index < stocks.size())

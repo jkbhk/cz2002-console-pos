@@ -20,11 +20,12 @@ public class StaffInteractable implements IInteractable {
 				StaffManager.instance.displayJobTitles();
 				int choice = Integer.parseInt(Application.scanner.nextLine());
 				choice-=1;
-				if(choice >= 0 && choice < StaffManager.JOB_TITLES.length) {
-					jobTitle = StaffManager.JOB_TITLES[choice];
+				if(choice >= 0 && choice < StaffManager.instance.JOB_TITLES.length) {
+					jobTitle = StaffManager.instance.JOB_TITLES[choice];
 					StaffManager.instance.createNewStaff(IDGenerator.GenerateUniqueID(), name,gender,jobTitle);
+					System.out.println("new staff added to system\n");
 				}else {
-					System.out.println("invalid job title");
+					System.out.println("invalid selection\n");
 				}
 				
 			}
@@ -40,6 +41,12 @@ public class StaffInteractable implements IInteractable {
 
 				@Override
 				public void handleInput() {
+					
+					if(StaffManager.instance.getStaffCount() <= 0) {
+						System.out.println("Staff list is currently empty!");
+						return;
+					}
+					
 					System.out.println("Select staff to remove from system : ");
 					StaffManager.instance.displayAllStaff();
 					int choice = Integer.parseInt(Application.scanner.nextLine());
@@ -60,6 +67,10 @@ public class StaffInteractable implements IInteractable {
 
 				@Override
 				public void handleInput() {
+					if(StaffManager.instance.getStaffCount() <= 0) {
+						System.out.println("Staff list is currently empty!");
+						return;
+					}
 					StaffManager.instance.displayAllStaff();
 				}
 

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class StaffManager {
 	
-	public static final String[] JOB_TITLES = {"Cashier", "Manager"};
+	public final String[] JOB_TITLES = {"Cashier", "Manager"};
 	
 	public static StaffManager instance;
 	private ArrayList<Staff> staffList;
@@ -25,7 +25,7 @@ public class StaffManager {
 	
 	public void displayJobTitles() {
 		for(int i = 0; i < JOB_TITLES.length; i++) {
-			System.out.println((i+1) + ") " + JOB_TITLES);
+			System.out.println((i+1) + ") " + JOB_TITLES[i]);
 		}
 	}
 	
