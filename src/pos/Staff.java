@@ -2,6 +2,8 @@ package pos;
 
 public class Staff {
 	
+	public static final String[] JOB_TITLES = {"Cashier", "Manager"};
+	
 	private String staffName;
 	private String staffID;
 	private String gender;

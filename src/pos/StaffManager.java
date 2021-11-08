@@ -3,15 +3,18 @@ package pos;
 import java.util.ArrayList;
 
 public class StaffManager {
-
+	
+	public static final String[] JOB_TITLES = {"Cashier", "Manager"};
+	
 	public static StaffManager instance;
 	private ArrayList<Staff> staffList;
+	private Dao<Staff> dao;
 	
-	public StaffManager() {
+	public StaffManager(Dao<Staff> d) {
 		instance = this;
 		staffList = new ArrayList<Staff>();
-		//dao
-		
+		dao = d;
+		staffList = dao.read();
 		
 	}
 	
@@ -20,9 +23,16 @@ public class StaffManager {
 		staffList.add(s);
 	}
 	
+	public void displayJobTitles() {
+		for(int i = 0; i < JOB_TITLES.length; i++) {
+			System.out.println((i+1) + ") " + JOB_TITLES);
+		}
+	}
+	
 	public void displayAllStaff() {
 		for(int i = 0; i < staffList.size(); i++) {
-			System.out.println((i+1) + ") " + staffList.get(i));
+			Staff s = staffList.get(i);
+			System.out.println((i+1) + ") " + s.getStaffName() + "  "+s.getGender()+"  "+"("+s.getJobTitle()+")");
 		}
 	}
 	
@@ -34,6 +44,10 @@ public class StaffManager {
 		}
 		
 		return null;
+	}
+	
+	public int getStaffCount() {
+		return this.staffList.size();
 	}
 
 	
