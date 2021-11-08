@@ -50,7 +50,6 @@ public class OrderInteractable implements IInteractable{
 					}
 					
 					if (!isDuplicate) {
-						System.out.println("THIS IS " + m.getName());
 						OrderItemWrapper oiw = new OrderItemWrapper(m.getMenuItemID(), 1, m.getPrice());
 						o.getMenuItemIDList().add(oiw);
 						System.out.println("Item successfully added into the order.");
@@ -86,7 +85,7 @@ public class OrderInteractable implements IInteractable{
 						int count = 1;
 						System.out.println(count + ") " + MenuManager.instance.getMenuItem(oiw.getMenuItemID()).getName() 
 								+ "  $" + String.format("%.2f", MenuManager.instance.getMenuItem(oiw.getMenuItemID()).getPrice()) + 
-										"  Qty: " + oiw.getQuantity() + " Item Prices: $" + oiw.getItemPrices());
+										"  Qty: " + oiw.getQuantity() + " Item Prices: $" + String.format("%.2f", oiw.getItemPrices()));
 						
 					}
 					System.out.println("Enter the menu items that you want to delete in this order: ");
@@ -155,10 +154,11 @@ public class OrderInteractable implements IInteractable{
 					for (OrderItemWrapper oiw : o.getMenuItemIDList()) {
 						System.out.println(count++ + ") " + MenuManager.instance.getMenuItem(oiw.getMenuItemID()).getName() 
 								+ "  $" + String.format("%.2f", MenuManager.instance.getMenuItem(oiw.getMenuItemID()).getPrice()) + 
-										"  Qty: " + oiw.getQuantity() + " Item Price: $" + oiw.getItemPrices());
+										"  Qty: " + oiw.getQuantity() + " Item Price: $" + String.format("%.2f", oiw.getItemPrices() * oiw.getQuantity()));
 					}
 					System.out.println("------------------------------");
-					System.out.println("Sub Total Price: $" + o.getTotalPrice());
+					calculateCurrentTotal();
+					System.out.println("Sub Total Price: $" + String.format("%.2f", OrderManager.instance.getCurrentOrder().getTotalPrice()));
 					System.out.println("------------------------------");
 				}
 			
@@ -311,7 +311,6 @@ public class OrderInteractable implements IInteractable{
 		for (OrderItemWrapper oiw : o.getMenuItemIDList()) {
 			total += oiw.getItemPrices() * oiw.getQuantity();
 		}
-		System.out.println("Total: " + total);
 		o.setTotalPrice(total);
 	}
 	
