@@ -60,6 +60,9 @@ public class StaffManager {
 		return false;
 	}
 	
+	public void save() {
+		dao.write(staffList);
+	}
 	
 	
 }
