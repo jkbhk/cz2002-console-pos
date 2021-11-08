@@ -19,7 +19,7 @@ public class CustomerInteractable implements IInteractable {
 				String customerID = IDGenerator.GenerateUniqueID();
 				String membershipID = IDGenerator.GenerateUniqueAlphaNum(5);
 				
-				CustomerManager.instance.createCustomer(name, contactNo, membershipID, customerID);
+				CustomerManager.instance.createCustomer(name, contactNo, membershipID, customerID,true);
 				
 				
 				System.out.println("CustomerID " + CustomerManager.instance.getCustomerID(name)  + " have been created");
