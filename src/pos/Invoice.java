@@ -8,20 +8,34 @@ public class Invoice {
 	private String customerID;
 	
 	private String date;
-	private double gst;
-	private double membershipDiscount;
+	private String time;
+	private double gstRate;
+	private double gstPrice;
+	private double membershipRate;
+	private double membershipDiscountPrice;
+	private double serviceRate;
+	private double servicePrice;
 	private double totalPrice;
+	private double netTotal;
 	private boolean isMember;
 
-	public Invoice(String invoiceID ,String orderID, String staffID, String customerID,String date,double gst, double membershipDiscount, double totalPrice, boolean isMember) { 
+	public Invoice(String invoiceID ,String orderID, String staffID, String customerID,
+			String date, String time, double gstRate, double gstPrice, double membershipRate,
+			double membershipDiscountPrice, double serviceRate, double servicePrice, double totalPrice, double netTotal, boolean isMember) { 
 		this.invoiceID = invoiceID;
 		this.orderID = orderID;
 		this.staffID = staffID;
 		this.customerID = customerID;
 		this.date = date;
-		this.gst = gst;
-		this.membershipDiscount = membershipDiscount;
+		this.time = time;
+		this.gstRate = gstRate;
+		this.gstPrice = gstPrice;
+		this.membershipRate = membershipRate;
+		this.membershipDiscountPrice = membershipDiscountPrice;
+		this.serviceRate = serviceRate;
+		this.servicePrice = servicePrice;
 		this.totalPrice = totalPrice;
+		this.netTotal = netTotal;
 		this.isMember = isMember;
 	}
 	
@@ -31,22 +45,6 @@ public class Invoice {
 	
 	public String getDate() {
 		return this.date;
-	}
-
-	public double getGst() {
-		return gst;
-	}
-
-	public void setGst(double gst) {
-		this.gst = gst;
-	}
-
-	public double getMemberShipDiscount() {
-		return membershipDiscount;
-	}
-
-	public void setMemberShipDiscount(double membershipDiscount) {
-		this.membershipDiscount = membershipDiscount;
 	}
 
 	public String getOrderID() {
@@ -64,7 +62,43 @@ public class Invoice {
 	public boolean getIsMember() {
 		return this.isMember;
 	}
-	
+
+	public String getInvoiceID() {
+		return invoiceID;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public double getGstRate() {
+		return gstRate;
+	}
+
+	public double getGstPrice() {
+		return gstPrice;
+	}
+
+	public double getMembershipRate() {
+		return membershipRate;
+	}
+
+	public double getMembershipDiscountPrice() {
+		return membershipDiscountPrice;
+	}
+
+	public double getServiceRate() {
+		return serviceRate;
+	}
+
+	public double getServicePrice() {
+		return servicePrice;
+	}
+
+	public double getNetTotal() {
+		return netTotal;
+	}
+
 	
 	/*
 	public void printItems(String format) {		

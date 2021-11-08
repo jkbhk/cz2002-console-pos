@@ -71,11 +71,8 @@ public class Order {
 	}
 
 	public double getTotalPrice() {
-		double temp = 0;
-		for (OrderItemWrapper oiw : menuItemIDList) {
-			temp += oiw.getItemPrices();
-		}
-		return temp;
+		
+		return totalPrice;
 	}
 
 	public void setTotalPrice(double price) {

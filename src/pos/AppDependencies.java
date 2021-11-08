@@ -14,6 +14,7 @@ public class AppDependencies {
 		InvoiceManager invoiceManager = new InvoiceManager();
 		PaymentManager paymentManager = new PaymentManager(new CardPaymentMethod());
 		TableManager tableManager = new TableManager(new TableDao());
+		GenericDataPrinter genericDataPrinter = new GenericDataPrinter();
 		
 	}
 	
