@@ -15,8 +15,8 @@ public class StaffManager {
 		
 	}
 	
-	public void createNewStaff(String name, String staffID, String gender, String jobTitle) {
-		Staff s = new Staff(name,staffID,gender,jobTitle);
+	public void createNewStaff(String staffID, String name, String gender, String jobTitle) {
+		Staff s = new Staff(staffID,name,gender,jobTitle);
 		staffList.add(s);
 	}
 	
