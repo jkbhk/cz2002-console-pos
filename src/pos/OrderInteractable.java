@@ -204,7 +204,7 @@ public class OrderInteractable implements IInteractable{
 						
 						Invoice i = new Invoice(generated,orderID,staffID,customerID,date,GST_RATE,MEMBERSHIP_RATE, netTotal, isMember); 
 						
-						printInvoice(i);
+						//printInvoice(i);
 						
 						boolean okay = false;
 						
@@ -301,61 +301,5 @@ public class OrderInteractable implements IInteractable{
 		return 0;
 	}
 	
-	private void printInvoice(Invoice i) {
-		
-		// use staff id to retrieve these
-		String staffName = "SALLY";
-		String gender = "F";
-		String jobTitle = "Cashier";
-		
-		String x = "=";
-		String m = "";
-		int number = 15;
-		for (int j = 0; j < number; j++) {
-			m += x;
-		}
-		
-		String c = "-";
-		String l = "";
-		for (int w = 0; w < number; w++) {
-			l += c;
-		}
-		
-		String itemFormat = "| %-13s%-12s%-14s%-6s |\n";
-		String titleFormat = "-19s%-19s";
-		String calculationFormat = "%-40s%-2s\n";
-		
-		System.out.printf("==================== INVOICE ====================");
-		System.out.println("");
-		System.out.println(Application.storeName);
-		System.out.println(Application.storeAddress);
-		System.out.println(Application.storeNumber);
-		System.out.println(m + m + m + "====");
-		System.out.println("Order Number: " + i.getOrderID());
-		System.out.println("Order Date: " + i.getDate());
-		System.out.println("Order Time: " + LocalTime.now().format(DateTimeFormatter.ISO_LOCAL_TIME));
-		System.out.println("Staff: " + staffName + "  Gender: " + gender + "  Job Title: " + jobTitle);
-		System.out.println(m + m + m + "====");
-		System.out.println("|"+ l + "- Item Details --" + l +"|");
-		System.out.println("| Item      Quantity      UnitPrice      Amount |");
-		
-		Order refOrder = OrderManager.instance.getCurrentOrder();
-		printOrderItemsInFormat(itemFormat, refOrder);
-		
-		System.out.println("|-" + l + l + l +"-|");
-		System.out.println(l + l + l + "----");
-		System.out.printf(calculationFormat, "Subtotal: ", "$" + String.format("%.2f", refOrder.getTotalPrice()));
-		
-		if (i.getIsMember())
-			System.out.printf(calculationFormat, "Membership Discount (" + i.getMemberShipDiscount() + "%):", "$" + String.format("%.2f", (i.getMemberShipDiscount()/100) * refOrder.getTotalPrice()));
-		
-		System.out.printf(calculationFormat, "GST (" + i.getGst() + "%):", "$" + String.format("%.2f", (i.getGst()/100) * refOrder.getTotalPrice()));
-		System.out.printf(calculationFormat, "Total Amount Payable:", "$" + String.format("%.2f", i.getTotalPrice()));
-		System.out.println(m + m + m + "====");
-	}
-	
-	private void printOrderItemsInFormat(String format, Order o) {
-		
-	}
 	
 }
