@@ -100,7 +100,7 @@ public class Reservation {
 		this.reservationID = reservationID;
 	}
 	
-	public void setTablNo(int tableNo)
+	public void setTableNo(int tableNo)
 	{
 		this.tableNo = tableNo;
 	}

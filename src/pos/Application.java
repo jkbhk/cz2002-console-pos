@@ -8,9 +8,9 @@ public class Application {
 	public static Scanner scanner = new Scanner(System.in);
 	
 	//Store Details
-	public static String storeName = "WesternWednesday";
-	public static String storeAddress = "Palau Tekong Drive 1";
-	public static String storeNumber = "6555 5555";
+	public static final String STORE_NAME = "WesternWednesday";
+	public static final String STORE_ADDRESS = "Palau Tekong Drive 1";
+	public static final String STORE_NUMBER = "6555 5555";
 
 	// called before injectInteractables
 	public static void initialize(){
@@ -26,6 +26,7 @@ public class Application {
 		mtools.managementTools.addInteractable(new StockInteractable());
 		mtools.managementTools.addInteractable(new MenuInteractable());
 		mtools.managementTools.addInteractable(new CustomerInteractable());
+		mtools.managementTools.addInteractable(new StaffInteractable());
 		
 		interactableComponent.addInteractable(mtools);
 		interactableComponent.addInteractable(new ReserveInteractable());

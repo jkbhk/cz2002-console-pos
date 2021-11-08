@@ -170,16 +170,18 @@ public class ReserveInteractable implements IInteractable {
 					if (!checker)
 					{
 						System.out.println("Customer does not exist, creating new customer");
-						CustomerManager.instance.createCustomer(customerName, contactNo);
+						String customerID = IDGenerator.GenerateUniqueID();
+						String membershipID = IDGenerator.GenerateUniqueAlphaNum(5);
+						CustomerManager.instance.createCustomer(customerName, contactNo, membershipID, customerID, true);
 						
 						currCus = CustomerManager.instance.getCustomer(customerName,contactNo);
 					}
 					
-					//CustomerManager.instance.displayCustomerList();
+					//CustomerManager.instance.displayCustomerList();s
 					
 					//TODO change reservationManager
 					ReservationManager.instance.createReservation(customerName, contactNo, noPax, localDate, time);
-					ReservationManager.instance.getReservation(localDate,time,contactNo).setTablNo(tableNo);
+					ReservationManager.instance.getReservation(localDate,time,contactNo).setTableNo(tableNo);
 					
 				}
 				

@@ -13,7 +13,7 @@ public class DebugInteractable implements IInteractable{
     public void handleInput() {
         
     	
- 
+/* 
     	LocalDate localDate = LocalDate.now();
     	LocalTime localTime = LocalTime.now();
     	
@@ -43,10 +43,10 @@ public class DebugInteractable implements IInteractable{
     	
     	TableManager.instance.printTables();
     
+    	*/
+    
     	
-    	
-    	
-    	
+    	MenuManager.instance.displayMenuSorted();
     	
     }
 

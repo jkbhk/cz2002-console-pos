@@ -74,15 +74,15 @@ public class CustomerManager {
 		
 	}
 	
-	public void createCustomer(String name, String contactNo) // TO-DO to review again of creating customer
+	public void createCustomer(String name, String contactNo, String membershipID, String customerID, boolean isMember) // TO-DO to review again of creating customer
 	{
 		
 		Customer customer = new Customer();
 		customer.setName(name);
 		customer.setContactNo(contactNo);
-		customer.setMembershipID(IDGenerator.GenerateUniqueID());
-		customer.setCustomerID(IDGenerator.GenerateUniqueID());
-		
+		customer.setMembershipID(membershipID);
+		customer.setCustomerID(customerID);
+		customer.setMember(isMember);
 		customerList.add(customer);
 			
 		

@@ -1,6 +1,7 @@
 package pos;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MenuManager{
 
@@ -46,6 +47,42 @@ public class MenuManager{
 		//	System.out.println((i + 1) + ") " + temp.getName() + "  $" + String.format("%.2f", temp.getPrice()) + "\n" + temp.getDescription() + "\n");
 		//}
 	}
+	public void displayMenuSorted() {
+		
+		
+		int counter = 1;
+		
+		HashMap<String, ArrayList<MenuItem>> menu = getSortedMenu();
+		
+		for(String header : menu.keySet()) {
+			System.out.println(header+"\n---------------------------");
+			
+			for(MenuItem i : menu.get(header)) {
+				System.out.println(counter++ + ") "+i.getName() + "   " + String.format("$%.2f", i.getPrice()));
+			}
+		}
+	}
+	
+	public HashMap<String,ArrayList<MenuItem>> getSortedMenu(){
+		
+		HashMap<String,ArrayList<MenuItem>> menu = new HashMap<String,ArrayList<MenuItem>>();
+		
+		for(MenuItem i : menuItems) {
+			if(menu.containsKey(i.getTag())){
+				menu.get(i.getTag()).add(i);
+			}else {
+				ArrayList<MenuItem> created = new ArrayList<>();
+				created.add(i);
+				menu.put(i.getTag(), created);
+				
+			}
+		}
+		
+		return menu;
+		
+	}
+	
+	
 
 	public MenuItem getMenuItem(int index) {
 		if (index >= 0 && index < menuItems.size())

@@ -24,9 +24,9 @@ public class GenericDataPrinter {
 		
 		System.out.printf("==================== INVOICE ====================");
 		System.out.println("");
-		System.out.println(Application.storeName);
-		System.out.println(Application.storeAddress);
-		System.out.println(Application.storeNumber);
+		System.out.println(Application.STORE_NAME);
+		System.out.println(Application.STORE_ADDRESS);
+		System.out.println(Application.STORE_NUMBER);
 		System.out.println(m + m + m + "====");
 		System.out.println("Order Number: " + a.getOrderID());
 		System.out.println("Order Date: " + a.getDate());
