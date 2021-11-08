@@ -3,9 +3,16 @@ package pos;
 public class Staff {
 	
 	private String staffName;
-	private int employeeID;
+	private String staffID;
 	private String gender;
 	private String jobTitle;
+	
+	public Staff(String name, String staffID, String gender, String jobTitle) {
+		this.staffName = name;
+		this.staffID = staffID;
+		this.gender = gender;
+		this.jobTitle = jobTitle;
+	}
 	
 	public String getStaffName() {
 		return staffName;
@@ -13,11 +20,11 @@ public class Staff {
 	public void setStaffName(String staffName) {
 		this.staffName = staffName;
 	}
-	public int getEmployeeID() {
-		return employeeID;
+	public String staffID() {
+		return this.staffID;
 	}
-	public void setEmployeeID(int employeeID) {
-		this.employeeID = employeeID;
+	public void setStaffID(String id) {
+		this.staffID = id;
 	}
 	public String getGender() {
 		return gender;
@@ -30,6 +37,9 @@ public class Staff {
 	}
 	public void setJobTitle(String jobTitle) {
 		this.jobTitle = jobTitle;
+	}
+	public String getID() {
+		return this.staffID;
 	}
 	
 	
