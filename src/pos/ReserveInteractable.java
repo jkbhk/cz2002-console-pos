@@ -181,7 +181,7 @@ public class ReserveInteractable implements IInteractable {
 					
 					//TODO change reservationManager
 					ReservationManager.instance.createReservation(customerName, contactNo, noPax, localDate, time);
-					ReservationManager.instance.getReservation(localDate,time,contactNo).setTablNo(tableNo);
+					ReservationManager.instance.getReservation(localDate,time,contactNo).setTableNo(tableNo);
 					
 				}
 				
