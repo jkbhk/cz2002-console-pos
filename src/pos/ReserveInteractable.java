@@ -170,7 +170,9 @@ public class ReserveInteractable implements IInteractable {
 					if (!checker)
 					{
 						System.out.println("Customer does not exist, creating new customer");
-						CustomerManager.instance.createCustomer(customerName, contactNo);
+						String customerID = IDGenerator.GenerateUniqueID();
+						String membershipID = IDGenerator.GenerateUniqueAlphaNum(5);
+						CustomerManager.instance.createCustomer(customerName, contactNo, membershipID, customerID);
 						
 						currCus = CustomerManager.instance.getCustomer(customerName,contactNo);
 					}
