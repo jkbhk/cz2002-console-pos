@@ -74,7 +74,7 @@ public class CustomerManager {
 		
 	}
 	
-	public void createCustomer(String name, String contactNo, String membershipID, String customerID) // TO-DO to review again of creating customer
+	public void createCustomer(String name, String contactNo, String membershipID, String customerID, boolean isMember) // TO-DO to review again of creating customer
 	{
 		
 		Customer customer = new Customer();
@@ -82,7 +82,7 @@ public class CustomerManager {
 		customer.setContactNo(contactNo);
 		customer.setMembershipID(membershipID);
 		customer.setCustomerID(customerID);
-		
+		customer.setMember(isMember);
 		customerList.add(customer);
 			
 		
