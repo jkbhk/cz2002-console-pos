@@ -6,7 +6,7 @@ import java.util.Date;
 public class Order {
 	
 	protected String date;
-	protected int orderID;
+	protected String orderID;
 	protected String staffName;
 	protected String employeeID;
 	protected double totalPrice;
@@ -16,7 +16,7 @@ public class Order {
 	protected String time;
 	protected String customerID;
 	protected ArrayList<OrderItemWrapper> menuItemIDList = new ArrayList<OrderItemWrapper>();
-	
+/*	
 	public Order(String date, int orderID, String staffName, String employeeID, 
 			double price, String staffGender, String staffJobTitle, int tableNo, String time, ArrayList<OrderItemWrapper> menuItemIDList, String customerID) {
 		
@@ -33,7 +33,7 @@ public class Order {
 		this.setCustomerID(customerID);
 		
 	}
-	
+	*/
 	public Order() {
 		
 	}
@@ -46,11 +46,11 @@ public class Order {
 		this.date = date;
 	}
 
-	public int getOrderID() {
+	public String getOrderID() {
 		return orderID;
 	}
 
-	public void setOrderID(int orderID) {
+	public void setOrderID(String orderID) {
 		this.orderID = orderID;
 	}
 

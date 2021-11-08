@@ -19,13 +19,11 @@ public class InvoiceManager {
 		invoiceList.add(i);
 	}
 	
-	public void createInvoice(String date, int orderID, String staffName, String employeeID, double totalPrice, 
-		String staffGender, String staffJobTitle, int tableNo, String time, ArrayList<OrderItemWrapper> oiw, 
-		double gst, double membershipDiscount, String customerID){ 
-		
-		Invoice invoice = new Invoice(date, orderID, staffName, employeeID, totalPrice, staffGender, staffJobTitle, tableNo,
-										time, oiw, gst, membershipDiscount, customerID);
-		
+	
+	public void createInvoice(String invoiceID ,String orderID, String staffID, String customerID, String date, double gst, double membershipDiscount, double totalPrice, boolean isMember){ 
+	
+		Invoice i = new Invoice(invoiceID, orderID, staffID, customerID, date, gst,membershipDiscount, totalPrice, isMember);
+		invoiceList.add(i);
 		System.out.println("Invoice successfully created");
 	}
 		

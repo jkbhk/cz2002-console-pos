@@ -40,7 +40,7 @@ public class StockInteractable implements IInteractable{
 	            Stock removed = StockManager.instance.getstock(index);
 	            if(removed != null){
 	                StockManager.instance.removeStock(index-1);
-	                System.out.println("\'" + removed + "\' removed.");
+	                System.out.println("stock removed.");
 	            }else{
 	                System.out.println("invalid choice");
 	            }
@@ -68,7 +68,7 @@ public class StockInteractable implements IInteractable{
 			@Override
 			public String getTitle() {
 				// TODO Auto-generated method stub
-				return "Display Current Stock";
+				return "Display Stock";
 			}
 			
 		});

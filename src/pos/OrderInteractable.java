@@ -1,5 +1,8 @@
 package pos;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class OrderInteractable implements IInteractable{
@@ -188,11 +191,19 @@ public class OrderInteractable implements IInteractable{
 						OrderManager.instance.addNewOrder(o);
 						System.out.println("You've successfully checked out.");
 						
-						Invoice i = new Invoice(o.getDate(), o.getOrderID(), o.getStaffName(), o.getEmployeeID(), 
-								o.getTotalPrice(), o.getStaffGender(), o.getStaffJobTitle(), o.getTableNo(), o.getTime(), 
-								o.getMenuItemIDList(), GST_RATE, MEMBERSHIP_RATE, o.customerID);
+						String generated = IDGenerator.GenerateUniqueID();
 						
-						double netTotal = calculateTotalAmountPayable(i);
+						String orderID = OrderManager.instance.getCurrentOrder().getOrderID();
+						String staffID = "sadfoasjdf";
+						String customerID = "unknown";
+						String date = LocalDate.now().format(DateTimeFormatter.ISO_DATE);
+						
+						boolean isMember = enquireMembership();
+						double netTotal = calculateTotalAmountPayable(o.totalPrice, isMember);
+						
+						
+						Invoice i = new Invoice(generated,orderID,staffID,customerID,date,GST_RATE,MEMBERSHIP_RATE, netTotal, isMember); 
+						
 						printInvoice(i);
 						
 						boolean okay = false;
@@ -226,6 +237,7 @@ public class OrderInteractable implements IInteractable{
 	@Override
 	public void handleInput() {
 		OrderManager.instance.startNewOrder();
+		OrderManager.instance.getCurrentOrder().setOrderID(IDGenerator.GenerateUniqueID());
 		
 		orderAssistant.start();
 	}
@@ -242,14 +254,35 @@ public class OrderInteractable implements IInteractable{
 		//if its in this timing, i'll filter the 
 	}
 	
-	private double calculateTotalAmountPayable(Invoice i) {
+	private boolean enquireMembership() {
+		
+		boolean isMember = false;
+		
+		System.out.println("Are you a member?\n1) Yes\n2) No");
+		int c = Integer.parseInt(Application.scanner.nextLine());
+		if(c == 1) {
+			System.out.println("Enter member code");
+			String code = Application.scanner.nextLine();
+			
+			if(true) {
+				System.out.println("Membership status identified.");
+				isMember = true;
+			}
+		}
+		
+		return isMember;
+		
+	}
+	
+	private double calculateTotalAmountPayable(double original, boolean isMember) {
+		
 		double result = 0;
 		
-		double totalPrice = i.getTotalPrice();
-		double gst = (i.getGst()/100) * totalPrice;
-		double membershipDiscount = (i.getMemberShipDiscount()/100) * totalPrice;
+		double totalPrice = original;
+		double gst = (GST_RATE/100) * totalPrice;
+		double membershipDiscount = isMember ? (MEMBERSHIP_RATE/100) * totalPrice : 0;
 		
-		result = totalPrice + membershipDiscount - gst;
+		result = totalPrice + gst - membershipDiscount;
 		return result;
 	}
 	
@@ -269,6 +302,11 @@ public class OrderInteractable implements IInteractable{
 	}
 	
 	private void printInvoice(Invoice i) {
+		
+		// use staff id to retrieve these
+		String staffName = "SALLY";
+		String gender = "F";
+		String jobTitle = "Cashier";
 		
 		String x = "=";
 		String m = "";
@@ -295,24 +333,29 @@ public class OrderInteractable implements IInteractable{
 		System.out.println(m + m + m + "====");
 		System.out.println("Order Number: " + i.getOrderID());
 		System.out.println("Order Date: " + i.getDate());
-		System.out.println("Order Time: " + i.getTime());
-		System.out.println("Staff: " + i.getStaffName() + "  Gender: " + i.getStaffGender() + "  Job Title: " + i.getStaffJobTitle());
+		System.out.println("Order Time: " + LocalTime.now().format(DateTimeFormatter.ISO_LOCAL_TIME));
+		System.out.println("Staff: " + staffName + "  Gender: " + gender + "  Job Title: " + jobTitle);
 		System.out.println(m + m + m + "====");
 		System.out.println("|"+ l + "- Item Details --" + l +"|");
 		System.out.println("| Item      Quantity      UnitPrice      Amount |");
 		
-		i.printItems(itemFormat);
+		Order refOrder = OrderManager.instance.getCurrentOrder();
+		printOrderItemsInFormat(itemFormat, refOrder);
 		
 		System.out.println("|-" + l + l + l +"-|");
 		System.out.println(l + l + l + "----");
-		System.out.printf(calculationFormat, "Subtotal: ", "$" + String.format("%.2f", i.getTotalPrice()));
+		System.out.printf(calculationFormat, "Subtotal: ", "$" + String.format("%.2f", refOrder.getTotalPrice()));
 		
-		if (CustomerManager.instance.checkMembership(i.customerID))
-			System.out.printf(calculationFormat, "Membership Discount (" + i.getMemberShipDiscount() + "%):", "$" + String.format("%.2f", (i.getMemberShipDiscount()/100) * i.getTotalPrice()));
+		if (i.getIsMember())
+			System.out.printf(calculationFormat, "Membership Discount (" + i.getMemberShipDiscount() + "%):", "$" + String.format("%.2f", (i.getMemberShipDiscount()/100) * refOrder.getTotalPrice()));
 		
-		System.out.printf(calculationFormat, "GST (" + i.getGst() + "%):", "$" + String.format("%.2f", (i.getGst()/100) * i.getTotalPrice()));
-		System.out.printf(calculationFormat, "Total Amount Payable:", "$" + String.format("%.2f", calculateTotalAmountPayable(i)));
+		System.out.printf(calculationFormat, "GST (" + i.getGst() + "%):", "$" + String.format("%.2f", (i.getGst()/100) * refOrder.getTotalPrice()));
+		System.out.printf(calculationFormat, "Total Amount Payable:", "$" + String.format("%.2f", i.getTotalPrice()));
 		System.out.println(m + m + m + "====");
+	}
+	
+	private void printOrderItemsInFormat(String format, Order o) {
+		
 	}
 	
 }
