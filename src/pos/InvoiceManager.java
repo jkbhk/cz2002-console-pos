@@ -1,5 +1,6 @@
 package pos;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class InvoiceManager {
@@ -26,5 +27,34 @@ public class InvoiceManager {
 		invoiceList.add(i);
 		System.out.println("Invoice successfully created");
 	}
+	
+	public ArrayList<Invoice> getInvoiceListByMonth(int month) {
 		
+		ArrayList<Invoice> monthlyInvoices = new ArrayList<>();
+		
+		for(Invoice i : invoiceList) {
+			LocalDate date = LocalDate.parse(i.getDate());
+			if (month == date.getMonthValue()){
+				monthlyInvoices.add(i);
+			}
+		}
+		
+		return monthlyInvoices;
+	}
+	
+	
+	public ArrayList<Invoice> getInvoiceListByYear(int year) {
+		
+		ArrayList<Invoice> yearlyInvoices = new ArrayList<>();
+		
+		for(Invoice i : invoiceList) {
+			LocalDate date = LocalDate.parse(i.getDate());
+			if (year == date.getYear()){
+				yearlyInvoices.add(i);
+			}
+		}
+		
+		return yearlyInvoices;
+		
+	}	
 }
