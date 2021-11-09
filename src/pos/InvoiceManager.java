@@ -43,18 +43,18 @@ public class InvoiceManager {
 	}
 	
 	
-	public ArrayList<Invoice> getInvoiceListByYear(int year) {
+	public ArrayList<Invoice> getInvoiceListForCurrentDay() {
 		
-		ArrayList<Invoice> yearlyInvoices = new ArrayList<>();
+		ArrayList<Invoice> dailyInvoices = new ArrayList<>();
 		
 		for(Invoice i : invoiceList) {
 			LocalDate date = LocalDate.parse(i.getDate());
-			if (year == date.getYear()){
-				yearlyInvoices.add(i);
-			}
+			if(date.equals(LocalDate.now()))
+					dailyInvoices.add(i);
+			
 		}
 		
-		return yearlyInvoices;
+		return dailyInvoices;
 		
 	}	
 }

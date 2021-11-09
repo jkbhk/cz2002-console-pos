@@ -33,6 +33,7 @@ public class Application {
 		interactableComponent.addInteractable(new ExampleInteractable());
 		interactableComponent.addInteractable(new OrderInteractable());
 		interactableComponent.addInteractable(new DebugInteractable());
+		interactableComponent.addInteractable(new SalesInteractable());
 	}
 
 
