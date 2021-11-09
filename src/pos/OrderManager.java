@@ -7,9 +7,12 @@ public class OrderManager{
 	public static OrderManager instance;
 	private Order currentOrder;
 	private ArrayList<Order> orderList = new ArrayList<Order>();
+	private Dao<Order> dao;
 	
-	public OrderManager() {
+	public OrderManager(Dao<Order> d) {
 		instance = this;
+		this.dao = d;
+		orderList = d.read();
 	}
 	
 	public ArrayList<Order> getOrderList(){
@@ -72,6 +75,10 @@ public class OrderManager{
 	
 	public void addNewOrder(Order o) {
 		orderList.add(o);
+	}
+	
+	public void save() {
+		dao.write(orderList);
 	}
 
 }

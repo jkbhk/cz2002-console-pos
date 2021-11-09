@@ -45,14 +45,6 @@ public class DebugInteractable implements IInteractable{
     	TableManager.instance.printTables();
     
     	*/
-    
-    	Calendar cal = Calendar.getInstance();
-    	String starting = LocalDate.now().getYear() + "-" + LocalDate.now().getMonthValue() + "-1";
-		String ending = LocalDate.now().getYear() + "-" + LocalDate.now().getMonthValue() + "-"+cal.getActualMaximum(Calendar.DATE);
-		System.out.println(starting);
-		System.out.println(ending);
-    	
-    	
     }
 
     @Override

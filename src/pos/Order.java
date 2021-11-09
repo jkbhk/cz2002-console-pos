@@ -10,13 +10,6 @@ public class Order {
 	protected int tableNo;
 	protected ArrayList<OrderItemWrapper> menuItemIDList = new ArrayList<OrderItemWrapper>();
 	
-	
-	
-	
-	public Order() {
-		
-	}
-
 
 	public String getOrderID() {
 		return orderID;

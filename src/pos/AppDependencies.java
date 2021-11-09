@@ -12,7 +12,7 @@ public class AppDependencies {
 		TableManager tableManager = new TableManager(new TableDao());
 		ReservationManager reservationManager = new ReservationManager(new ReservationDao());
 		CustomerManager customerManager = new CustomerManager(new CustomerDao());
-		OrderManager orderManager = new OrderManager();
+		OrderManager orderManager = new OrderManager(new OrderDao());
 		InvoiceManager invoiceManager = new InvoiceManager();
 		PaymentManager paymentManager = new PaymentManager(new CardPaymentMethod());
 		GenericDataPrinter genericDataPrinter = new GenericDataPrinter();
@@ -25,7 +25,7 @@ public class AppDependencies {
 		MenuManager.instance.save();
 		StaffManager.instance.save();
 		ReservationManager.instance.save();
-		
+		OrderManager.instance.save();
 	}
 	
 }
