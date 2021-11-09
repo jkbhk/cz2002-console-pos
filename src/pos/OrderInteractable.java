@@ -281,27 +281,6 @@ public class OrderInteractable implements IInteractable{
 		
 	}
 	
-	private double calculateTotalAmountPayable(double original, boolean isMember) {
-		
-		double result = 0;
-		
-		double totalPrice = original;
-		double gst = (GST_RATE/100) * totalPrice;
-		double membershipDiscount = isMember ? (MEMBERSHIP_RATE/100) * totalPrice : 0;
-		
-		result = totalPrice + gst - membershipDiscount;
-		return result;
-	}
-	
-	private double getApplicableRate(String customerID) {
-		
-		if (CustomerManager.instance.checkMembership(customerID)) {
-			return MEMBERSHIP_RATE;
-		}
-		else
-			return 0;
-		
-	}
 	
 	private void calculateCurrentTotal() {
 		Order o = OrderManager.instance.getCurrentOrder();

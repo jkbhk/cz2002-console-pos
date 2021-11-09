@@ -17,7 +17,7 @@ public class Application {
 	public static void initialize(){
 		
 		initialPrompt = new LoginInteractable();
-		interactableComponent = new InteractableComponent(true);
+		interactableComponent = new InteractableComponent("Save and Exit", true);
 		AppDependencies.initilializeDependencies();
 	}
 
