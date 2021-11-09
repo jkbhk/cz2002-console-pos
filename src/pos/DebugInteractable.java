@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import pos.Table.STATUS;
 
@@ -45,8 +46,12 @@ public class DebugInteractable implements IInteractable{
     
     	*/
     
+    	Calendar cal = Calendar.getInstance();
+    	String starting = LocalDate.now().getYear() + "-" + LocalDate.now().getMonthValue() + "-1";
+		String ending = LocalDate.now().getYear() + "-" + LocalDate.now().getMonthValue() + "-"+cal.getActualMaximum(Calendar.DATE);
+		System.out.println(starting);
+		System.out.println(ending);
     	
-    	MenuManager.instance.displayMenuSorted();
     	
     }
 

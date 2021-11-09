@@ -4,6 +4,7 @@ import java.util.Scanner;
 // inject dependencies from this class
 public class Application {
 
+	static IInteractable initialPrompt;
 	static InteractableComponent interactableComponent;
 	public static Scanner scanner = new Scanner(System.in);
 	
@@ -14,6 +15,8 @@ public class Application {
 
 	// called before injectInteractables
 	public static void initialize(){
+		
+		initialPrompt = new LoginInteractable();
 		interactableComponent = new InteractableComponent(true);
 		AppDependencies.initilializeDependencies();
 	}
@@ -27,6 +30,7 @@ public class Application {
 		mtools.managementTools.addInteractable(new MenuInteractable());
 		mtools.managementTools.addInteractable(new CustomerInteractable());
 		mtools.managementTools.addInteractable(new StaffInteractable());
+		mtools.managementTools.addInteractable(new LoginInteractable());
 		
 		interactableComponent.addInteractable(mtools);
 		interactableComponent.addInteractable(new ReserveInteractable());
@@ -42,6 +46,7 @@ public class Application {
 		initialize();
 		injectInteractables();
 		
+		initialPrompt.handleInput();
 		interactableComponent.start();
 		
 		onExit();

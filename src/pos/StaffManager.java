@@ -7,8 +7,11 @@ public class StaffManager {
 	public final String[] JOB_TITLES = {"Cashier", "Manager"};
 	
 	public static StaffManager instance;
+	private Staff currentStaff; 
+	
 	private ArrayList<Staff> staffList;
 	private Dao<Staff> dao;
+	
 	
 	public StaffManager(Dao<Staff> d) {
 		instance = this;
@@ -16,6 +19,14 @@ public class StaffManager {
 		dao = d;
 		staffList = dao.read();
 		
+	}
+	
+	public void setCurrentStaff(Staff s) {
+		currentStaff = s;
+	}
+	
+	public Staff getCurrentStaff() {
+		return this.currentStaff;
 	}
 	
 	public void createNewStaff(String staffID, String name, String gender, String jobTitle) {
@@ -44,6 +55,10 @@ public class StaffManager {
 		}
 		
 		return null;
+	}
+	
+	public Staff getStaff(int index) {
+		return staffList.get(index);
 	}
 	
 	public int getStaffCount() {
