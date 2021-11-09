@@ -21,9 +21,9 @@ public class InvoiceManager {
 	}
 	
 	
-	public void createInvoice(String invoiceID ,String orderID, String staffID, String customerID, String date, String time, double gstRate, double gstPrice, double membershipRate, double membershipDiscountPrice, double serviceRate, double servicePrice, double totalPrice, double netTotal, boolean isMember){ 
+	public void createInvoice(String invoiceID ,String orderID, String staffID, String date, String time, double gstRate, double gstPrice, double membershipRate, double membershipDiscountPrice, double serviceRate, double servicePrice, double totalPrice, double netTotal, boolean isMember){ 
 	
-		Invoice i = new Invoice(invoiceID, orderID, staffID, customerID, date, time, gstRate, gstPrice, membershipRate, membershipDiscountPrice, serviceRate, servicePrice, totalPrice, netTotal, isMember);
+		Invoice i = new Invoice(invoiceID, orderID, staffID, date, time, gstRate, gstPrice, membershipRate, membershipDiscountPrice, serviceRate, servicePrice, totalPrice, netTotal, isMember);
 		invoiceList.add(i);
 		System.out.println("Invoice successfully created");
 	}

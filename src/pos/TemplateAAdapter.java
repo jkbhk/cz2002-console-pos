@@ -29,8 +29,8 @@ public class TemplateAAdapter implements ITemplateA{
 		for (OrderItemWrapper oiw : o.getMenuItemIDList()) {
 			menuItems[i] = MenuManager.instance.getMenuItem(oiw.menuItemID).getName();
 			menuQuantity[i] = (""+ oiw.getQuantity());
-			menuUnitPrice[i] = (""+ oiw.getItemPrices());
-			menuAmount[i] = (""+oiw.getQuantity() * oiw.getItemPrices());
+			menuUnitPrice[i] = (""+ String.format("%.2f",oiw.getItemPrices()));
+			menuAmount[i] = ("" + String.format("%.2f",(oiw.getQuantity() * oiw.getItemPrices())));
 			i++;
 		}
 
@@ -141,20 +141,20 @@ public class TemplateAAdapter implements ITemplateA{
 
 	@Override
 	public String getStaffName() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return StaffManager.instance.getCurrentStaff().getStaffName();
 	}
 
 	@Override
 	public String getStaffGender() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return StaffManager.instance.getCurrentStaff().getGender();
 	}
 
 	@Override
 	public String getStaffJobTitle() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return StaffManager.instance.getCurrentStaff().getJobTitle();
 	}
 
 	

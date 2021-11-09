@@ -31,7 +31,7 @@ public class GenericDataPrinter {
 		System.out.println("Order Number: " + a.getOrderID());
 		System.out.println("Order Date: " + a.getDate());
 		System.out.println("Order Time: " + LocalTime.now().format(DateTimeFormatter.ISO_LOCAL_TIME));
-		System.out.println("Staff: " + "staff name to be inserted" + "  Gender: " + "staff gender to be inserted" + "  Job Title: " + "staff job title to be inserted");
+		System.out.println("Staff: " + a.getStaffName() + "  Gender: " + a.getStaffGender() + "  Job Title: " + a.getStaffJobTitle());
 		System.out.println(m + m + m + "====");
 		System.out.println("|"+ l + "- Item Details --" + l +"|");
 		System.out.println("| Item      Quantity      UnitPrice      Amount |");

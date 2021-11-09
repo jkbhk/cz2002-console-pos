@@ -179,57 +179,50 @@ public class OrderInteractable implements IInteractable{
 			@Override
 			public void handleInput() {
 				
-				System.out.println("Do you wish to confirm your check out?");
-				System.out.println("(y) for yes");
-				System.out.println("(n) for no");
-				String again = Application.scanner.nextLine();
-				
-				if(again.equals("y")) {
-					Order o = OrderManager.instance.getCurrentOrder();
-					if (o.getMenuItemIDList().isEmpty()){
-						System.out.println("You have no item to checkout.");
-					}
-					else {
-						//OrderManager.instance.addNewOrder(o);
-						System.out.println("You've successfully checked out.");
-						calculateCurrentTotal();
-						String generated = IDGenerator.GenerateUniqueID();
-						
-						String orderID = OrderManager.instance.getCurrentOrder().getOrderID();
-						String staffID = "sadfoasjdf";
-						String customerID = "unknown";
-						String date = LocalDate.now().format(DateTimeFormatter.ISO_DATE);
-						String time = LocalTime.now().format(DateTimeFormatter.ISO_LOCAL_TIME);
-						
-						boolean isMember = enquireMembership();
-						
-						double gstPrice = (GST_RATE/100) * o.getTotalPrice();
-						double membershipDiscountPrice = isMember ? (MEMBERSHIP_RATE/100) * o.getTotalPrice() : 0;
-						double serviceChargePrice = (SERVICE_RATE/100) * o.getTotalPrice();
-						double totalPrice = o.getTotalPrice();
-						double netTotal = Math.round((totalPrice * 100.0))/100.0 + Math.round((gstPrice * 100.0))/100.0 + Math.round((serviceChargePrice * 100.0))/100.0 - Math.round((membershipDiscountPrice * 100.0))/100.0;
-						
-						Invoice i = new Invoice(generated,orderID,staffID,customerID,date,time,GST_RATE, gstPrice, MEMBERSHIP_RATE, membershipDiscountPrice, SERVICE_RATE, serviceChargePrice, totalPrice, netTotal, isMember); 
-						
-						GenericDataPrinter.printTemplate(new TemplateAAdapter(i));
-						
-						boolean okay = false;
-						
-						while(okay == false)
-							if (PaymentManager.instance.requestPayment(netTotal)) {
-								InvoiceManager.instance.addInvoiceToList(i);
-								OrderManager.instance.addNewOrder(o);
-								OrderManager.instance.deleteOrderFromIncompleteList(o.tableNo);
-								TableManager.instance.getTable(o.tableNo).setStatus(Table.STATUS.EMPTY);
-								okay = true;
-							}
-							else {
-								System.out.println("Failed to pay.");
-								System.out.println("Please enter the appropriate amount again.");
-							}
-						
-						orderAssistant.terminate();
-					}
+				Order o = OrderManager.instance.getCurrentOrder();
+				if (o.getMenuItemIDList().isEmpty()){
+					System.out.println("You have no item to checkout.");
+				}
+				else {
+					//OrderManager.instance.addNewOrder(o);
+					System.out.println("You've successfully checked out.");
+					calculateCurrentTotal();
+					String generated = IDGenerator.GenerateUniqueID();
+					
+					String orderID = OrderManager.instance.getCurrentOrder().getOrderID();
+					String staffID = StaffManager.instance.getCurrentStaff().getStaffName();
+					//String customerID = "random";
+					String date = LocalDate.now().format(DateTimeFormatter.ISO_DATE);
+					String time = LocalTime.now().format(DateTimeFormatter.ISO_LOCAL_TIME);
+					
+					boolean isMember = enquireMembership();
+					
+					double gstPrice = (GST_RATE/100) * o.getTotalPrice();
+					double membershipDiscountPrice = isMember ? (MEMBERSHIP_RATE/100) * o.getTotalPrice() : 0;
+					double serviceChargePrice = (SERVICE_RATE/100) * o.getTotalPrice();
+					double totalPrice = o.getTotalPrice();
+					double netTotal = Math.round((totalPrice * 100.0))/100.0 + Math.round((gstPrice * 100.0))/100.0 + Math.round((serviceChargePrice * 100.0))/100.0 - Math.round((membershipDiscountPrice * 100.0))/100.0;
+					
+					Invoice i = new Invoice(generated,orderID,staffID,date,time,GST_RATE, gstPrice, MEMBERSHIP_RATE, membershipDiscountPrice, SERVICE_RATE, serviceChargePrice, totalPrice, netTotal, isMember); 
+					
+					GenericDataPrinter.printTemplate(new TemplateAAdapter(i));
+					
+					boolean okay = false;
+					
+					while(okay == false)
+						if (PaymentManager.instance.requestPayment(netTotal)) {
+							InvoiceManager.instance.addInvoiceToList(i);
+							OrderManager.instance.addNewOrder(o);
+							OrderManager.instance.deleteOrderFromIncompleteList(o.tableNo);
+							TableManager.instance.getTable(o.tableNo).setStatus(Table.STATUS.EMPTY);
+							okay = true;
+						}
+						else {
+							System.out.println("Failed to pay.");
+							System.out.println("Please enter the appropriate amount again.");
+						}
+					
+					orderAssistant.terminate();
 				}
 			}
 
