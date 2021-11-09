@@ -7,6 +7,7 @@ public class OrderManager{
 	public static OrderManager instance;
 	private Order currentOrder;
 	private ArrayList<Order> orderList = new ArrayList<Order>();
+	private ArrayList<Order> incompleteOrderList = new ArrayList<Order>();
 	private Dao<Order> dao;
 	
 	public OrderManager(Dao<Order> d) {
@@ -15,25 +16,28 @@ public class OrderManager{
 		orderList = d.read();
 	}
 	
-	public ArrayList<Order> getOrderList(){
-		
-		return this.orderList;
+	//public ArrayList<Order> getOrderList(){
+		//return this.orderList;
+	//}
+	
+	public ArrayList<Order> getIncompleteOrderList(){
+		return this.incompleteOrderList;
 	}
 	
-	public Order getOrder(int tableNo) {
+	public Order getOrderFromIncompleteOrderList(int tableNo) {
 				
 		Order order = null;
-		if (orderList.isEmpty()) {
+		if (incompleteOrderList.isEmpty()) {
 			
 			return order = null;
 		}
 		else {
 			
-			for (int i = 0; i < orderList.size(); i++) {
+			for (int i = 0; i < incompleteOrderList.size(); i++) {
 				
-				if (orderList.get(i).getTableNo() == tableNo) {
+				if (incompleteOrderList.get(i).getTableNo() == tableNo) {
 					
-					order = orderList.get(i);
+					order = incompleteOrderList.get(i);
 					
 				}
 			}
@@ -46,19 +50,33 @@ public class OrderManager{
 		return currentOrder;
 	}
 	
-	public boolean deleteOrder(int tableNo) {
+	public Order getIncompleteOrder(int tableNo) {
+		for (Order o : incompleteOrderList) {
+			if (o.tableNo == tableNo) {
+				return o;
+			}
+		}
+		
+		return null;
+	}
+	
+	public void setCurrentOrder(Order o) {
+		currentOrder = o;
+	}
+	
+	public boolean deleteOrderFromIncompleteList(int tableNo) {
 		boolean result = false;
 		
-		if (orderList.isEmpty()) {
+		if (incompleteOrderList.isEmpty()) {
 			System.out.println("Order List is empty, unable to delete order.");
 			result = false;
 		}
 		else {
 			
-			for (int i = 0; i < orderList.size(); i++) {
-				if (orderList.get(i).getTableNo() == tableNo) {
+			for (int i = 0; i < incompleteOrderList.size(); i++) {
+				if (incompleteOrderList.get(i).getTableNo() == tableNo) {
 					
-					orderList.remove(i);
+					incompleteOrderList.remove(i);
 					System.out.println("Order is deleted.");
 					result = true;
 				}
@@ -69,12 +87,15 @@ public class OrderManager{
 	}
 	
 	public void startNewOrder() {
-		currentOrder = new Order();
-		
+		incompleteOrderList.add(currentOrder);
 	}
 	
 	public void addNewOrder(Order o) {
 		orderList.add(o);
+	}
+	
+	public void addIncompleteOrder(Order o) {
+		incompleteOrderList.add(o);
 	}
 	
 	public void save() {

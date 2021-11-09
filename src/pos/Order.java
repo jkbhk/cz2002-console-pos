@@ -10,6 +10,15 @@ public class Order {
 	protected int tableNo;
 	protected ArrayList<OrderItemWrapper> menuItemIDList = new ArrayList<OrderItemWrapper>();
 	
+	public Order() {
+		
+	}
+	
+	public Order(String orderID, int tableNo) {
+		this.orderID = orderID;
+		this.tableNo = tableNo;
+		totalPrice = 0;
+	}
 
 	public String getOrderID() {
 		return orderID;

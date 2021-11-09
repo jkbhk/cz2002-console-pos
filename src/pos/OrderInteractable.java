@@ -190,7 +190,7 @@ public class OrderInteractable implements IInteractable{
 						System.out.println("You have no item to checkout.");
 					}
 					else {
-						OrderManager.instance.addNewOrder(o);
+						//OrderManager.instance.addNewOrder(o);
 						System.out.println("You've successfully checked out.");
 						calculateCurrentTotal();
 						String generated = IDGenerator.GenerateUniqueID();
@@ -218,6 +218,9 @@ public class OrderInteractable implements IInteractable{
 						while(okay == false)
 							if (PaymentManager.instance.requestPayment(netTotal)) {
 								InvoiceManager.instance.addInvoiceToList(i);
+								OrderManager.instance.addNewOrder(o);
+								OrderManager.instance.deleteOrderFromIncompleteList(o.tableNo);
+								TableManager.instance.getTable(o.tableNo).setStatus(Table.STATUS.EMPTY);
 								okay = true;
 							}
 							else {
@@ -243,10 +246,13 @@ public class OrderInteractable implements IInteractable{
 	
 	@Override
 	public void handleInput() {
-		OrderManager.instance.startNewOrder();
-		OrderManager.instance.getCurrentOrder().setOrderID(IDGenerator.GenerateUniqueID());
 		
+		setCurrentOrder();
+		//OrderManager.instance.startNewOrder();
+		//OrderManager.instance.getCurrentOrder().setOrderID(IDGenerator.GenerateUniqueID());
 		orderAssistant.start();
+		
+		
 	}
 
 	@Override
@@ -312,6 +318,47 @@ public class OrderInteractable implements IInteractable{
 			total += oiw.getItemPrices() * oiw.getQuantity();
 		}
 		o.setTotalPrice(total);
+	}
+	
+	private void setCurrentOrder() {
+		boolean isNew = true;
+		
+		TableManager.instance.printTables();
+		System.out.println("Select a table number: ");
+		int choice = Integer.parseInt(Application.scanner.nextLine());
+		
+		if (choice > 0 && choice <= TableManager.instance.getTableList().size()) {
+			boolean exist = checkTableOrder(choice);
+			
+			if (exist) {
+				OrderManager.instance.setCurrentOrder(OrderManager.instance.getIncompleteOrder(choice));
+				System.out.println("Table number: " + OrderManager.instance.getCurrentOrder().tableNo);
+				System.out.println("Editing previous order from table number.");
+			}
+			else {
+				Order newOrder = new Order(IDGenerator.GenerateUniqueID(), choice);
+				OrderManager.instance.addIncompleteOrder(newOrder);
+				OrderManager.instance.setCurrentOrder(newOrder);				
+				System.out.println("Table number: " + OrderManager.instance.getCurrentOrder().tableNo);
+				System.out.println("Creating new order from table number.");
+				TableManager.instance.getTable(choice).setStatus(Table.STATUS.OCCUPIED);
+			}
+		}
+		else {
+			System.out.println("Please select the correct table.");
+			setCurrentOrder();
+		}
+	}
+	
+	private boolean checkTableOrder(int tableNo) {
+		
+		for (Order o : OrderManager.instance.getIncompleteOrderList()) {
+			
+			if (o.tableNo == tableNo)
+				return true;
+		}
+		
+		return false;
 	}
 	
 }
