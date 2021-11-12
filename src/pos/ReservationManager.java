@@ -57,26 +57,18 @@ public class ReservationManager{
 	}
 	
 	//Alternative way to retrieve Customer's Reservation List
-	public ArrayList<Reservation> getReservationList(String contactNo)
+	public ArrayList<Reservation> getReservationListForContact(String contactNo)
 	{
 		ArrayList<Reservation> customerReservation = new ArrayList<Reservation>();
 		
-		if (reservationList.isEmpty())
-		{
-			System.out.println("The Reservation List is Empty!");
-		}
-		
-		else 
-		{
-			for (int x = 0; x < reservationList.size(); x++)
+	
+			for (Reservation r : reservationList)
 			{
-				Reservation currres = reservationList.get(x);
-				if (currres.getContactNo().equals(contactNo))
+				if (r.getContactNo().equals(contactNo))
 				{
-					customerReservation.add(currres);
+					customerReservation.add(r);
 				}
 			}
-		}
 		
 		return customerReservation;
 	}
@@ -85,13 +77,7 @@ public class ReservationManager{
 	{
 		ArrayList<Reservation> dateReservation = new ArrayList<Reservation>();
 		
-		if (reservationList.isEmpty())
-		{
-			System.out.println("The Reservation List is Empty!");
-		}
 		
-		else 
-		{
 			for (int x = 0; x < reservationList.size(); x++)
 			{
 				Reservation currres = reservationList.get(x);
@@ -100,20 +86,13 @@ public class ReservationManager{
 					dateReservation.add(currres);
 				}
 			}
-		}
 		
 		return dateReservation;
 	}
 	
 	public ArrayList<Reservation> getReservationList()
 	{
-		if (reservationList.isEmpty())
-		{
-			
-			return null;
-		}
-		else 
-			return reservationList;
+		return reservationList;
 	}
 
 	public Reservation getReservation( LocalDate date, LocalTime time, String contactNo)
@@ -136,25 +115,14 @@ public class ReservationManager{
 	
 
 	
-	public void deleteReservation(Reservation reservation1)
+	public void deleteReservation(Reservation reservation)
 	{
-		if (reservationList.isEmpty())
-		{
-			System.out.println("There are no reservations");
-		}
-		
-		else
-		{
-			for (int x = 0; x < reservationList.size(); x++)
-			{
-				Reservation currres = reservationList.get(x);
-				if (currres.getDate().equals(reservation1.getDate()) && currres.getTime().equals(reservation1.getTime()))
-				{
-					reservationList.remove(x);
-					System.out.println("Reservation is deleted.");
-				}
-			}
-		}	
+		reservationList.remove(reservation);
+	}
+	
+	public void deleteReservation(int index)
+	{
+		reservationList.remove(index);
 	}
 	
 	public void displayReservationList(ArrayList<Reservation> reservationList)
@@ -171,6 +139,7 @@ public class ReservationManager{
 			for (int x = 0; x < reservationList.size(); x++)
 			{
 				Reservation currres = reservationList.get(x);
+				System.out.println("====== Reservation ("+ (x+1) +") ======");
 				System.out.println("Reservation Date: " + currres.getDate());
 				System.out.println("Reservation Time: " + currres.getTime());
 				System.out.println("ReservationID: " + currres.getReservationID());
@@ -209,20 +178,6 @@ public class ReservationManager{
 		}
 	}
 	
-	public void displayReservation(Reservation reservation)
-	{
-		if (reservation.getDate() != null & reservation.getTime() != null)
-		{
-			System.out.println("Reservation Date: " + reservation.getDate());
-			System.out.println("Reservation Time: " + reservation.getTime());
-			System.out.println("Reservation Table No. : " + reservation.getTableNo()); // TODO Need to get Table
-			System.out.println("Reservation Number of Pax: " + reservation.getNoPax());
-			System.out.println("Customer's Name: " + reservation.getName());
-			System.out.println("Customer's Contact Number: " + reservation.getContactNo());
-		}
-		else 
-			System.out.println("No Reservation Found!");
-	}
 	
 	public boolean reservationChecker (LocalDate date, LocalTime time, int tableNo)
 	{
@@ -254,29 +209,6 @@ public class ReservationManager{
 		return checker;
 	}
 	
-	public void refreshReservationList()
-	{
-		LocalTime currentTime = LocalTime.now();
-		LocalDate currentDate = LocalDate.now();
-		
-		if (reservationList != null)
-		{
-			for (int x = 0; x < reservationList.size(); x++)
-			{
-				LocalTime resTime = reservationList.get(x).getTime();
-				LocalDate resDate = reservationList.get(x).getDate();
-				Duration duration = Duration.between(resTime, currentTime);
-				long difference = duration.toMinutes();
-				
-				if ((currentDate.equals(resDate) && difference > 20) || currentDate.isAfter(resDate))  //Orders Cancel in 20 Minutes 
-				{
-					reservationList.remove(x);
-				}
-			}
-		}
-		else;
-	}
-
 
 	public void save() {
 		

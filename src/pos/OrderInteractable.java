@@ -243,6 +243,7 @@ public class OrderInteractable implements IInteractable{
 	@Override
 	public void handleInput() {
 		
+		TableReservationSyncController.sync();
 		setCurrentOrder();
 		//OrderManager.instance.startNewOrder();
 		//OrderManager.instance.getCurrentOrder().setOrderID(IDGenerator.GenerateUniqueID());
@@ -297,7 +298,6 @@ public class OrderInteractable implements IInteractable{
 	
 	private void setCurrentOrder() {
 		
-		updateTable();
 		TableManager.instance.printTables();
 		System.out.println("Select a table number: ");
 		int choice = Integer.parseInt(Application.scanner.nextLine());
@@ -344,36 +344,5 @@ public class OrderInteractable implements IInteractable{
 		}
 		
 		return false;
-	}
-	
-	private void updateTable() {
-		ReservationManager.instance.refreshReservationList();
-		LocalDate localDate = LocalDate.now();
-    	LocalTime localTime = LocalTime.now();
-    	
-    	ArrayList<Reservation> reservationListDate = ReservationManager.instance.getReservationListForDate(localDate);
-    	
-    	for (int x = 0; x < reservationListDate.size(); x ++)
-    	{
-    		LocalTime resTime = reservationListDate.get(x).getTime();
-    		LocalDate resDate = reservationListDate.get(x).getDate();
-    		Duration duration = Duration.between(resTime, localTime);
-    		long difference = duration.toMinutes();
-    		System.out.println("DIFFERENCE: " + difference);
-    		if (difference <= 20 && difference >= 0)
-    		{
-    			int tableNo = reservationListDate.get(x).getTableNo();
-    			Table table = TableManager.instance.getTable(tableNo);
-    			table.setStatus(STATUS.RESERVED);
-    		}
-    		
-    		else if (localDate.isAfter(resDate) || difference > 20)
-    		{
-    			int tableNo = reservationListDate.get(x).getTableNo();
-    			Table table = TableManager.instance.getTable(tableNo);
-    			table.setStatus(STATUS.EMPTY);
-    		}
-    		
-    	}
 	}
 }

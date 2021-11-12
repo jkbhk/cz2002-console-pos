@@ -14,73 +14,12 @@ import java.time.Duration;
 public class ReserveInteractable implements IInteractable {
 	public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 	public static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH");
-	public LocalTime currentTime = LocalTime.now();
-	public LocalDate currentDate = LocalDate.now();
-	private LocalDate reservationDate;
+
 	InteractableComponent reservationAssistant = new InteractableComponent("Back",true);
-	private LocalTime timeSlots[] = new LocalTime[14]; 
+	private LocalTime timeSlots[] = {LocalTime.parse("10",dtf),LocalTime.parse("11",dtf),LocalTime.parse("12",dtf),LocalTime.parse("13",dtf),LocalTime.parse("14",dtf),LocalTime.parse("15",dtf),LocalTime.parse("16",dtf),LocalTime.parse("17",dtf),LocalTime.parse("18",dtf),LocalTime.parse("19",dtf),LocalTime.parse("20",dtf),LocalTime.parse("21",dtf),LocalTime.parse("22",dtf),LocalTime.parse("23",dtf)}; 
 	
-	private LocalTime requestTime() {
-		
 	
 		
-		LocalTime timeSlots[] = {LocalTime.parse("10",dtf),LocalTime.parse("11",dtf),LocalTime.parse("12",dtf),LocalTime.parse("13",dtf),LocalTime.parse("14",dtf),LocalTime.parse("15",dtf),LocalTime.parse("16",dtf),LocalTime.parse("17",dtf),LocalTime.parse("18",dtf),LocalTime.parse("19",dtf),LocalTime.parse("20",dtf),LocalTime.parse("21",dtf),LocalTime.parse("22",dtf),LocalTime.parse("23",dtf)};
-		
-		System.out.println("Select your preferred timeslot.");
-		
-		for(int x = 0; x < 14; x++)
-		{
-			System.out.println((x+1)+ ".  Time: " + timeSlots[x]);
-		}
-		System.out.println(" ");
-		
-		
-		
-		int choice = -1;
-		while (choice <= 0 || choice > 15)
-		{
-			System.out.println("Select your TimeSlot");
-			choice = Integer.parseInt(Application.scanner.nextLine());
-			LocalTime localTime = timeSlots[choice-1];
-			
-			if ((reservationDate.isEqual(currentDate) && localTime.isAfter(currentTime)) || reservationDate.isAfter(currentDate))
-			{
-				return localTime;
-			}
-			else {
-				System.out.println("You cannot book a reservation that has passed.");
-				return null;
-			}
-		}
-		
-		
-		return null;
-	}
-	
-	private LocalDate requestDate() {
-		
-		System.out.println("Enter Date of Reservation in DD-MM-YYYY");
-		String dateString = Application.scanner.nextLine();
-				
-		if(dateString.matches("\\d{2}-\\d{2}-\\d{4}")) {  
-				//convert String to LocalDate
-			LocalDate localDate = LocalDate.parse(dateString, formatter);
-			if (localDate.isAfter(currentDate) || localDate.isEqual(currentDate))
-			{
-				reservationDate = localDate;
-				return localDate;
-			}
-			else 
-			{
-				System.out.println("You cannot book a reservation that has passed.");
-				return null;
-			}
-		}
-		
-		System.out.println("Date is in the wrong format!");
-		return null;
-	}
-	
 	public ReserveInteractable()
 	{
 		reservationAssistant.addInteractable(new IInteractable() {
@@ -88,16 +27,10 @@ public class ReserveInteractable implements IInteractable {
 			@Override
 			public void handleInput() {
 				// TODO Auto-generated method stub
-				ReservationManager.instance.refreshReservationList(); //Refresh List
+				TableReservationSyncController.sync();
 				
-				LocalDate localDate = requestDate();
-				if(localDate == null)
-					return;
-				
-				LocalTime time = requestTime();
-				if(time == null)
-					return;
-				
+				LocalDate localDate = requestValidDate();
+				LocalTime time = requestValidTime(getAvailableTimeSlots(localDate));
 				
 				System.out.println("Enter Customer Name");
 				String customerName = Application.scanner.nextLine();
@@ -159,10 +92,8 @@ public class ReserveInteractable implements IInteractable {
 					
 				}
 				
-				
-				
-			
-				
+				TableReservationSyncController.sync();	
+	
 			}
 
 			@Override
@@ -179,55 +110,45 @@ public class ReserveInteractable implements IInteractable {
 			public void handleInput() {
 				// TODO Auto-generated method stub
 				
-				LocalDate date = requestDate();
-				if(date == null)
-					return;
-				
-				LocalTime time = requestTime();
-				if(time == null)
-					return;
-				
-				
+				TableReservationSyncController.sync();
 				System.out.println("Enter Customer's Contact Number");
                 String contactNo = Application.scanner.nextLine();
-                
-				if (ReservationManager.instance.reservationChecker(date,time) && ReservationManager.instance.getReservation(date, time, contactNo).getContactNo().equals(contactNo))
-				{
-					Reservation reservation1 = ReservationManager.instance.getReservation(date,time, contactNo);
-	                
-	               
-	                //TableManager maybe can display available Tables to reserve
-	                
-	                System.out.println("Select new date");
-	                LocalDate dateNew = requestDate();
-					if(date == null)
-						return;
-					
-					System.out.println("Select new time");
-					LocalTime timeNew = requestTime();
-					if(time == null)
-						return;
-	                
-	                if(ReservationManager.instance.reservationChecker(dateNew, timeNew))
-	                {
-	                	System.out.println("This reservation is not available to book.");
-	                }
-	                
-	                else 
-	                {
-	                	reservation1.setDate(dateNew);
-	                	reservation1.setTime(timeNew);
-	                	System.out.println("Reservation Date have been successfully changed to " + dateNew + " at " + timeNew + " Hrs");
-	                   
-	                }
-				}
+			
+                ArrayList<Reservation> rlist = ReservationManager.instance.getReservationListForContact(contactNo);
+                if(rlist.size() <= 0) {
+                	System.out.println("No reservations for this number");
+                	return;
+                }
 				
-				else
-				{
-					System.out.println("This Reservation Does Not Exist.");
-				}
+                ReservationManager.instance.displayReservationList(rlist);
                 
-				ReservationManager.instance.refreshReservationList();
+                System.out.println("Select reservation number to edit:");
+                
+                int choice = -1;
+                
+                while(choice < 1 || choice >= rlist.size()+1)
+                	choice = Integer.parseInt(Application.scanner.nextLine());
+                
+                
+               Reservation current = rlist.get(choice-1); 
+               System.out.println("Enter new date ? "); 
+               
+               LocalDate dateNew = requestValidDate();
+          
+               current.setDate(dateNew);
+               
+               System.out.println("Enter new time ?");
+              
+               LocalTime timeNew = requestValidTime(getAvailableTimeSlots(dateNew));
+               
+               if(timeNew == null)
+            	   return;
+               else
+            	   current.setTime(timeNew);
+               
+               System.out.println("Reservation Date have been successfully changed to " + dateNew + " at " + timeNew + " Hrs");
+			
+               TableReservationSyncController.sync();
                      
 				
 			}
@@ -245,18 +166,10 @@ public class ReserveInteractable implements IInteractable {
 			@Override
 			public void handleInput() {
 				// TODO Auto-generated method stub
+				TableReservationSyncController.sync();
 				System.out.println("Enter Contact Number");
 				String contactNo = Application.scanner.nextLine();
-				if (ReservationManager.instance.getReservationList(contactNo).size() == 0)
-				{
-					System.out.println("There is no such reservation.");
-				}
-				else
-				{
-					ReservationManager.instance.displayReservationList(ReservationManager.instance.getReservationList(contactNo));
-				}
-				
-				ReservationManager.instance.refreshReservationList();
+				ReservationManager.instance.displayReservationList(ReservationManager.instance.getReservationListForContact(contactNo));
 			}
 
 			@Override
@@ -271,27 +184,33 @@ public class ReserveInteractable implements IInteractable {
 
 			@Override
 			public void handleInput() {
-				// TODO Auto-generated method stub
-				System.out.println("Enter Reservation Date to delete");
+				TableReservationSyncController.sync();	
 				
-				LocalDate date = LocalDate.parse(Application.scanner.nextLine(),formatter);
-				ArrayList<Reservation> resList = ReservationManager.instance.getReservationListForDate(date);
-				for (int x = 0; x <resList.size(); x++ )
-				{
-					System.out.println((x+1)+".  Date: " + resList.get(x).getDate().toString() + " Time: " + resList.get(x).getTime());
-				}
+				System.out.println("Enter Customer's Contact Number");
+                String contactNo = Application.scanner.nextLine();
+			
+                ArrayList<Reservation> rlist = ReservationManager.instance.getReservationListForContact(contactNo);
+       
+                if(rlist.size() <= 0) {
+                	System.out.println("No reservations for this number");
+                	return;
+                }
 				
-				if (resList.size() == 0)
-				{
-					System.out.println("There is no reservations to delete");
-				}
-				else 
-				{
-					System.out.println("Enter your choice to delete");
-					int choice = Integer.parseInt(Application.scanner.nextLine());
-					ReservationManager.instance.deleteReservation(resList.get(choice-1));
-				}
-				ReservationManager.instance.refreshReservationList();
+                ReservationManager.instance.displayReservationList(rlist); 
+                
+                System.out.println("Select reservation number to delete:");
+                
+                int choice = Integer.parseInt(Application.scanner.nextLine());
+                if(choice <=0 || choice >rlist.size())
+                	System.out.println("Invalid choice");
+                else {
+                	Reservation toDelete = rlist.get(choice-1);
+                	ReservationManager.instance.deleteReservation(toDelete);
+                	System.out.println("Reservation deleted.");
+                }  
+               
+				
+				TableReservationSyncController.sync();	
 			}
 
 			@Override
@@ -306,7 +225,7 @@ public class ReserveInteractable implements IInteractable {
 
 			@Override
 			public void handleInput() {
-				ReservationManager.instance.refreshReservationList();
+				TableReservationSyncController.sync();
 				ReservationManager.instance.displayReservationList();
 			}
 
@@ -331,5 +250,83 @@ public class ReserveInteractable implements IInteractable {
 		// TODO Auto-generated method stub
 		return "Manage Reservations"; 
 	}
+	
+	
+	private LocalTime requestValidTime(ArrayList<LocalTime> options) {
+		
+		if(options == null) {
+			System.out.println("no available time slots left!");
+			return null;
+		}
+		
+		System.out.println("Select your preferred timeslot.");
+		
+		for(int x = 0; x < options.size(); x++){
+			System.out.println((x+1)+ ".  Timeslot: " + options.get(x));
+		}
+		System.out.println(" ");
+		int choice = Integer.parseInt(Application.scanner.nextLine());
+		
+		if(choice <= 0 || choice > options.size())
+			return requestValidTime(options);
+		else
+			return options.get(choice-1);
+				
+		
+	}
+	
+	
+	private LocalDate requestValidDate() {
+		
+			System.out.println("Enter Date of Reservation in DD-MM-YYYY");
+			String dateString = Application.scanner.nextLine();
+				
+			if(dateString.matches("\\d{2}-\\d{2}-\\d{4}")) {  
+				//convert String to LocalDate
+				LocalDate localDate = LocalDate.parse(dateString, formatter);
+				if(localDate.isAfter(LocalDate.now()) || localDate.equals(LocalDate.now()))
+					return localDate;
+				else
+					System.out.println("cannot travel back in time!");
+				
+			}else {
+				System.out.println("date is in wrong format!");
+			}
+		
+		return requestValidDate();
+	}
+	
+	private ArrayList<LocalTime> getAvailableTimeSlots(LocalDate date){
+		
+		ArrayList<LocalTime> options = new ArrayList<LocalTime>();
+        LocalTime time = LocalTime.now();
+        int index = 0;
+        
+        if(date.equals(LocalDate.now())) {
+        	for (int x = 0; x < timeSlots.length; x++)
+        	{
+        		if (time.isBefore(timeSlots[x]))
+        		{
+        			index = x;
+        			break;
+        		}
+            
+        	}
+        }
+        
+        
+        for (int y = index; y < timeSlots.length; y++)
+        {
+            options.add(timeSlots[y]);
+        }
+        
+        if (options.size() == 0)
+            return null;
+        else 
+            return options;
+		
+		
+	}
+	
 
 }
