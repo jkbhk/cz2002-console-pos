@@ -41,8 +41,10 @@ public class DebugInteractable implements IInteractable{
     	}
     	
     	TableManager.instance.printTables();
-    
+
     	*/
+    	
+    	
     }
 
     @Override

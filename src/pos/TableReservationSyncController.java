@@ -30,8 +30,10 @@ public class TableReservationSyncController {
     		
     		if ((resDate.equals(LocalDate.now())) && (difference <= 20 && difference >= 0))
     			table.setStatus(STATUS.RESERVED);
-    		else
-    			table.setStatus(STATUS.EMPTY);
+    		else {
+    			if(table.getStatus() == STATUS.RESERVED)
+    				table.setStatus(STATUS.EMPTY);
+    		}
     			
     	}
 	
@@ -43,7 +45,7 @@ public class TableReservationSyncController {
 		LocalDate currentDate = LocalDate.now();
 		
 		ArrayList<Reservation> reservationList = ReservationManager.instance.getReservationList();
-		ArrayList<Integer> toDelete = new ArrayList<Integer>();
+		ArrayList<Reservation> toDelete = new ArrayList<>();
 		
 		if (reservationList != null)
 		{
@@ -59,15 +61,15 @@ public class TableReservationSyncController {
 				
 				if ((currentDate.equals(resDate) && difference > 20) || currentDate.isAfter(resDate))  //Orders Cancel in 20 Minutes 
 				{
-					toDelete.add(i);
+					toDelete.add(r);
 					int tableNo = r.getTableNo();
 					TableManager.instance.getTable(tableNo).setStatus(STATUS.EMPTY);
 				}
 			}
 			
 			
-			for(int i : toDelete) {
-				ReservationManager.instance.deleteReservation(i);
+			for(Reservation r : toDelete) {
+				ReservationManager.instance.deleteReservation(r);
 			}
 		}
 	}

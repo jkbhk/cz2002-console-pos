@@ -38,6 +38,7 @@ public class Application {
 		interactableComponent.addInteractable(new OrderInteractable());
 		interactableComponent.addInteractable(new DebugInteractable());
 		interactableComponent.addInteractable(new SalesInteractable());
+		interactableComponent.addInteractable(new OccupyInteractable());
 	}
 
 

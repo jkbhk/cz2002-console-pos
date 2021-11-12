@@ -124,10 +124,12 @@ public class ReserveInteractable implements IInteractable {
                 
                 System.out.println("Select reservation number to edit:");
                 
-                int choice = -1;
                 
-                while(choice < 1 || choice >= rlist.size()+1)
-                	choice = Integer.parseInt(Application.scanner.nextLine());
+                int choice = Integer.parseInt(Application.scanner.nextLine());
+                if(choice <= 0 || choice > rlist.size()) {
+                	System.out.println("invalid choice");
+                	return;
+                }
                 
                 
                Reservation current = rlist.get(choice-1); 
@@ -225,7 +227,8 @@ public class ReserveInteractable implements IInteractable {
 
 			@Override
 			public void handleInput() {
-				TableReservationSyncController.sync();
+				//TableReservationSyncController.sync();
+				TableReservationSyncController.refreshReservationList();
 				ReservationManager.instance.displayReservationList();
 			}
 
