@@ -9,7 +9,7 @@ public class Application {
 	public static Scanner scanner = new Scanner(System.in);
 	
 	//Store Details
-	public static final String STORE_NAME = "WesternWednesday";
+	public static final String STORE_NAME = "COOKHOUSE1";
 	public static final String STORE_ADDRESS = "Palau Tekong Drive 1";
 	public static final String STORE_NUMBER = "6555 5555";
 

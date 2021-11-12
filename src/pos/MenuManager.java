@@ -40,14 +40,14 @@ public class MenuManager{
 	public void displayMenu() {
 		
 		
-		String leftAlignFormat = "| %-17s             %-5s |\n";
-		String descAlignFormat = "| %-36s|\n";
+		String leftAlignFormat = "| %-25s              %-5s |\n";
+		String descAlignFormat = "| %-44s |\n";
 
-		System.out.println("================= Menu ================");
-		System.out.println("|                                     |");
-		System.out.println("| Menu item                    Cost($)|");
-		System.out.println("|-------------------------------------|");
-		System.out.println("|                                     |");
+		System.out.println("===================== Menu =====================");
+		System.out.println("|                                              |");
+		System.out.println("| Menu item                            Cost($) |");
+		System.out.println("|----------------------------------------------|");
+		System.out.println("|                                              |");
 		
 		String currentTag = "";
 		
@@ -56,17 +56,17 @@ public class MenuManager{
 			
 			if(!currentTag.equals(temp.getTag())) {
 				currentTag = temp.getTag();
-				System.out.println("|                                     |");
+				System.out.println("|                                              |");
 				System.out.printf(descAlignFormat,currentTag);
-				System.out.println("|-------------------------------------|");
+				System.out.println("|----------------------------------------------|");
 			}
 			
 		    System.out.printf(leftAlignFormat, (i+1) + ") " + temp.getName(), String.format("%.2f", temp.getPrice()));
 		    System.out.printf(descAlignFormat, temp.getDescription());
-		    System.out.println("|                                     |");
+		    System.out.println("|                                              |");
 		}
 		
-		System.out.println("|=====================================|");
+		System.out.println("|==============================================|");
 	}
 	
 	
@@ -79,7 +79,7 @@ public class MenuManager{
 
 	public MenuItem getMenuItem(String id) {
 		for (MenuItem m : menuItems) {
-			if (m.getMenuItemID() == id)
+			if (m.getMenuItemID().equals(id))
 				return m;
 		}
 

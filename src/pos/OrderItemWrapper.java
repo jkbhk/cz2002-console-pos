@@ -32,7 +32,7 @@ public class OrderItemWrapper {
 		return this.itemPrices;
 	}
 	
-	public void setItemPrices(double itemPrices) {
+	public void setItemPrices(float itemPrices) {
 		this.itemPrices = itemPrices;
 	}
 	
@@ -43,5 +43,8 @@ public class OrderItemWrapper {
 	public void decrementQuantity(int quantity) {
 		this.quantity -= quantity;
 	}
-
+	/*
+	public void calculateItemPrices(double price) {
+		this.itemPrices = quantity * price;
+	}*/
 }

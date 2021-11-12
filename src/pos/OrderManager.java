@@ -14,6 +14,7 @@ public class OrderManager{
 		instance = this;
 		this.dao = d;
 		orderList = d.read();
+		
 	}
 	
 	
@@ -93,6 +94,15 @@ public class OrderManager{
 	
 	public void addIncompleteOrder(Order o) {
 		incompleteOrderList.add(o);
+	}
+	
+	public Order getOrder(String id) {
+		for (Order o : orderList) {
+			if (o.getOrderID().equals(id)) {
+				return o;
+			}
+		}
+		return null;
 	}
 	
 	public void save() {

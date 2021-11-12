@@ -37,11 +37,11 @@ public class MenuInteractable implements IInteractable{
                     }
                     
                     System.out.println("Add another?");
-                    System.out.println("(y) yes ");
-                    System.out.println("(n) no");
-                    String again = Application.scanner.nextLine();
+                    System.out.println("1) yes ");
+                    System.out.println("2) no");
+                    int again = Integer.parseInt(Application.scanner.nextLine());
                     
-                    if(!again.equals("y"))
+                    if(again != 1)
                         done = true;   
                             
                 }

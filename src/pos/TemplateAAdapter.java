@@ -12,11 +12,17 @@ public class TemplateAAdapter implements ITemplateA{
 	
 	public TemplateAAdapter(Invoice i) {
 		invoice = i;
-		o = OrderManager.instance.getCurrentOrder();
+		o = OrderManager.instance.getOrder(i.getOrderID());
 		splittingArrayList(o);
 	}
 
 	public void splittingArrayList(Order o) {
+		
+		if (o == null) {
+			System.out.println("Can't find order in invoice.");
+			return;
+		}
+		
 		int menuItemSize = o.getMenuItemIDList().size();
 		
 		menuItems = new String[menuItemSize];

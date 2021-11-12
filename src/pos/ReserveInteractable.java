@@ -33,7 +33,7 @@ public class ReserveInteractable implements IInteractable {
 			@Override
 			public void handleInput() {
 				TableReservationSyncController.sync();
-				
+								
 				LocalDate localDate = requestValidDate();
 			
 				LocalTime time = requestValidTime(getAvailableTimeSlots(localDate));
@@ -42,6 +42,13 @@ public class ReserveInteractable implements IInteractable {
 					return;
 				}
 				
+				//To set table as book and set tableNo in reservation.
+				ArrayList<Table> tableList = getAvailableTable(localDate,time);
+				
+				if (tableList == null) {
+					System.out.println("No tables ");
+					return;
+				}
 				
 				System.out.println("Enter Customer Name");
 				String customerName = Application.scanner.nextLine();
@@ -50,24 +57,20 @@ public class ReserveInteractable implements IInteractable {
 				
 				System.out.println("Enter Number of Pax");
 				int noPax = Integer.parseInt(Application.scanner.nextLine()) ;
-				
-				
-				//To set table as book and set tableNo in reservation.
-				ArrayList<Table> tableList = getAvailableTable(localDate,time);
-				
-				
+									
 				printFilterTableList(tableList);
 				
 				//Check if table is available & number of pax == tableSize
 				System.out.println("Select Table Number for Reservation.");
-				int tableNo = Integer.parseInt(Application.scanner.nextLine());
-				
-				
-				if (TableManager.instance.getTable(tableNo).getTableSize() < noPax)
+				Table t = requestValidTable(tableList);
+								
+				if (t.getTableSize() < noPax)
 				{
 					System.out.println("This Table is Not Suitable for Number of Pax.");
+					return;
+					
 				}
-				
+								
 				if (!CustomerManager.instance.checkCustomerInList(customerName,contactNo))
 				{
 						System.out.println("Registering Customer...");
@@ -77,7 +80,7 @@ public class ReserveInteractable implements IInteractable {
 						
 					}
 					
-				ReservationManager.instance.createReservation(customerName, contactNo, noPax, localDate, time,tableNo);
+				ReservationManager.instance.createReservation(customerName, contactNo, noPax, localDate, time, t.getTableNo());
 				
 					
 				
@@ -338,6 +341,25 @@ public class ReserveInteractable implements IInteractable {
 		else
 			return sortedTableList;
 		
+	}
+	
+	private Table requestValidTable(ArrayList<Table> tableList) {
+		
+		if (tableList == null) {
+			return null;
+		}
+		
+		System.out.println("Select table number: ");
+		int tableNo = Integer.parseInt(Application.scanner.nextLine());
+		
+		for (Table temp : tableList) {
+			if (temp.getTableNo() == tableNo) {
+				return temp;
+			}
+		}
+		
+		System.out.println("Invalid choice. Choose again");
+		return requestValidTable(tableList);
 	}
 	
 

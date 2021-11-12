@@ -64,12 +64,17 @@ public class SalesInteractable implements IInteractable{
 			return;
 		}
 		
+		System.out.println("********************* PRINTING ALL INVOICES *********************");
+		System.out.println();
+		
 		for(Invoice i : list) {
+			InvoicePrinter.printTemplate(new TemplateAAdapter(i));
 			total += i.getNetTotal();
 		}
 		
 		String revenue = String.format("$%.2f", total);
 		
+		System.out.println();
 		System.out.println("Total revenue for " + period + " :");
 		System.out.println(revenue + "\n");
 	}
