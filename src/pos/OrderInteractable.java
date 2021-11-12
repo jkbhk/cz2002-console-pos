@@ -70,12 +70,12 @@ public class OrderInteractable implements IInteractable{
 					System.out.println("There's no item to remove.");
 				}
 				else {
+					int count = 1;
 					for (OrderItemWrapper oiw : o.getMenuItemIDList()) {
-						int count = 1;
 						System.out.println(count + ") " + MenuManager.instance.getMenuItem(oiw.getMenuItemID()).getName() 
 								+ "  $" + String.format("%.2f", MenuManager.instance.getMenuItem(oiw.getMenuItemID()).getPrice()) + 
 										"  Qty: " + oiw.getQuantity() + " Item Prices: $" + String.format("%.2f", oiw.getItemPrices()));
-						
+						count++;
 					}
 					System.out.println("Enter the menu items that you want to delete in this order: ");
 					int choice = Integer.parseInt(Application.scanner.nextLine());
