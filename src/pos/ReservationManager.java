@@ -1,15 +1,14 @@
 package pos;
 
-import java.time.Duration;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
 
 public class ReservationManager{
 
-	private Reservation reservation;
+	
 	private ArrayList<Reservation> reservationList = new ArrayList<Reservation>();
-	private String membershipID;
 	private Dao<Reservation> reservationDao;
 	public static ReservationManager instance;
 	public static final long RESERVATION_EXPIRY = 20;
@@ -45,13 +44,10 @@ public class ReservationManager{
 	}
 	
 	
-	public void createReservation(String name, String contactNo, int noPax, LocalDate date, LocalTime time)
+	public void createReservation(String name, String contactNo, int noPax, LocalDate date, LocalTime time, int tableNo)
 	{
 		// To - Do
-		Reservation reservation1 = new Reservation();
-		reservation1.makeReservation(date, time, noPax, name, contactNo);
-		
-		reservation1.setReservationID(IDGenerator.GenerateUniqueID());
+		Reservation reservation1 = new Reservation(IDGenerator.GenerateUniqueID(), date, time,noPax,tableNo,contactNo,name);
 		reservationList.add(reservation1);
 		System.out.println("Reservation has been created for\n" + "Mr/Mrs/Ms " +reservation1.getName() + " on " + reservation1.getDate() + " at " + reservation1.getTime() +" Hrs."  );
 		
@@ -143,7 +139,6 @@ public class ReservationManager{
 				System.out.println("====== Reservation ("+ (x+1) +") ======");
 				System.out.println("Reservation Date: " + currres.getDate());
 				System.out.println("Reservation Time: " + currres.getTime());
-				System.out.println("ReservationID: " + currres.getReservationID());
 				System.out.println("Number of Pax: " + currres.getNoPax());
 				System.out.println("Table Number: " + currres.getTableNo());
 				System.out.println("Customer's Name: " + currres.getName());
@@ -169,7 +164,6 @@ public class ReservationManager{
 				Reservation currres = reservationList.get(x);
 				System.out.println("Reservation Date: " + currres.getDate());
 				System.out.println("Reservation Time: " + currres.getTime());
-				System.out.println("ReservationID: " + currres.getReservationID());
 				System.out.println("Number of Pax: " + currres.getNoPax());
 				System.out.println("Table Number: " + currres.getTableNo());
 				System.out.println("Customer's Name: " + currres.getName());
