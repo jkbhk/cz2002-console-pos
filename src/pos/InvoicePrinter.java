@@ -3,7 +3,7 @@ package pos;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-public class GenericDataPrinter {
+public class InvoicePrinter {
 	
 	public static void printTemplate(ITemplateA a) {
 		String x = "=";

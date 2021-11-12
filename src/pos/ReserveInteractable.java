@@ -32,7 +32,6 @@ public class ReserveInteractable implements IInteractable {
 
 			@Override
 			public void handleInput() {
-				// TODO Auto-generated method stub
 				TableReservationSyncController.sync();
 				
 				LocalDate localDate = requestValidDate();
@@ -53,7 +52,6 @@ public class ReserveInteractable implements IInteractable {
 				int noPax = Integer.parseInt(Application.scanner.nextLine()) ;
 				
 				
-				//TODO Need to call TableManager
 				//To set table as book and set tableNo in reservation.
 				ArrayList<Table> tableList = getAvailableTable(localDate,time);
 				
@@ -72,20 +70,13 @@ public class ReserveInteractable implements IInteractable {
 				
 				if (!CustomerManager.instance.checkCustomerInList(customerName,contactNo))
 				{
-					// TODO Need to call CustomerManager
-					Customer currCus = new Customer();
-					
 						System.out.println("Registering Customer...");
 						String customerID = IDGenerator.GenerateUniqueID();
 						String membershipID = IDGenerator.GenerateUniqueAlphaNum(5);
 						CustomerManager.instance.createCustomer(customerName, contactNo, membershipID, customerID, true);
 						
-						currCus = CustomerManager.instance.getCustomer(customerName,contactNo);
 					}
 					
-					//CustomerManager.instance.displayCustomerList();s
-					
-					//TODO change reservationManager
 				ReservationManager.instance.createReservation(customerName, contactNo, noPax, localDate, time,tableNo);
 				
 					
@@ -97,7 +88,6 @@ public class ReserveInteractable implements IInteractable {
 
 			@Override
 			public String getTitle() {
-				// TODO Auto-generated method stub
 				return "Create New Reservation" ;
 			}
 			
@@ -107,7 +97,6 @@ public class ReserveInteractable implements IInteractable {
 
 			@Override
 			public void handleInput() {
-				// TODO Auto-generated method stub
 				
 				TableReservationSyncController.sync();
 				System.out.println("Enter Customer's Contact Number");
@@ -156,7 +145,6 @@ public class ReserveInteractable implements IInteractable {
 
 			@Override
 			public String getTitle() {
-				// TODO Auto-generated method stub
 				return "Edit Reservation" ;
 			}
 			
@@ -166,7 +154,6 @@ public class ReserveInteractable implements IInteractable {
 
 			@Override
 			public void handleInput() {
-				// TODO Auto-generated method stub
 				TableReservationSyncController.sync();
 				System.out.println("Enter Contact Number");
 				String contactNo = Application.scanner.nextLine();
@@ -175,7 +162,6 @@ public class ReserveInteractable implements IInteractable {
 
 			@Override
 			public String getTitle() {
-				// TODO Auto-generated method stub
 				return "View Customer's Reservations Details" ;
 			}
 			
@@ -216,7 +202,6 @@ public class ReserveInteractable implements IInteractable {
 
 			@Override
 			public String getTitle() {
-				// TODO Auto-generated method stub
 				return "Delete Reservation" ;
 			}
 			
@@ -226,14 +211,12 @@ public class ReserveInteractable implements IInteractable {
 
 			@Override
 			public void handleInput() {
-				//TableReservationSyncController.sync();
 				TableReservationSyncController.refreshReservationList();
 				ReservationManager.instance.displayReservationList();
 			}
 
 			@Override
 			public String getTitle() {
-				// TODO Auto-generated method stub
 				return "Display All Reservation List" ;
 			}
 			
@@ -243,13 +226,11 @@ public class ReserveInteractable implements IInteractable {
 
 	@Override
 	public void handleInput() {
-		// TODO Auto-generated method stub
 		reservationAssistant.start();
 	}
 
 	@Override
 	public String getTitle() {
-		// TODO Auto-generated method stub
 		return "Manage Reservations"; 
 	}
 	

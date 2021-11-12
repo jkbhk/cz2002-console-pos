@@ -57,7 +57,6 @@ public class StaffInteractable implements IInteractable {
 
 				@Override
 				public String getTitle() {
-					// TODO Auto-generated method stub
 					return "Remove Staff";
 				}
 				
@@ -85,13 +84,11 @@ public class StaffInteractable implements IInteractable {
 	
 	@Override
 	public void handleInput() {
-		// TODO Auto-generated method stub
 		staffAssistant.start();
 	}
 
 	@Override
 	public String getTitle() {
-		// TODO Auto-generated method stub
 		return "Manage Staff";
 	}
 

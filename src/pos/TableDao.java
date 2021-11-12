@@ -24,7 +24,7 @@ public class TableDao implements Dao<Table> {
 
     @Override
     public void write(ArrayList<Table> list) {
-        String[][] unwrapped = new String[list.size()][4];
+        String[][] unwrapped = new String[list.size()][3];
         
         for(int i = 0; i < list.size(); i++){
             
@@ -32,7 +32,6 @@ public class TableDao implements Dao<Table> {
             unwrapped[i][0] = temp.getTableId();
             unwrapped[i][1] = ""+temp.getTableNo();
             unwrapped[i][2] = ""+temp.getTableSize();
-            unwrapped[i][3] = ""+temp.getStatus();
         }
 
         GenericFileWriter.writeFile(unwrapped, filename);

@@ -5,7 +5,6 @@ public class Invoice {
 	private String invoiceID;
 	private String orderID;
 	private String staffID;
-	//private String customerID;
 	
 	private String date;
 	private String time;
@@ -25,7 +24,6 @@ public class Invoice {
 		this.invoiceID = invoiceID;
 		this.orderID = orderID;
 		this.staffID = staffID;
-		//this.customerID = customerID;
 		this.date = date;
 		this.time = time;
 		this.gstRate = gstRate;
@@ -95,17 +93,5 @@ public class Invoice {
 		return netTotal;
 	}
 
-	
-	/*
-	public void printItems(String format) {		
-		for (OrderItemWrapper oiw : menuItemIDList) {
-			String itemName = MenuManager.instance.getMenuItem(oiw.getMenuItemID()).getName();
-			double itemPrice = MenuManager.instance.getMenuItem(oiw.getMenuItemID()).getPrice();
-			
-			System.out.printf(format, itemName, oiw.getQuantity(), itemPrice, oiw.getItemPrices());
-		}
-		
-	}
-	*/
 	
 }

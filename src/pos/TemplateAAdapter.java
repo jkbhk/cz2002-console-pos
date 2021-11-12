@@ -56,7 +56,6 @@ public class TemplateAAdapter implements ITemplateA{
 	
 	@Override
 	public String getGSTPrice() {
-		//this.gstPrice = (invoice.getGstPrice()/100) * o.getTotalPrice();
 		String result = String.format("%.2f", invoice.getGstPrice());
 		
 		return result;
@@ -70,7 +69,6 @@ public class TemplateAAdapter implements ITemplateA{
 	
 	@Override 
 	public String getMembershipDiscountPrice() {
-		//this.membershipPrice = (invoice.getMembershipDiscountPrice()/100)*o.getTotalPrice();
 		String result = String.format("%.2f", invoice.getMembershipDiscountPrice());
 		return result;
 	}
@@ -83,7 +81,6 @@ public class TemplateAAdapter implements ITemplateA{
 
 	@Override
 	public String getServicePrice() {
-		//serviceChargePrice = (invoice.getServicePrice()/100) * o.getTotalPrice();
 		String result = String.format("%.2f", invoice.getServicePrice());
 		
 		return result;
@@ -95,14 +92,6 @@ public class TemplateAAdapter implements ITemplateA{
 		return String.format("%.2f", invoice.getTotalPrice());
 	}
 	
-	/*
-	@Override
-	public String getNetTotalPrice() {
-		netTotalPrice = invoice.getTotalPrice() - membershipPrice + serviceChargePrice + gstPrice;
-		String result = String.format("%.2f", netTotalPrice);
-		return result;
-	}
-*/
 	@Override
 	public boolean getIsMember() {
 		

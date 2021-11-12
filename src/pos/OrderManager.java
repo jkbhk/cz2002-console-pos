@@ -16,9 +16,6 @@ public class OrderManager{
 		orderList = d.read();
 	}
 	
-	//public ArrayList<Order> getOrderList(){
-		//return this.orderList;
-	//}
 	
 	public ArrayList<Order> getIncompleteOrderList(){
 		return this.incompleteOrderList;

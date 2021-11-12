@@ -10,15 +10,14 @@ public class StockManager {
     private Dao<Stock> dao;
 
     public StockManager(Dao<Stock> d){
-       //stocks = new ArrayList<>();
        instance = this;
        dao = d;
        stocks = d.read();
     }
 
 
-    public void createNewStock(String id, String stockName, int stockQuantity) {
-        Stock stock = new Stock(id,stockName,stockQuantity);
+    public void createNewStock(String id, String stockName) {
+        Stock stock = new Stock(id,stockName);
         stocks.add(stock);
     }
 
@@ -29,9 +28,9 @@ public class StockManager {
             Stock temp = stocks.get(i);
 
             if(showIndexing)
-                System.out.println((i+1) + ") " + temp.getName() + " " + temp.getQuantity());
+                System.out.println((i+1) + ") " + temp.getName());
             else
-                System.out.println(temp.getName() + " " + temp.getQuantity());
+                System.out.println(temp.getName());
         }
     
     }

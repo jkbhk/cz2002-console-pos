@@ -20,7 +20,6 @@ public class SalesInteractable implements IInteractable{
 
 			@Override
 			public String getTitle() {
-				// TODO Auto-generated method stub
 				return "Revenue for today";
 			}
 			
@@ -38,7 +37,6 @@ public class SalesInteractable implements IInteractable{
 
 			@Override
 			public String getTitle() {
-				// TODO Auto-generated method stub
 				return "Revenue for this month";
 			}
 			
@@ -54,7 +52,6 @@ public class SalesInteractable implements IInteractable{
 
 	@Override
 	public String getTitle() {
-		// TODO Auto-generated method stub
 		return "Generate Revenue Report";
 	}
 	

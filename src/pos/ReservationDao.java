@@ -2,14 +2,11 @@ package pos;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class ReservationDao implements Dao<Reservation>  {
 
 	private static final String filename = "reservation_data.csv";
-	private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-	private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH");
 	
 	@Override
 	public ArrayList<Reservation> read() {

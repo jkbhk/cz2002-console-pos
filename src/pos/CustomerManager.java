@@ -5,7 +5,6 @@ import java.util.*;
 public class CustomerManager {
 	
 	private Dao<Customer> customerDao;
-	//private Customer customer;
 	private ArrayList<Customer> customerList = new ArrayList<Customer>();
 	public static CustomerManager instance;
 	
@@ -22,17 +21,14 @@ public class CustomerManager {
 		Customer currcust = new Customer();
 		if (customerList.isEmpty())
 		{
-			//System.out.println("customerList is Empty");
 			return currcust = null;
 		}
 		else 
 		{
-			//System.out.println("customerList is not Empty");
 			for (x = 0; x < customerList.size(); x++)
 			{
 				if (customerList.get(x).getCustomerID().equals(customerID))
 				{
-					//System.out.println("There is a customerID that is the same");
 					currcust = customerList.get(x);
 				}
 			}
@@ -51,17 +47,14 @@ public class CustomerManager {
 		Customer currcust = new Customer();
 		if (customerList.isEmpty())
 		{
-			//System.out.println("customerList is Empty");
 			return currcust = null;
 		}
 		else 
 		{
-			//System.out.println("customerList is not Empty");
 			for (x = 0; x < customerList.size(); x++)
 			{
 				if (customerList.get(x).getName().equals(name) && customerList.get(x).getContactNo().equals(contactNo))
 				{
-					//System.out.println("There is a customerID that is the same");
 					currcust = customerList.get(x);
 				}
 			}
@@ -89,7 +82,7 @@ public class CustomerManager {
 		
 	}
 	
-	public void deleteCustomer(int index) //Delete Customer but custID and membershipID is not reusable
+	public void deleteCustomer(int index) 
 	{
 		
 		if (customerList.isEmpty())
@@ -190,7 +183,6 @@ public class CustomerManager {
 
 	
 	public void save() {
-		// TODO Auto-generated method stub
 		customerDao.write(customerList);
 	}
 

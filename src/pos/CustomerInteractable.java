@@ -11,7 +11,6 @@ public class CustomerInteractable implements IInteractable {
 
 			@Override
 			public void handleInput() {
-				// TODO Auto-generated method stub
 				System.out.println("Enter Customer's Name");
 				String name = Application.scanner.nextLine();
 				System.out.println("Enter Customer's Contact Number");
@@ -25,7 +24,6 @@ public class CustomerInteractable implements IInteractable {
 
 			@Override
 			public String getTitle() {
-				// TODO Auto-generated method stub
 				return "Create New Customer" ;
 			}
 			
@@ -35,7 +33,6 @@ public class CustomerInteractable implements IInteractable {
 
 			@Override
 			public void handleInput() {
-				// TODO Auto-generated method stub
 				System.out.println("Select Customer you wish to edit.");
 				for (int x = 0; x < CustomerManager.instance.getCustomerList().size(); x++)
 				{
@@ -80,7 +77,6 @@ public class CustomerInteractable implements IInteractable {
 
 			@Override
 			public String getTitle() {
-				// TODO Auto-generated method stub
 				return "Edit Customer Details" ;
 			}
 			
@@ -90,7 +86,6 @@ public class CustomerInteractable implements IInteractable {
 
 			@Override
 			public void handleInput() {
-				// TODO Auto-generated method stub
 				if (CustomerManager.instance.getCustomerList().size() == 0)
 				{
 					System.out.println("No customers to delete.");
@@ -119,7 +114,6 @@ public class CustomerInteractable implements IInteractable {
 
 			@Override
 			public String getTitle() {
-				// TODO Auto-generated method stub
 				return "Delete Customer" ;
 			}
 			
@@ -129,13 +123,11 @@ public class CustomerInteractable implements IInteractable {
 
 			@Override
 			public void handleInput() {
-				// TODO Auto-generated method stub
 				CustomerManager.instance.displayCustomerList();
 			}
 
 			@Override
 			public String getTitle() {
-				// TODO Auto-generated method stub
 				return "View Customer List" ;
 			}
 			
@@ -149,7 +141,6 @@ public class CustomerInteractable implements IInteractable {
 
 	@Override
 	public String getTitle() {
-		// TODO Auto-generated method stub
 		return "Manage Customers" ;
 	}
 

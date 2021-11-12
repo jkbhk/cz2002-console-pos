@@ -40,16 +40,6 @@ public class GenericFileWriter {
         try (PrintWriter writer = new PrintWriter(filePathSuffix + filename)) {
 
             StringBuilder sb = new StringBuilder();
-            /*sb.append("Id");
-            sb.append(',');
-            sb.append("Name");
-            sb.append('\n');
-      
-            sb.append(IDGenerator.GenerateUniqueID());
-            sb.append(',');
-            sb.append("Chicken rice");
-            sb.append('\n');
-      */
             
             for(int i = 0; i<properties.length;i++){
                 

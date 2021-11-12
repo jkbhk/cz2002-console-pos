@@ -1,7 +1,7 @@
 package pos;
 import java.util.Scanner;
 
-// inject dependencies from this class
+
 public class Application {
 
 	static IInteractable initialPrompt;
@@ -22,7 +22,7 @@ public class Application {
 	}
 
 
-	// inject all interactables here (add your interactables to the interatableComponent)
+	// inject all interactable dependecies 
 	public static void injectInteractables(){
 				
 		ManagementToolsInteractable mtools = new ManagementToolsInteractable();

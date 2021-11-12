@@ -1,13 +1,8 @@
 package pos;
 
-import java.text.DecimalFormat;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-
-import pos.Table.STATUS;
 
 public class OrderInteractable implements IInteractable{
 	
@@ -19,18 +14,10 @@ public class OrderInteractable implements IInteractable{
 	
 	public OrderInteractable() {
 		
-		//Add Menu Item
 		orderAssistant.addInteractable(new IInteractable() {
 
 			@Override
 			public void handleInput() {
-				//System.out.println("Enter the staff name for this order: ");
-				//String name = Application.scanner.nextLine();
-				//System.out.println("Enter the staff's gender (M/F): ");
-				//check if input is M or F only
-				//String gender = Application.scanner.nextLine();
-				//System.out.println("Enter the staff's job title: ");
-				//String staffJobTitle = Application.scanner.nextLine();
 				
 				Order o = OrderManager.instance.getCurrentOrder();
 				MenuManager.instance.displayMenu();
@@ -45,7 +32,6 @@ public class OrderInteractable implements IInteractable{
 						if (wrapper.getMenuItemID().equals(m.getMenuItemID())) {
 							wrapper.incrementQuantity(1);
 							
-							//wrapper.calculateItemPrices(m.getPrice());
 							System.out.println("Quantity successfully updated into the order.");
 							isDuplicate = true;
 							break;
@@ -111,7 +97,6 @@ public class OrderInteractable implements IInteractable{
 										System.out.println("Quantity is zero, removing item.");
 									}
 									else {
-										//temp.calculateItemPrices(MenuManager.instance.getMenuItem(temp.getMenuItemID()).getPrice());
 										System.out.println("Successfully decrease the item quantity by 1.");
 									}
 								}
@@ -187,14 +172,12 @@ public class OrderInteractable implements IInteractable{
 					System.out.println("You have no item to checkout.");
 				}
 				else {
-					//OrderManager.instance.addNewOrder(o);
 					System.out.println("You've successfully checked out.");
 					calculateCurrentTotal();
 					String generated = IDGenerator.GenerateUniqueID();
 					
 					String orderID = OrderManager.instance.getCurrentOrder().getOrderID();
 					String staffID = StaffManager.instance.getCurrentStaff().getStaffName();
-					//String customerID = "random";
 					String date = LocalDate.now().format(DateTimeFormatter.ISO_DATE);
 					String time = LocalTime.now().format(DateTimeFormatter.ISO_LOCAL_TIME);
 					
@@ -208,7 +191,7 @@ public class OrderInteractable implements IInteractable{
 					
 					Invoice i = new Invoice(generated,orderID,staffID,date,time,GST_RATE, gstPrice, MEMBERSHIP_RATE, membershipDiscountPrice, SERVICE_RATE, serviceChargePrice, totalPrice, netTotal, isMember); 
 					
-					GenericDataPrinter.printTemplate(new TemplateAAdapter(i));
+					InvoicePrinter.printTemplate(new TemplateAAdapter(i));
 					
 					boolean okay = false;
 					
@@ -245,10 +228,6 @@ public class OrderInteractable implements IInteractable{
 		
 		TableReservationSyncController.sync();
 		setCurrentOrder();
-		//OrderManager.instance.startNewOrder();
-		//OrderManager.instance.getCurrentOrder().setOrderID(IDGenerator.GenerateUniqueID());
-		//orderAssistant.start();
-		
 		
 	}
 
@@ -258,11 +237,6 @@ public class OrderInteractable implements IInteractable{
 		return "Start Ordering";
 	}
 	
-	private void occupyRandomTable() {
-		//will go to the reservation manager to see if there's any reservation for the day.
-		//for all the reservation, check if the reservation is within this timing.
-		//if its in this timing, i'll filter the 
-	}
 	
 	private boolean enquireMembership() {
 		
@@ -274,14 +248,27 @@ public class OrderInteractable implements IInteractable{
 			System.out.println("Enter member code");
 			String code = Application.scanner.nextLine();
 			
-			if(true) {
+			if(isCodeValid(code)) {
 				System.out.println("Membership status identified.");
 				isMember = true;
+			}else {
+				System.out.println("Invalid member code.");
 			}
 		}
 		
 		return isMember;
 		
+	}
+	
+	// lenient rules regarding use of discount code
+	// no identity verification is required (anyone can use their sibling's member code)
+	private boolean isCodeValid(String code) {
+		for(Customer c : CustomerManager.instance.getCustomerList()) {
+			if(code.equals(c.getMembershipID()))
+				return true;
+		}
+		
+		return false;
 	}
 	
 	

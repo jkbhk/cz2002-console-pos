@@ -28,7 +28,7 @@ public class TableReservationSyncController {
     		int tableNo = reservationListDate.get(x).getTableNo();
     		Table table = TableManager.instance.getTable(tableNo);
     		
-    		if ((resDate.equals(LocalDate.now())) && (difference <= 20 && difference >= 0))
+    		if ((resDate.equals(LocalDate.now())) && (difference <= ReservationManager.RESERVATION_EXPIRY && difference >= 0))
     			table.setStatus(STATUS.RESERVED);
     		else {
     			if(table.getStatus() == STATUS.RESERVED)
@@ -59,7 +59,7 @@ public class TableReservationSyncController {
 				Duration duration = Duration.between(resTime, currentTime);
 				long difference = duration.toMinutes();
 				
-				if ((currentDate.equals(resDate) && difference > 20) || currentDate.isAfter(resDate))  //Orders Cancel in 20 Minutes 
+				if ((currentDate.equals(resDate) && difference > ReservationManager.RESERVATION_EXPIRY) || currentDate.isAfter(resDate)) 
 				{
 					toDelete.add(r);
 					int tableNo = r.getTableNo();

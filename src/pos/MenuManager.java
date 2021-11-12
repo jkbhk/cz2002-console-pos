@@ -23,7 +23,6 @@ public class MenuManager{
 		MenuItem item = new MenuItem(id, name, description, price, tag, stockReferenceIDs);
 		menuItems.add(item);
 		System.out.println(name + " added to menu");
-		//sortMenuItemsIntoHashMap();
 		sortMenuItems();
 	}
 	

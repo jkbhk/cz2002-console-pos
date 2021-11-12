@@ -13,7 +13,7 @@ public class StockDao implements Dao<Stock> {
 
         if(result != null){
             for (String[] props : result) {
-                Stock s = new Stock(props[0],props[1],Integer.parseInt(props[2]));
+                Stock s = new Stock(props[0],props[1]);
                 stocks.add(s);
             }        
         }
@@ -23,14 +23,13 @@ public class StockDao implements Dao<Stock> {
 
     @Override
     public void write(ArrayList<Stock> list) {
-        String[][] unwrapped = new String[list.size()][3];
+        String[][] unwrapped = new String[list.size()][2];
         
         for(int i = 0; i < list.size(); i++){
             
             Stock temp = list.get(i);
             unwrapped[i][0] = temp.getStockID();
             unwrapped[i][1] = temp.getName();
-            unwrapped[i][2] = ""+temp.getQuantity();
         }
 
         GenericFileWriter.writeFile(unwrapped, filename);

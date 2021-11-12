@@ -26,7 +26,6 @@ public class GenericFileReader {
             while ((line = buffer.readLine()) != null)
             {
                 String[] stream = line.split(delimiter);
-                //r.receive(stream);
                 if (!stream[0].equals(""))
                 	retrieved.add(stream);
                 
@@ -40,7 +39,6 @@ public class GenericFileReader {
         }
         catch (Exception e)
         {
-            //e.printStackTrace();
             System.out.println("Fetch Error ("+filename+")");
         }
         finally
