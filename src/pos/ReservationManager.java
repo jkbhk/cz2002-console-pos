@@ -12,6 +12,7 @@ public class ReservationManager{
 	private String membershipID;
 	private Dao<Reservation> reservationDao;
 	public static ReservationManager instance;
+	public static final long RESERVATION_EXPIRY = 20;
 	
 	
 	public ReservationManager(Dao<Reservation> dao)
@@ -52,7 +53,7 @@ public class ReservationManager{
 		
 		reservation1.setReservationID(IDGenerator.GenerateUniqueID());
 		reservationList.add(reservation1);
-		System.out.println("Reservation " + reservation1.getReservationID() + " has been created for\n" + "Mr/Mrs/Ms " +reservation1.getName() + " on " + reservation1.getDate() + " at " + reservation1.getTime() +" Hrs."  );
+		System.out.println("Reservation has been created for\n" + "Mr/Mrs/Ms " +reservation1.getName() + " on " + reservation1.getDate() + " at " + reservation1.getTime() +" Hrs."  );
 		
 	}
 	
