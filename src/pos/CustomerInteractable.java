@@ -21,8 +21,6 @@ public class CustomerInteractable implements IInteractable {
 				
 				CustomerManager.instance.createCustomer(name, contactNo, membershipID, customerID,true);
 				
-				
-				System.out.println("Customer has been created. " + "Customer's ID is " +membershipID + ".");
 			}
 
 			@Override
