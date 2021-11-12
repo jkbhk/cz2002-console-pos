@@ -40,7 +40,6 @@ public class OccupyInteractable implements IInteractable {
 				
 				Duration duration = Duration.between(r.getTime(),LocalTime.now());
 	    		long difference = duration.toMinutes();
-	    		System.out.println("diff idssss " + difference);
 	    		
 	    		if(difference <= 20 && difference >= 0) {
 	    			
@@ -56,6 +55,7 @@ public class OccupyInteractable implements IInteractable {
 			ReservationManager.instance.deleteReservation(toDelete);
 			TableManager.instance.getTable(table).setStatus(STATUS.OCCUPIED);
 			TableReservationSyncController.sync();
+			System.out.println("Reservation verified. Occupying table " + table);
 		}else {
 			System.out.println("it's not time for your reservation yet!");
 		}
