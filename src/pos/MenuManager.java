@@ -1,7 +1,8 @@
 package pos;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class MenuManager{
 
@@ -13,6 +14,8 @@ public class MenuManager{
 		instance = this;		
 		dao = d;
 		menuItems = dao.read();
+		sortMenuItems();
+		
 	}
 
 
@@ -20,70 +23,54 @@ public class MenuManager{
 		MenuItem item = new MenuItem(id, name, description, price, tag, stockReferenceIDs);
 		menuItems.add(item);
 		System.out.println(name + " added to menu");
+		//sortMenuItemsIntoHashMap();
+		sortMenuItems();
 	}
-
+	
+	
+	private void sortMenuItems() {
+		Collections.sort(menuItems, new Comparator<MenuItem>() {
+		    @Override
+		    public int compare(MenuItem lhs, MenuItem rhs) {
+		    	return lhs.getTag().compareTo(rhs.getTag());
+		    }
+		});
+	}
+	
+	
 	public void displayMenu() {
 		
 		
 		String leftAlignFormat = "| %-17s             %-5s |\n";
 		String descAlignFormat = "| %-36s|\n";
 
-		System.out.println("=========== Promotional Set ===========");
+		System.out.println("================= Menu ================");
 		System.out.println("|                                     |");
-		System.out.println("| Menu item                     Cost  |");
+		System.out.println("| Menu item                    Cost($)|");
 		System.out.println("|-------------------------------------|");
+		System.out.println("|                                     |");
+		
+		String currentTag = "";
 		
 		for (int i = 0; i < menuItems.size(); i++) {
 			MenuItem temp = menuItems.get(i);
+			
+			if(!currentTag.equals(temp.getTag())) {
+				currentTag = temp.getTag();
+				System.out.println("|                                     |");
+				System.out.printf(descAlignFormat,currentTag);
+				System.out.println("|-------------------------------------|");
+			}
+			
 		    System.out.printf(leftAlignFormat, (i+1) + ") " + temp.getName(), String.format("%.2f", temp.getPrice()));
 		    System.out.printf(descAlignFormat, temp.getDescription());
 		    System.out.println("|                                     |");
 		}
 		
 		System.out.println("|=====================================|");
-		
-		//for (int i = 0; i < menuItems.size(); i++) {
-		//	MenuItem temp = menuItems.get(i);
-		//	System.out.println((i + 1) + ") " + temp.getName() + "  $" + String.format("%.2f", temp.getPrice()) + "\n" + temp.getDescription() + "\n");
-		//}
-	}
-	public void displayMenuSorted() {
-		
-		
-		int counter = 1;
-		
-		HashMap<String, ArrayList<MenuItem>> menu = getSortedMenu();
-		
-		for(String header : menu.keySet()) {
-			System.out.println(header+"\n---------------------------");
-			
-			for(MenuItem i : menu.get(header)) {
-				System.out.println(counter++ + ") "+i.getName() + "   " + String.format("$%.2f", i.getPrice()));
-			}
-		}
-	}
-	
-	public HashMap<String,ArrayList<MenuItem>> getSortedMenu(){
-		
-		HashMap<String,ArrayList<MenuItem>> menu = new HashMap<String,ArrayList<MenuItem>>();
-		
-		for(MenuItem i : menuItems) {
-			if(menu.containsKey(i.getTag())){
-				menu.get(i.getTag()).add(i);
-			}else {
-				ArrayList<MenuItem> created = new ArrayList<>();
-				created.add(i);
-				menu.put(i.getTag(), created);
-				
-			}
-		}
-		
-		return menu;
-		
 	}
 	
 	
-
 	public MenuItem getMenuItem(int index) {
 		if (index >= 0 && index < menuItems.size())
 			return menuItems.get(index);
