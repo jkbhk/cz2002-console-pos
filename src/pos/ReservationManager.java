@@ -9,12 +9,12 @@ public class ReservationManager{
 
 	
 	private ArrayList<Reservation> reservationList = new ArrayList<Reservation>();
-	private Dao<Reservation> reservationDao;
+	private GenericDao<Reservation> reservationDao;
 	public static ReservationManager instance;
 	public static final long RESERVATION_EXPIRY = 20;
 	
 	
-	public ReservationManager(Dao<Reservation> dao)
+	public ReservationManager(GenericDao<Reservation> dao)
 	{
 		instance = this;
 		this.reservationDao = dao;

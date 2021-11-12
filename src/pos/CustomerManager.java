@@ -4,11 +4,11 @@ import java.util.*;
 
 public class CustomerManager {
 	
-	private Dao<Customer> customerDao;
+	private GenericDao<Customer> customerDao;
 	private ArrayList<Customer> customerList = new ArrayList<Customer>();
 	public static CustomerManager instance;
 	
-	public CustomerManager(Dao<Customer> customerDao)
+	public CustomerManager(GenericDao<Customer> customerDao)
 	{
 		instance = this;
 		this.customerDao = customerDao;

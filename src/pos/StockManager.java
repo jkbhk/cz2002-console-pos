@@ -7,9 +7,9 @@ public class StockManager {
     public static StockManager instance;
 
     private ArrayList<Stock> stocks;
-    private Dao<Stock> dao;
+    private GenericDao<Stock> dao;
 
-    public StockManager(Dao<Stock> d){
+    public StockManager(GenericDao<Stock> d){
        instance = this;
        dao = d;
        stocks = d.read();

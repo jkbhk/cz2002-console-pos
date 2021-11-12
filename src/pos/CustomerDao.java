@@ -2,7 +2,7 @@ package pos;
 
 import java.util.ArrayList;
 
-public class CustomerDao implements Dao<Customer>{
+public class CustomerDao extends GenericDao<Customer>{
 
 	private static final String filename = "customer_data.csv";
 	

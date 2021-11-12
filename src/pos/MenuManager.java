@@ -7,10 +7,10 @@ import java.util.Comparator;
 public class MenuManager{
 
 	public static MenuManager instance;	
-	private Dao<MenuItem> dao;
+	private GenericDao<MenuItem> dao;
 	private ArrayList<MenuItem> menuItems;
 
-	public MenuManager(Dao<MenuItem> d) {
+	public MenuManager(GenericDao<MenuItem> d) {
 		instance = this;		
 		dao = d;
 		menuItems = dao.read();

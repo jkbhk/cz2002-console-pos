@@ -3,7 +3,7 @@ package pos;
 
 import java.util.ArrayList;
 
-public class TableDao implements Dao<Table> {
+public class TableDao extends GenericDao<Table> {
 
     private static final String filename = "table_data.csv";
 

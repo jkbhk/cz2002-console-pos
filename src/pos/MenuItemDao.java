@@ -2,7 +2,7 @@ package pos;
 
 import java.util.ArrayList;
 
-public class MenuItemDao implements Dao<MenuItem>{
+public class MenuItemDao extends GenericDao<MenuItem>{
 
 	private static final String filename = "menu_data.csv";
 	private static final String StockIDSeperator = "_";

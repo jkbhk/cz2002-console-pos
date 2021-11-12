@@ -2,7 +2,7 @@ package pos;
 
 import java.util.ArrayList;
 
-public class InvoiceDao  implements Dao<Invoice>{
+public class InvoiceDao extends GenericDao<Invoice>{
 	private static final String filename = "invoice_data.csv";
 
 	@Override

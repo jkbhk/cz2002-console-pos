@@ -8,9 +8,9 @@ public class InvoiceManager {
 	public static InvoiceManager instance;
 	private ArrayList<Invoice> invoiceList = new ArrayList<Invoice>();
 	
-	private Dao<Invoice> dao;
+	private GenericDao<Invoice> dao;
 
-    public InvoiceManager(Dao<Invoice> d){
+    public InvoiceManager(GenericDao<Invoice> d){
        instance = this;
        dao = d;
        invoiceList = d.read();

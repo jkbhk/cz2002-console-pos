@@ -10,10 +10,10 @@ public class StaffManager {
 	private Staff currentStaff; 
 	
 	private ArrayList<Staff> staffList;
-	private Dao<Staff> dao;
+	private GenericDao<Staff> dao;
 	
 	
-	public StaffManager(Dao<Staff> d) {
+	public StaffManager(GenericDao<Staff> d) {
 		instance = this;
 		staffList = new ArrayList<Staff>();
 		dao = d;

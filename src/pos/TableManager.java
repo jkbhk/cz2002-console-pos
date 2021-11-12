@@ -7,10 +7,10 @@ public class TableManager {
 	 
 	public static TableManager instance;
 	private ArrayList<Table> tableList;
-	private Dao<Table> dao;
+	private GenericDao<Table> dao;
 	
 
-    public TableManager(Dao<Table> d){
+    public TableManager(GenericDao<Table> d){
  
         instance = this;
         dao = d;

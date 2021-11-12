@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
 
-public class ReservationDao implements Dao<Reservation>  {
+public class ReservationDao extends GenericDao<Reservation>  {
 
 	private static final String filename = "reservation_data.csv";
 	

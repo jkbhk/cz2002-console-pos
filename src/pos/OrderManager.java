@@ -8,9 +8,9 @@ public class OrderManager{
 	private Order currentOrder;
 	private ArrayList<Order> orderList = new ArrayList<Order>();
 	private ArrayList<Order> incompleteOrderList = new ArrayList<Order>();
-	private Dao<Order> dao;
+	private GenericDao<Order> dao;
 	
-	public OrderManager(Dao<Order> d) {
+	public OrderManager(GenericDao<Order> d) {
 		instance = this;
 		this.dao = d;
 		orderList = d.read();
