@@ -22,7 +22,7 @@ public class CustomerInteractable implements IInteractable {
 				CustomerManager.instance.createCustomer(name, contactNo, membershipID, customerID,true);
 				
 				
-				System.out.println("CustomerID " + CustomerManager.instance.getCustomerID(name)  + " have been created");
+				System.out.println("Customer has been created. " + "Customer's ID is " +membershipID + ".");
 			}
 
 			@Override

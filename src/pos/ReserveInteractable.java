@@ -18,7 +18,19 @@ public class ReserveInteractable implements IInteractable {
 	InteractableComponent reservationAssistant = new InteractableComponent("Back",true);
 	private LocalTime timeSlots[] = {LocalTime.parse("10",dtf),LocalTime.parse("11",dtf),LocalTime.parse("12",dtf),LocalTime.parse("13",dtf),LocalTime.parse("14",dtf),LocalTime.parse("15",dtf),LocalTime.parse("16",dtf),LocalTime.parse("17",dtf),LocalTime.parse("18",dtf),LocalTime.parse("19",dtf),LocalTime.parse("20",dtf),LocalTime.parse("21",dtf),LocalTime.parse("22",dtf),LocalTime.parse("23",dtf)}; 
 	
-	
+	private void printFilterTableList(ArrayList<Table> table)
+	{
+		if (table == null)
+			System.out.println("No Available Tables");
+		else
+		{
+			for (Table t : table) {
+            System.out.println("Table Number : " + t.getTableNo() + " Table Size : " + t.getTableSize());
+		}
+		}
+		
+		
+	}
 		
 	public ReserveInteractable()
 	{
@@ -43,40 +55,27 @@ public class ReserveInteractable implements IInteractable {
 				
 				//TODO Need to call TableManager
 				//To set table as book and set tableNo in reservation.
-				ArrayList<Table> tableList = TableManager.instance.getTableList();
+				ArrayList<Table> tableList = getAvailableTable(localDate,time);
 				
 				
+				printFilterTableList(tableList);
 				
-				TableManager.instance.printTablesList();
-								
-				
-				if (tableList.isEmpty())
-				{
-					System.out.println("There is no table");
-					return;
-				}
 				//Check if table is available & number of pax == tableSize
 				System.out.println("Select Table Number for Reservation.");
 				int tableNo = Integer.parseInt(Application.scanner.nextLine());
 				
-				if (ReservationManager.instance.reservationChecker(localDate, time,TableManager.instance.getTable(tableNo).getTableNo()))
-				{
-					System.out.println("This Reservation has already been booked");
-				}
 				
-				else if (TableManager.instance.getTable(tableNo).getTableSize() < noPax)
+				if (TableManager.instance.getTable(tableNo).getTableSize() < noPax)
 				{
 					System.out.println("This Table is Not Suitable for Number of Pax.");
 				}
 				
-				else
+				if (!CustomerManager.instance.checkCustomerInList(customerName,contactNo))
 				{
 					// TODO Need to call CustomerManager
 					Customer currCus = new Customer();
-					boolean checker = CustomerManager.instance.checkCustomerInList(customerName, contactNo);
-					if (!checker)
-					{
-						System.out.println("Customer does not exist, creating new customer");
+					
+						System.out.println("Registering Customer...");
 						String customerID = IDGenerator.GenerateUniqueID();
 						String membershipID = IDGenerator.GenerateUniqueAlphaNum(5);
 						CustomerManager.instance.createCustomer(customerName, contactNo, membershipID, customerID, true);
@@ -87,10 +86,10 @@ public class ReserveInteractable implements IInteractable {
 					//CustomerManager.instance.displayCustomerList();s
 					
 					//TODO change reservationManager
-					ReservationManager.instance.createReservation(customerName, contactNo, noPax, localDate, time);
-					ReservationManager.instance.getReservation(localDate,time,contactNo).setTableNo(tableNo);
+				ReservationManager.instance.createReservation(customerName, contactNo, noPax, localDate, time);
+				ReservationManager.instance.getReservation(localDate,time,contactNo).setTableNo(tableNo);
 					
-				}
+				
 				
 				TableReservationSyncController.sync();	
 	
@@ -325,6 +324,30 @@ public class ReserveInteractable implements IInteractable {
         else 
             return options;
 		
+		
+	}
+	
+	public ArrayList<Table> getAvailableTable(LocalDate date , LocalTime time)
+	{
+		
+		
+		ArrayList<Table> table = TableManager.instance.getTableList();
+		ArrayList<Table> sortedTableList = new ArrayList<Table>(table);
+		//get Reservation List
+		ArrayList<Reservation> rList = ReservationManager.instance.getReservationListForDate(date);
+		
+		for (int x = 0; x < rList.size(); x++)
+		{
+			if (rList.get(x).getTime().equals(time))
+			{
+				sortedTableList.remove(TableManager.instance.getTable(rList.get(x).getTableNo()));
+			}
+		}
+		
+		if (sortedTableList.isEmpty())
+			return null;
+		else
+			return sortedTableList;
 		
 	}
 	
