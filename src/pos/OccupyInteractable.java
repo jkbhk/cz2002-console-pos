@@ -41,7 +41,7 @@ public class OccupyInteractable implements IInteractable {
 				Duration duration = Duration.between(r.getTime(),LocalTime.now());
 	    		long difference = duration.toMinutes();
 	    		
-	    		if(difference <= 20 && difference >= 0) {
+	    		if(difference <= ReservationManager.RESERVATION_EXPIRY && difference >= 0) {
 	    			
 	    			toDelete = r;
 	    			break;

@@ -52,7 +52,7 @@ public class OrderManager{
 	
 	public Order getIncompleteOrder(int tableNo) {
 		for (Order o : incompleteOrderList) {
-			if (o.tableNo == tableNo) {
+			if (o.getTableNo() == tableNo) {
 				return o;
 			}
 		}

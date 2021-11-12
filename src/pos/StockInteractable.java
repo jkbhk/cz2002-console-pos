@@ -42,7 +42,7 @@ public class StockInteractable implements IInteractable{
 				System.out.println("Select stock to delete:");
 	            StockManager.instance.displayAllStocks(true);
 	            int index = Integer.parseInt(Application.scanner.nextLine());
-	            Stock removed = StockManager.instance.getstock(index);
+	            Stock removed = StockManager.instance.getstock(index-1);
 	            if(removed != null){
 	                StockManager.instance.removeStock(index-1);
 	                System.out.println("stock removed.");

@@ -5,10 +5,10 @@ import java.util.Date;
 
 public class Order {
 	
-	protected String orderID;
-	protected double totalPrice;
-	protected int tableNo;
-	protected ArrayList<OrderItemWrapper> menuItemIDList = new ArrayList<OrderItemWrapper>();
+	private String orderID;
+	private double totalPrice;
+	private int tableNo;
+	private ArrayList<OrderItemWrapper> menuItemIDList = new ArrayList<OrderItemWrapper>();
 	
 	public Order() {
 		

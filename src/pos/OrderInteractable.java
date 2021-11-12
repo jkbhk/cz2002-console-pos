@@ -216,8 +216,8 @@ public class OrderInteractable implements IInteractable{
 						if (PaymentManager.instance.requestPayment(netTotal)) {
 							InvoiceManager.instance.addInvoiceToList(i);
 							OrderManager.instance.addNewOrder(o);
-							OrderManager.instance.deleteOrderFromIncompleteList(o.tableNo);
-							TableManager.instance.getTable(o.tableNo).setStatus(Table.STATUS.EMPTY);
+							OrderManager.instance.deleteOrderFromIncompleteList(o.getTableNo());
+							TableManager.instance.getTable(o.getTableNo()).setStatus(Table.STATUS.EMPTY);
 							okay = true;
 						}
 						else {
@@ -313,14 +313,14 @@ public class OrderInteractable implements IInteractable{
 			else {
 				if (exist) {
 					OrderManager.instance.setCurrentOrder(OrderManager.instance.getIncompleteOrder(choice));
-					System.out.println("Table number: " + OrderManager.instance.getCurrentOrder().tableNo);
+					System.out.println("Table number: " + OrderManager.instance.getCurrentOrder().getTableNo());
 					System.out.println("Editing previous order from table number.");
 				}
 				else {
 					Order newOrder = new Order(IDGenerator.GenerateUniqueID(), choice);
 					OrderManager.instance.addIncompleteOrder(newOrder);
 					OrderManager.instance.setCurrentOrder(newOrder);				
-					System.out.println("Table number: " + OrderManager.instance.getCurrentOrder().tableNo);
+					System.out.println("Table number: " + OrderManager.instance.getCurrentOrder().getTableNo());
 					System.out.println("Creating new order from table number.");
 					TableManager.instance.getTable(choice).setStatus(Table.STATUS.OCCUPIED);
 				}
@@ -339,7 +339,7 @@ public class OrderInteractable implements IInteractable{
 		
 		for (Order o : OrderManager.instance.getIncompleteOrderList()) {
 			
-			if (o.tableNo == tableNo)
+			if (o.getTableNo() == tableNo)
 				return true;
 		}
 		

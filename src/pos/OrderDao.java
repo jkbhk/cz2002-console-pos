@@ -26,7 +26,7 @@ public class OrderDao implements Dao<Order>{
             		
             		String[] oiw_props = inner.split("]");
             		OrderItemWrapper temp = new OrderItemWrapper(oiw_props[0],Integer.parseInt(oiw_props[1]),Double.parseDouble(oiw_props[2]));
-            		o.menuItemIDList.add(temp);
+            		o.getMenuItemIDList().add(temp);
             	}   
                 
                 orders.add(o);

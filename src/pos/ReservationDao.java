@@ -44,8 +44,8 @@ public class ReservationDao implements Dao<Reservation>  {
             unwrapped[i][2] = temp.getTime().toString();
             unwrapped[i][3] = ""+temp.getNoPax();
             unwrapped[i][4] = ""+temp.getTableNo();
-            unwrapped[i][5] = temp.getName();
-            unwrapped[i][6] = temp.getContactNo();
+            unwrapped[i][5] = temp.getContactNo();
+            unwrapped[i][6] = temp.getName();
          
         }
 
