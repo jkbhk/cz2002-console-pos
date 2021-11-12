@@ -1,5 +1,5 @@
 package pos;
-import java.util.*;
+
 
 public class CustomerInteractable implements IInteractable {
 	

@@ -22,7 +22,7 @@ public class ReservationDao implements Dao<Reservation>  {
 
         if(result != null){
             for (String[] props : result) {
-                Reservation reservation = new Reservation(LocalDate.parse(props[0]),LocalTime.parse(props[1]),Integer.parseInt(props[2]),Integer.parseInt(props[3]),props[4],props[5],props[6],props[7]);
+                Reservation reservation = new Reservation(props[0],LocalDate.parse(props[1]),LocalTime.parse(props[2]),Integer.parseInt(props[3]),Integer.parseInt(props[4]),props[5],props[6]);
                 reservationList.add(reservation);
             }        
         }
@@ -39,14 +39,14 @@ public class ReservationDao implements Dao<Reservation>  {
         for(int i = 0; i < list.size(); i++){
             
             Reservation temp = list.get(i);
-            unwrapped[i][0] = temp.getDate().toString();
-            unwrapped[i][1] = temp.getTime().toString();
-            unwrapped[i][2] = ""+temp.getNoPax();
-            unwrapped[i][3] = ""+temp.getTableNo();
-            unwrapped[i][4] = temp.getReservationID();
-            unwrapped[i][5] = temp.getCustomerID();
-            unwrapped[i][6] = temp.getName();
-            unwrapped[i][7] = temp.getContactNo();
+            unwrapped[i][0] = temp.getReservationID();
+            unwrapped[i][1] = temp.getDate().toString();
+            unwrapped[i][2] = temp.getTime().toString();
+            unwrapped[i][3] = ""+temp.getNoPax();
+            unwrapped[i][4] = ""+temp.getTableNo();
+            unwrapped[i][5] = temp.getName();
+            unwrapped[i][6] = temp.getContactNo();
+         
         }
 
         GenericFileWriter.writeFile(unwrapped, filename);

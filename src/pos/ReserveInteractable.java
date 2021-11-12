@@ -1,15 +1,9 @@
 package pos;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-
-import pos.Table.STATUS;
-
-import java.time.Duration;
 
 public class ReserveInteractable implements IInteractable {
 	public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -42,7 +36,13 @@ public class ReserveInteractable implements IInteractable {
 				TableReservationSyncController.sync();
 				
 				LocalDate localDate = requestValidDate();
+			
 				LocalTime time = requestValidTime(getAvailableTimeSlots(localDate));
+				if (time == null)
+				{
+					return;
+				}
+				
 				
 				System.out.println("Enter Customer Name");
 				String customerName = Application.scanner.nextLine();
@@ -86,8 +86,8 @@ public class ReserveInteractable implements IInteractable {
 					//CustomerManager.instance.displayCustomerList();s
 					
 					//TODO change reservationManager
-				ReservationManager.instance.createReservation(customerName, contactNo, noPax, localDate, time);
-				ReservationManager.instance.getReservation(localDate,time,contactNo).setTableNo(tableNo);
+				ReservationManager.instance.createReservation(customerName, contactNo, noPax, localDate, time,tableNo);
+				
 					
 				
 				
@@ -302,25 +302,30 @@ public class ReserveInteractable implements IInteractable {
 		
 		ArrayList<LocalTime> options = new ArrayList<LocalTime>();
         LocalTime time = LocalTime.now();
-        int index = 0;
+        int index = timeSlots.length;
         
         if(date.equals(LocalDate.now())) {
         	for (int x = 0; x < timeSlots.length; x++)
         	{
-        		if (time.isBefore(timeSlots[x]))
+        		if (time.isBefore(timeSlots[x]) )
         		{
         			index = x;
         			break;
         		}
-            
+        		
+        		
         	}
+        	for (int y = index; y < timeSlots.length; y++)
+            {
+                options.add(timeSlots[y]);
+            }
+        }else {
+        	for (int y = 0; y < timeSlots.length; y++)
+            {
+                options.add(timeSlots[y]);
+            }
         }
         
-        
-        for (int y = index; y < timeSlots.length; y++)
-        {
-            options.add(timeSlots[y]);
-        }
         
         if (options.size() == 0)
             return null;
