@@ -188,7 +188,6 @@ public class OrderInteractable implements IInteractable{
 					double serviceChargePrice = (SERVICE_RATE/100) * o.getTotalPrice();
 					double totalPrice = o.getTotalPrice();
 					double netTotal = Math.round((totalPrice * 100.0))/100.0 + Math.round((gstPrice * 100.0))/100.0 + Math.round((serviceChargePrice * 100.0))/100.0 - Math.round((membershipDiscountPrice * 100.0))/100.0;
-					
 					Invoice i = new Invoice(generated,orderID,staffID,date,time,GST_RATE, gstPrice, MEMBERSHIP_RATE, membershipDiscountPrice, SERVICE_RATE, serviceChargePrice, totalPrice, netTotal, isMember); 
 					
 					InvoicePrinter.printTemplate(new TemplateAAdapter(i));
@@ -300,15 +299,13 @@ public class OrderInteractable implements IInteractable{
 			else {
 				if (exist) {
 					OrderManager.instance.setCurrentOrder(OrderManager.instance.getIncompleteOrder(choice));
-					System.out.println("Table number: " + OrderManager.instance.getCurrentOrder().getTableNo());
-					System.out.println("Editing previous order from table number.");
+					System.out.println("Editing previous order from table number " + OrderManager.instance.getCurrentOrder().getTableNo());
 				}
 				else {
 					Order newOrder = new Order(IDGenerator.GenerateUniqueID(), choice);
 					OrderManager.instance.addIncompleteOrder(newOrder);
 					OrderManager.instance.setCurrentOrder(newOrder);				
-					System.out.println("Table number: " + OrderManager.instance.getCurrentOrder().getTableNo());
-					System.out.println("Creating new order from table number.");
+					System.out.println("Creating new order from table number " + OrderManager.instance.getCurrentOrder().getTableNo());
 					TableManager.instance.getTable(choice).setStatus(Table.STATUS.OCCUPIED);
 				}
 				

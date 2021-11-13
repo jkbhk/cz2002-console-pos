@@ -97,6 +97,19 @@ public class OrderManager{
 	}
 	
 	public Order getOrder(String id) {
+		
+		Order temp = null;
+		temp = getCompletedOrder(id);	
+		if (temp == null)
+		{
+			temp = getIncompletedOrder(id);
+		}
+		
+		return temp;
+		
+	}
+	
+	public Order getCompletedOrder(String id) {
 		for (Order o : orderList) {
 			if (o.getOrderID().equals(id)) {
 				return o;
@@ -104,6 +117,16 @@ public class OrderManager{
 		}
 		return null;
 	}
+	
+	public Order getIncompletedOrder(String id) {
+		for (Order o : incompleteOrderList) {
+			if (o.getOrderID().equals(id)) {
+				return o;
+			}
+		}
+		return null;
+	}
+	
 	
 	public void save() {
 		dao.write(orderList);
