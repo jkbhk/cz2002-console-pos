@@ -18,7 +18,6 @@ public class GenericFileReader {
     /**
      * Each row in the csv will be read as a string array, representing the columns of the row
      * The array list will be the collection of these rows.
-     * @param filename
      * @return the retrieved strings from the specified file.
      */
     public static ArrayList<String[]> read(String filename){

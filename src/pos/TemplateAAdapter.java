@@ -32,7 +32,7 @@ public class TemplateAAdapter implements ITemplateA{
 		splittingArrayList(o);
 	}
 	/**
-	 * Splits value of OrderItemWrapper and store it into different ArrayList<String>.
+	 * Splits value of OrderItemWrapper and store it into different lists of Strings.
 	 * @param o Order Object.
 	 */
 

@@ -2,7 +2,11 @@ package interactables;
 import java.util.ArrayList;
 
 import pos.Application;
-
+/**
+ * 
+ * A reusable loopable user interface that takes in IInteractable instances as UI options.
+ *
+ */
 public class InteractableComponent {
 
 	private ArrayList<IInteractable> interactables = new ArrayList<IInteractable>();
@@ -35,7 +39,6 @@ public class InteractableComponent {
 
 	/**
 	 * Adds a IInteractable.
-	 * @param i
 	 */
 	public void addInteractable(IInteractable i){
 		interactables.add(i);

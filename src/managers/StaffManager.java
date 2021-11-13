@@ -35,7 +35,6 @@ public class StaffManager {
 	
 	/**
 	 * Sets the current staff of the system.
-	 * @param s
 	 */
 	public void setCurrentStaff(Staff s) {
 		currentStaff = s;
@@ -51,10 +50,6 @@ public class StaffManager {
 	
 	/**
 	 * Creates a a Staff object and adds it to the staff list.
-	 * @param staffID
-	 * @param name
-	 * @param gender
-	 * @param jobTitle
 	 */
 	public void createNewStaff(String staffID, String name, String gender, String jobTitle) {
 		Staff s = new Staff(staffID,name,gender,jobTitle);
@@ -82,7 +77,6 @@ public class StaffManager {
 	
 	/**
 	 * 
-	 * @param id
 	 * @return a Staff object given a staff ID.
 	 */
 	public Staff getStaff(String id) {
@@ -97,7 +91,6 @@ public class StaffManager {
 	
 	/**
 	 * 
-	 * @param index
 	 * @return the Staff object at the given index location of the staff list.n
 	 */
 	public Staff getStaff(int index) {
@@ -114,7 +107,6 @@ public class StaffManager {
 
 	/**
 	 * 
-	 * @param index
 	 * @return true if deletion is successful.
 	 */
 	public boolean deleteStaff(int index) {

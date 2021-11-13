@@ -36,7 +36,6 @@ public class ReservationManager{
 	}
 	/**
 	 *  
-	 * @param reservationID
 	 * @return the Reservation object given the reservation ID from the reservation list.
 	 */
 	
@@ -63,12 +62,6 @@ public class ReservationManager{
 	
 	/**
 	 * Creates a Reservation object and adds it to the reservation list.
-	 * @param name
-	 * @param contactNo
-	 * @param noPax
-	 * @param date
-	 * @param time
-	 * @param tableNo
 	 */
 	public void createReservation(String name, String contactNo, int noPax, LocalDate date, LocalTime time, int tableNo)
 	{
@@ -81,7 +74,6 @@ public class ReservationManager{
 	
 /**
  * 	
- * @param contactNo
  * @return a list of Reservation objects that matches the given contact number from the reservation list.
  */
 	public ArrayList<Reservation> getReservationListForContact(String contactNo)
@@ -102,7 +94,6 @@ public class ReservationManager{
 	
 	/**
 	 * 
-	 * @param date
 	 * @return a list of Reservation objects that matches the given date from the reservation list.
 	 */
 	public ArrayList<Reservation> getReservationListForDate(LocalDate date)
@@ -133,9 +124,6 @@ public class ReservationManager{
 
 	/**
 	 * 
-	 * @param date
-	 * @param time
-	 * @param contactNo
 	 * @return the Reservation object that matches the specified information from the reservation list.
 	 */
 	public Reservation getReservation( LocalDate date, LocalTime time, String contactNo)
@@ -159,7 +147,6 @@ public class ReservationManager{
 
 	/**
 	 * Deletes the specified Reservation object from the reservation list.
-	 * @param reservation
 	 */
 	public void deleteReservation(Reservation reservation)
 	{
@@ -168,7 +155,6 @@ public class ReservationManager{
 	
 	/**
 	 * Deletes the Reservation object at the specified index position of the reservation list.
-	 * @param index
 	 */
 	public void deleteReservation(int index)
 	{
@@ -177,7 +163,6 @@ public class ReservationManager{
 	
 	/**
 	 * Displays all Reservation objects in the given reservation list.
-	 * @param reservationList
 	 */
 	public void displayReservationList(ArrayList<Reservation> reservationList)
 	{
@@ -235,9 +220,6 @@ public class ReservationManager{
 	
 	/**
 	 * 
-	 * @param date
-	 * @param time
-	 * @param tableNo
 	 * @return true if there is a Reservation object that matches the specified details
 	 */
 	public boolean reservationChecker (LocalDate date, LocalTime time, int tableNo)
@@ -257,8 +239,6 @@ public class ReservationManager{
 	
 	/**
 	 * 
-	 * @param date
-	 * @param time
 	 * @return true there is a Reservation object that matches the specified details
 	 */
 	public boolean reservationChecker (LocalDate date, LocalTime time)

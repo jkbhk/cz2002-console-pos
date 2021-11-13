@@ -28,7 +28,6 @@ public class TableManager {
 
    /**
     * Returns all tables in the table list. 
-    * @return
     */
     public ArrayList<Table> getTableList(){
     	
@@ -36,9 +35,8 @@ public class TableManager {
     }
     
     /**
-     * Returns the table that matches the given table number.
-     * @param tableNo
-     * @return
+     * 
+     * @return the table that matches the given table number.
      */
     public Table getTable(int tableNo) {
     	

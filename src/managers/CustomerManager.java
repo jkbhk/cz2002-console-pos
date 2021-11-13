@@ -28,7 +28,7 @@ public class CustomerManager {
 	/**
 	 * 
 	 * @param customerID Unique customer ID.
-	 * @returns a Customer given a customerID. 
+	 * @return a Customer given a customerID. 
 	 */
 	public Customer getCustomer(String customerID)
 	{

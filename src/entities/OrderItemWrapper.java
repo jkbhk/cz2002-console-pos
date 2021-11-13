@@ -47,8 +47,5 @@ public class OrderItemWrapper {
 	public void decrementQuantity(int quantity) {
 		this.quantity -= quantity;
 	}
-	/*
-	public void calculateItemPrices(double price) {
-		this.itemPrices = quantity * price;
-	}*/
+	
 }

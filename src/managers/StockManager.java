@@ -26,8 +26,6 @@ public class StockManager {
 
 /**
  * Creates a new Stock object and adds it to the stock list.
- * @param id
- * @param stockName
  */
     public void createNewStock(String id, String stockName) {
         Stock stock = new Stock(id,stockName);
@@ -35,7 +33,6 @@ public class StockManager {
     }
 /**
  * Displays all stocks from the stock list.
- * @param showIndexing
  */
     public void displayAllStocks(boolean showIndexing){
        
@@ -59,7 +56,6 @@ public class StockManager {
     }
 
     /**
-     * @param index
      * @return a Stock object given the index relative to its position in the stock list.
      */
     public Stock getstock(int index){
@@ -70,7 +66,6 @@ public class StockManager {
     }
 /**
  *
- * @param stockID
  * @return a Stock object given a stock ID.
  */
     public Stock getstock(String stockID){
@@ -84,7 +79,6 @@ public class StockManager {
 
 /**
  * Removes the Stock object at the specified index position of the stock list.
- * @param index
  */
     public void removeStock(int index){
         if(index >=0 && index < stocks.size())
@@ -93,7 +87,6 @@ public class StockManager {
 
     /**
      * Remove the Stock object that matches the given stock ID from the stock list.
-     * @param stockID
      */
     public void removeStock(String stockID){
         for (Stock stock : stocks) {

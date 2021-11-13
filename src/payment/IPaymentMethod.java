@@ -5,7 +5,6 @@ package payment;
 public interface IPaymentMethod {
 	/**
 	 * 
-	 * @param amount
 	 * @return true when payment is successful.
 	 */
 	public boolean requestPayment(double amount);
