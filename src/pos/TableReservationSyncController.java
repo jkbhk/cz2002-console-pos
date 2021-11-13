@@ -12,9 +12,11 @@ public class TableReservationSyncController {
 	// refresh the status of tables based on the reservation dates and time
 	public static void sync() {
 		
-		refreshReservationList();
 		
     	ArrayList<Reservation> reservationListDate = ReservationManager.instance.getReservationList();
+    	
+    	refreshReservationList(reservationListDate);
+    	
     	
     	for (int x = 0; x < reservationListDate.size(); x ++)
     	{
@@ -40,11 +42,10 @@ public class TableReservationSyncController {
 	}
 	
 	// clear reservations that have expired and release tables
-	public static void refreshReservationList(){
-		LocalTime currentTime = LocalTime.now();
-		LocalDate currentDate = LocalDate.now();
-		
-		ArrayList<Reservation> reservationList = ReservationManager.instance.getReservationList();
+	private static void refreshReservationList(ArrayList<Reservation> reservationList){
+		//LocalTime currentTime = LocalTime.now();
+		//LocalDate currentDate = LocalDate.now();
+		//ArrayList<Reservation> reservationList = ReservationManager.instance.getReservationList();
 		ArrayList<Reservation> toDelete = new ArrayList<>();
 		
 		if (reservationList != null)
@@ -56,10 +57,10 @@ public class TableReservationSyncController {
 				
 				LocalTime resTime = r.getTime();
 				LocalDate resDate = r.getDate();
-				Duration duration = Duration.between(resTime, currentTime);
+				Duration duration = Duration.between(resTime, LocalTime.now());
 				long difference = duration.toMinutes();
 				
-				if ((currentDate.equals(resDate) && difference > ReservationManager.RESERVATION_EXPIRY) || currentDate.isAfter(resDate)) 
+				if ((LocalDate.now().equals(resDate) && difference > ReservationManager.RESERVATION_EXPIRY) || LocalDate.now().isAfter(resDate)) 
 				{
 					toDelete.add(r);
 					int tableNo = r.getTableNo();

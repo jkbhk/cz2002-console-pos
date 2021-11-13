@@ -106,9 +106,10 @@ public class CustomerInteractable implements IInteractable {
 						System.out.println("Please Select Customer you wish to delete again!");
 						choice = Integer.parseInt(Application.scanner.nextLine());
 					}
-					
-					
+						
 					CustomerManager.instance.deleteCustomer(choice-1);
+					System.out.println("Customer deleted.");
+					
 				}
 			}
 
@@ -141,6 +142,7 @@ public class CustomerInteractable implements IInteractable {
 
 	@Override
 	public String getTitle() {
+		// TODO Auto-generated method stub
 		return "Manage Customers" ;
 	}
 
