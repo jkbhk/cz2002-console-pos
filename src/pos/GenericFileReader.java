@@ -27,10 +27,15 @@ public class GenericFileReader {
             {
                 String[] stream = line.split(delimiter);
                 //r.receive(stream);
-                retrieved.add(stream);
+                if (!stream[0].equals(""))
+                	retrieved.add(stream);
+                
             }
 
-
+            if (retrieved.isEmpty()) {
+            	return null;
+            }
+            
             return retrieved;
         }
         catch (Exception e)

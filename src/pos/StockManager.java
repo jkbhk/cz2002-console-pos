@@ -17,7 +17,7 @@ public class StockManager {
     }
 
 
-    public void createNewStock(String id, String stockName, int stockQuantity){
+    public void createNewStock(String id, String stockName, int stockQuantity) {
         Stock stock = new Stock(id,stockName,stockQuantity);
         stocks.add(stock);
     }

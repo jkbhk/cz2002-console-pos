@@ -1,10 +1,13 @@
 package pos;
 
 import java.text.DecimalFormat;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
+import pos.Table.STATUS;
 
 public class OrderInteractable implements IInteractable{
 	
@@ -243,7 +246,7 @@ public class OrderInteractable implements IInteractable{
 		setCurrentOrder();
 		//OrderManager.instance.startNewOrder();
 		//OrderManager.instance.getCurrentOrder().setOrderID(IDGenerator.GenerateUniqueID());
-		orderAssistant.start();
+		//orderAssistant.start();
 		
 		
 	}
@@ -293,28 +296,38 @@ public class OrderInteractable implements IInteractable{
 	}
 	
 	private void setCurrentOrder() {
-		boolean isNew = true;
 		
+		updateTable();
 		TableManager.instance.printTables();
 		System.out.println("Select a table number: ");
 		int choice = Integer.parseInt(Application.scanner.nextLine());
+		Table currentTable = TableManager.instance.getTable(choice);
 		
-		if (choice > 0 && choice <= TableManager.instance.getTableList().size()) {
+		if (currentTable != null) {
 			boolean exist = checkTableOrder(choice);
 			
-			if (exist) {
-				OrderManager.instance.setCurrentOrder(OrderManager.instance.getIncompleteOrder(choice));
-				System.out.println("Table number: " + OrderManager.instance.getCurrentOrder().tableNo);
-				System.out.println("Editing previous order from table number.");
+			if (currentTable.getStatus() == Table.STATUS.RESERVED) {
+				System.out.println("Unable to choose reserved table.");
+				orderAssistant.terminate();
 			}
 			else {
-				Order newOrder = new Order(IDGenerator.GenerateUniqueID(), choice);
-				OrderManager.instance.addIncompleteOrder(newOrder);
-				OrderManager.instance.setCurrentOrder(newOrder);				
-				System.out.println("Table number: " + OrderManager.instance.getCurrentOrder().tableNo);
-				System.out.println("Creating new order from table number.");
-				TableManager.instance.getTable(choice).setStatus(Table.STATUS.OCCUPIED);
+				if (exist) {
+					OrderManager.instance.setCurrentOrder(OrderManager.instance.getIncompleteOrder(choice));
+					System.out.println("Table number: " + OrderManager.instance.getCurrentOrder().tableNo);
+					System.out.println("Editing previous order from table number.");
+				}
+				else {
+					Order newOrder = new Order(IDGenerator.GenerateUniqueID(), choice);
+					OrderManager.instance.addIncompleteOrder(newOrder);
+					OrderManager.instance.setCurrentOrder(newOrder);				
+					System.out.println("Table number: " + OrderManager.instance.getCurrentOrder().tableNo);
+					System.out.println("Creating new order from table number.");
+					TableManager.instance.getTable(choice).setStatus(Table.STATUS.OCCUPIED);
+				}
+				
+				orderAssistant.start();
 			}
+			
 		}
 		else {
 			System.out.println("Please select the correct table.");
@@ -333,4 +346,34 @@ public class OrderInteractable implements IInteractable{
 		return false;
 	}
 	
+	private void updateTable() {
+		ReservationManager.instance.refreshReservationList();
+		LocalDate localDate = LocalDate.now();
+    	LocalTime localTime = LocalTime.now();
+    	
+    	ArrayList<Reservation> reservationListDate = ReservationManager.instance.getReservationListForDate(localDate);
+    	
+    	for (int x = 0; x < reservationListDate.size(); x ++)
+    	{
+    		LocalTime resTime = reservationListDate.get(x).getTime();
+    		LocalDate resDate = reservationListDate.get(x).getDate();
+    		Duration duration = Duration.between(resTime, localTime);
+    		long difference = duration.toMinutes();
+    		System.out.println("DIFFERENCE: " + difference);
+    		if (difference <= 20 && difference >= 0)
+    		{
+    			int tableNo = reservationListDate.get(x).getTableNo();
+    			Table table = TableManager.instance.getTable(tableNo);
+    			table.setStatus(STATUS.RESERVED);
+    		}
+    		
+    		else if (localDate.isAfter(resDate) || difference > 20)
+    		{
+    			int tableNo = reservationListDate.get(x).getTableNo();
+    			Table table = TableManager.instance.getTable(tableNo);
+    			table.setStatus(STATUS.EMPTY);
+    		}
+    		
+    	}
+	}
 }

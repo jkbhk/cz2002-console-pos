@@ -18,7 +18,7 @@ public class IDGenerator {
     	Random rand = new Random();
     	for (int i = 0 ; i < n ; i ++)
     	{
-    		int randomNumGenerator = rand.nextInt(37);
+    		int randomNumGenerator = rand.nextInt(allowedChar.length());
     		newString += allowedChar.charAt(randomNumGenerator);
     	}
     	return newString;

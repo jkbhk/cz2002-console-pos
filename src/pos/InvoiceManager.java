@@ -8,9 +8,14 @@ public class InvoiceManager {
 	public static InvoiceManager instance;
 	private ArrayList<Invoice> invoiceList = new ArrayList<Invoice>();
 	
-	public InvoiceManager() {
-		instance = this;
-	}
+	private Dao<Invoice> dao;
+
+    public InvoiceManager(Dao<Invoice> d){
+       instance = this;
+       dao = d;
+       invoiceList = d.read();
+    }
+   
 	
 	public ArrayList<Invoice> getInvoiceList(){
 		return invoiceList;
@@ -56,5 +61,9 @@ public class InvoiceManager {
 		
 		return dailyInvoices;
 		
-	}	
+	}
+	
+	public void save() {
+		dao.write(invoiceList);
+	}
 }

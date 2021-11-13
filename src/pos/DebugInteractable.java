@@ -9,12 +9,10 @@ import java.util.Calendar;
 import pos.Table.STATUS;
 
 public class DebugInteractable implements IInteractable{
-
+	
     @Override
     public void handleInput() {
-        
-    	
-/* 
+        /*
     	LocalDate localDate = LocalDate.now();
     	LocalTime localTime = LocalTime.now();
     	

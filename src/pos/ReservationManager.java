@@ -1,5 +1,6 @@
 package pos;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
@@ -17,7 +18,7 @@ public class ReservationManager{
 	{
 		instance = this;
 		this.reservationDao = dao;
-		//reservationList = reservationDao.read();
+		reservationList = reservationDao.read();
 	}
 	// To retrieve customer's particular reservation.
 	
@@ -158,7 +159,35 @@ public class ReservationManager{
 	
 	public void displayReservationList(ArrayList<Reservation> reservationList)
 	{
-		if (reservationList== null)
+		if (reservationList == null)
+			return;
+		if (reservationList.isEmpty())
+		{
+			System.out.println("There are no reservations");
+		}
+		
+		else 
+		{
+			for (int x = 0; x < reservationList.size(); x++)
+			{
+				Reservation currres = reservationList.get(x);
+				System.out.println("Reservation Date: " + currres.getDate());
+				System.out.println("Reservation Time: " + currres.getTime());
+				System.out.println("ReservationID: " + currres.getReservationID());
+				System.out.println("Number of Pax: " + currres.getNoPax());
+				System.out.println("Table Number: " + currres.getTableNo());
+				System.out.println("Customer's Name: " + currres.getName());
+				System.out.println("Customer's Contact Number: " + currres.getContactNo());
+				System.out.println(" ");
+			}
+		}
+	}
+	
+	public void displayReservationList()
+	{
+		if (reservationList == null)
+			return;
+		if (reservationList.isEmpty())
 		{
 			System.out.println("There are no reservations");
 		}
@@ -223,6 +252,29 @@ public class ReservationManager{
 			}
 		}
 		return checker;
+	}
+	
+	public void refreshReservationList()
+	{
+		LocalTime currentTime = LocalTime.now();
+		LocalDate currentDate = LocalDate.now();
+		
+		if (reservationList != null)
+		{
+			for (int x = 0; x < reservationList.size(); x++)
+			{
+				LocalTime resTime = reservationList.get(x).getTime();
+				LocalDate resDate = reservationList.get(x).getDate();
+				Duration duration = Duration.between(resTime, currentTime);
+				long difference = duration.toMinutes();
+				
+				if ((currentDate.equals(resDate) && difference > 20) || currentDate.isAfter(resDate))  //Orders Cancel in 20 Minutes 
+				{
+					reservationList.remove(x);
+				}
+			}
+		}
+		else;
 	}
 
 
