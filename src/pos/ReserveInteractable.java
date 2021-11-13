@@ -152,6 +152,7 @@ public class ReserveInteractable implements IInteractable {
 	       					Table T = requestValidTable(tableList);
 	       					current.setTime(timeNew);
 	       					current.setTableNo(T.getTableNo());
+	       					System.out.println("Reservation Date have been successfully changed to " + dateNew + " at " + timeNew + " Hrs");
 	       				}
             		   
             	   }
