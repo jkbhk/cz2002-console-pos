@@ -1,5 +1,9 @@
 package entities;
-
+/**
+ * 
+ * A wrapper class to contain additional information for each order entry
+ *
+ */
 public class OrderItemWrapper {
 	
 	private String menuItemID;

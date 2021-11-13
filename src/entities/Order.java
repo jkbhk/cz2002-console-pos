@@ -1,7 +1,7 @@
 package entities;
 
 import java.util.ArrayList;
-
+ 
 public class Order {
 	
 	private String orderID;

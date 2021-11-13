@@ -22,7 +22,11 @@ import pos.IDGenerator;
 import pos.InvoicePrinter;
 import pos.TableReservationSyncController;
 import pos.TemplateAAdapter;
-
+/**
+ * 
+ * Facade object that facilitates the creation and deletion, as well as the entire checking out process.
+ *
+ */
 public class OrderInteractable implements IInteractable{
 	
 	InteractableComponent orderAssistant = new InteractableComponent("Back", true);

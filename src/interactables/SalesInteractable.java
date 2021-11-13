@@ -9,6 +9,11 @@ import managers.InvoiceManager;
 import pos.InvoicePrinter;
 import pos.TemplateAAdapter;
 
+/**
+ * 
+ * Facade object that generates sales reports.
+ *
+ */
 public class SalesInteractable implements IInteractable{
 
 	InteractableComponent reportAssistant = new InteractableComponent("Back",true);

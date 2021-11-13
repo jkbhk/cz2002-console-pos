@@ -1,5 +1,8 @@
 package entities;
-
+/**
+ * The individual component that makes up a MenuItem.
+ *
+ */
 public class Stock {
     private String stockID;
     private String name;

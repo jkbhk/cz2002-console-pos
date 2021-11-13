@@ -4,15 +4,23 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-
+/**
+ * 
+ * Generic file reader that supports reading from csv files.
+ *
+ */
 public class GenericFileReader {
 
     private static BufferedReader buffer;
     private static String filePathSuffix = "src/data/";
     private static String delimiter = ",";
 
-    // each row in the csv will be read as a string array, representing the columns of the row
-    // the array list will be the collection of these rows
+    /**
+     * Each row in the csv will be read as a string array, representing the columns of the row
+     * The array list will be the collection of these rows.
+     * @param filename
+     * @return the retrieved strings from the specified file.
+     */
     public static ArrayList<String[]> read(String filename){
 
         ArrayList<String[]> retrieved = new ArrayList<>();

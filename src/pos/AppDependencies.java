@@ -18,9 +18,16 @@ import managers.StaffManager;
 import managers.StockManager;
 import managers.TableManager;
 import payment.CardPaymentMethod;
-
+/**
+ * 
+ * Top level module for injecting dependencies.
+ * 
+ *
+ */
 public class AppDependencies {
-
+/**
+ * Instantiates all concrete classes and inject them into the respective constructors.
+ */
 	public static void initilializeDependencies() {
 		
 		// create all your managers here and inject dependencies if required
@@ -37,6 +44,9 @@ public class AppDependencies {
 		
 	}
 	
+	/**
+	 * Called when the application is closing.
+	 */
 	public static void onExit() {
 		StockManager.instance.save();
 		MenuManager.instance.save();

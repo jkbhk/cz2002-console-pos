@@ -13,7 +13,11 @@ import pos.Application;
 import pos.IDGenerator;
 import pos.Reservation;
 import pos.TableReservationSyncController;
-
+/**
+ * 
+ * Facade object that facilitates the creation, deletion, and viewing of reservations.
+ *
+ */
 public class ReserveInteractable implements IInteractable {
 	public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 	public static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH");

@@ -4,6 +4,12 @@ import managers.StaffManager;
 import pos.Application;
 import pos.IDGenerator;
 
+/**
+ * 
+ * Facade object that facilitates creating, deleting, and viewing of staff. 
+ *
+ */
+
 public class StaffInteractable implements IInteractable {
 
 	private InteractableComponent staffAssistant = new InteractableComponent("Back", true);

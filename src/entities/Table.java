@@ -1,5 +1,11 @@
 package entities;
 
+/**
+ * 
+ * 
+ *	A data structure to store the table size and table status.
+ *
+ */
 public class Table {
     private int tableNo;
     private String id;

@@ -8,13 +8,23 @@ import java.util.*;
 import dao.GenericDao;
 import pos.IDGenerator;
 import pos.Reservation;
-
+/**
+ * 
+ * Manages Reservation objects.
+ *
+ */
 public class ReservationManager{
 
 	
 	private ArrayList<Reservation> reservationList = new ArrayList<Reservation>();
 	private GenericDao<Reservation> reservationDao;
+	/**
+	 * Globally accessible instance.
+	 */
 	public static ReservationManager instance;
+	/**
+	 * The default reservation lifetime in minutes.
+	 */
 	public static final long RESERVATION_EXPIRY = 20;
 	
 	
@@ -24,7 +34,11 @@ public class ReservationManager{
 		this.reservationDao = dao;
 		reservationList = reservationDao.read();
 	}
-	// To retrieve customer's particular reservation.
+	/**
+	 *  
+	 * @param reservationID
+	 * @return the Reservation object given the reservation ID from the reservation list.
+	 */
 	
 	public Reservation getReservation(String reservationID)
 	{
@@ -47,7 +61,15 @@ public class ReservationManager{
 		return reservation;
 	}
 	
-	
+	/**
+	 * Creates a Reservation object and adds it to the reservation list.
+	 * @param name
+	 * @param contactNo
+	 * @param noPax
+	 * @param date
+	 * @param time
+	 * @param tableNo
+	 */
 	public void createReservation(String name, String contactNo, int noPax, LocalDate date, LocalTime time, int tableNo)
 	{
 		// To - Do
@@ -57,7 +79,11 @@ public class ReservationManager{
 		
 	}
 	
-	//Alternative way to retrieve Customer's Reservation List
+/**
+ * 	
+ * @param contactNo
+ * @return a list of Reservation objects that matches the given contact number from the reservation list.
+ */
 	public ArrayList<Reservation> getReservationListForContact(String contactNo)
 	{
 		ArrayList<Reservation> customerReservation = new ArrayList<Reservation>();
@@ -74,6 +100,11 @@ public class ReservationManager{
 		return customerReservation;
 	}
 	
+	/**
+	 * 
+	 * @param date
+	 * @return a list of Reservation objects that matches the given date from the reservation list.
+	 */
 	public ArrayList<Reservation> getReservationListForDate(LocalDate date)
 	{
 		ArrayList<Reservation> dateReservation = new ArrayList<Reservation>();
@@ -91,11 +122,22 @@ public class ReservationManager{
 		return dateReservation;
 	}
 	
+	/**
+	 * 
+	 * @return all the Resservation objects in the reservation list.
+	 */
 	public ArrayList<Reservation> getReservationList()
 	{
 		return reservationList;
 	}
 
+	/**
+	 * 
+	 * @param date
+	 * @param time
+	 * @param contactNo
+	 * @return the Reservation object that matches the specified information from the reservation list.
+	 */
 	public Reservation getReservation( LocalDate date, LocalTime time, String contactNo)
 	{
 		if (!reservationList.isEmpty())
@@ -115,17 +157,28 @@ public class ReservationManager{
 	}
 	
 
-	
+	/**
+	 * Deletes the specified Reservation object from the reservation list.
+	 * @param reservation
+	 */
 	public void deleteReservation(Reservation reservation)
 	{
 		reservationList.remove(reservation);
 	}
 	
+	/**
+	 * Deletes the Reservation object at the specified index position of the reservation list.
+	 * @param index
+	 */
 	public void deleteReservation(int index)
 	{
 		reservationList.remove(index);
 	}
 	
+	/**
+	 * Displays all Reservation objects in the given reservation list.
+	 * @param reservationList
+	 */
 	public void displayReservationList(ArrayList<Reservation> reservationList)
 	{
 		if (reservationList == null)
@@ -152,6 +205,9 @@ public class ReservationManager{
 		}
 	}
 	
+	/**
+	 * Displays all Reservation objects in the reservation list.
+	 */
 	public void displayReservationList()
 	{
 		if (reservationList == null)
@@ -177,7 +233,13 @@ public class ReservationManager{
 		}
 	}
 	
-	
+	/**
+	 * 
+	 * @param date
+	 * @param time
+	 * @param tableNo
+	 * @return true if there is a Reservation object that matches the specified details
+	 */
 	public boolean reservationChecker (LocalDate date, LocalTime time, int tableNo)
 	{
 		boolean checker = false; 
@@ -193,6 +255,12 @@ public class ReservationManager{
 		return checker;
 	}
 	
+	/**
+	 * 
+	 * @param date
+	 * @param time
+	 * @return true there is a Reservation object that matches the specified details
+	 */
 	public boolean reservationChecker (LocalDate date, LocalTime time)
 	{
 		boolean checker = false; 
@@ -208,7 +276,9 @@ public class ReservationManager{
 		return checker;
 	}
 	
-
+/**
+ * Updates and saves the reservation list.
+ */
 	public void save() {
 		
 		reservationDao.write(reservationList);

@@ -2,12 +2,22 @@ package pos;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-
+/**
+ * 
+ * A generic file writer that writes to csv file.
+ *
+ */
 public class GenericFileWriter {
     
     private static String filePathSuffix = "src/data/";
     private static final char DELIMITTER = ',';
 
+    /**
+     * Writes to the specified csv file.
+     * 
+     * @param items Outer array will be written to each row of the csv file, inner array will be written to each collumn of the same row referenced by the outer array.
+     * @param filename
+     */
     public static void writeFile(String[][] items,String filename){
         try (PrintWriter writer = new PrintWriter(filePathSuffix + filename)) {
 
@@ -35,7 +45,12 @@ public class GenericFileWriter {
     }
 
 
-
+/**
+ * Writes to the specified csv file.
+ * 
+ * @param properties Each item in the array will be written to a new row.
+ * @param filename
+ */
     public static void writeFile(String[] properties,String filename){
         try (PrintWriter writer = new PrintWriter(filePathSuffix + filename)) {
 

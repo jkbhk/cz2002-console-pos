@@ -4,10 +4,16 @@ import java.util.ArrayList;
 
 import dao.GenericDao;
 import entities.Table;
-
+/**
+ * 
+ * Manages Table objects.
+ *
+ */
 
 public class TableManager {
-	 
+	 /**
+	  * Globally accessible instance.
+	  */
 	public static TableManager instance;
 	private ArrayList<Table> tableList;
 	private GenericDao<Table> dao;
@@ -20,26 +26,20 @@ public class TableManager {
         tableList = dao.read();
      }
 
-    public void addTable(String id, int tableNo, int tableSize, String status) {
-      
-            Table newTable = new Table(id, tableNo, tableSize, Table.STATUS.valueOf(status.toUpperCase()));
-            tableList.add(newTable);
-
-    }
-
-
-    public void deleteTable(int tableNo) {
-    	
-        tableList.removeIf(table -> table.getTableNo() == tableNo);
- 
-    }
-
-    
+   /**
+    * Returns all tables in the table list. 
+    * @return
+    */
     public ArrayList<Table> getTableList(){
     	
     	return tableList;
     }
     
+    /**
+     * Returns the table that matches the given table number.
+     * @param tableNo
+     * @return
+     */
     public Table getTable(int tableNo) {
     	
     		for (Table table : tableList) {
@@ -50,12 +50,18 @@ public class TableManager {
         return null;
     }
     
+    /**
+     * Displays all the tables and their respective information from the table list.
+     */
     public void printTables() {
         for (Table table : tableList) {
             System.out.println("Table Number : " + table.getTableNo() + " Table Size : " + table.getTableSize() + " STATUS:  " + table.getStatus());
         }
     }
     
+    /**
+     * Displays all the tables without their status from the table list.
+     */
     public void printTablesList() {
         for (Table table : tableList) {
             System.out.println("Table Number : " + table.getTableNo() + " Table Size : " + table.getTableSize());

@@ -1,5 +1,9 @@
 package entities;
-
+/**
+ * 
+ * A data structure to hold basic staff information.
+ *
+ */
 public class Staff {
 	private String staffName;
 	private String staffID;

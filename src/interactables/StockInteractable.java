@@ -4,7 +4,11 @@ import entities.Stock;
 import managers.StockManager;
 import pos.Application;
 import pos.IDGenerator;
-
+/**
+ * 
+ * Facade object that facilitates the creation, deletion, and checking of stocks.
+ *
+ */
 public class StockInteractable implements IInteractable {
 
 	private InteractableComponent stockAssistant = new InteractableComponent("Back", true);

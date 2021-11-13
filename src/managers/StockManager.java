@@ -4,9 +4,15 @@ import java.util.ArrayList;
 
 import dao.GenericDao;
 import entities.Stock;
-
+/**
+ * 
+ * Manages Stock objects.
+ *
+ */
 public class StockManager {
-   
+   /**
+    * Globally accessible instance.
+    */
     public static StockManager instance;
 
     private ArrayList<Stock> stocks;
@@ -18,12 +24,19 @@ public class StockManager {
        stocks = d.read();
     }
 
-
+/**
+ * Creates a new Stock object and adds it to the stock list.
+ * @param id
+ * @param stockName
+ */
     public void createNewStock(String id, String stockName) {
         Stock stock = new Stock(id,stockName);
         stocks.add(stock);
     }
-
+/**
+ * Displays all stocks from the stock list.
+ * @param showIndexing
+ */
     public void displayAllStocks(boolean showIndexing){
        
         for(int i = 0; i < stocks.size(); i++){
@@ -37,18 +50,29 @@ public class StockManager {
         }
     
     }
-    
+    /**
+     * @return the current number of different Stock objects in the stock list.
+     * 
+     */
     public int getStockCount() {
     	return this.stocks.size();
     }
 
+    /**
+     * @param index
+     * @return a Stock object given the index relative to its position in the stock list.
+     */
     public Stock getstock(int index){
         if(index >=0 && index < stocks.size())
             return stocks.get(index);
 
         return null;
     }
-
+/**
+ *
+ * @param stockID
+ * @return a Stock object given a stock ID.
+ */
     public Stock getstock(String stockID){
         for (Stock stock : stocks) {
             if(stock.getStockID() == stockID)
@@ -58,12 +82,19 @@ public class StockManager {
         return null;
     }
 
-
+/**
+ * Removes the Stock object at the specified index position of the stock list.
+ * @param index
+ */
     public void removeStock(int index){
         if(index >=0 && index < stocks.size())
             stocks.remove(index);
     }
 
+    /**
+     * Remove the Stock object that matches the given stock ID from the stock list.
+     * @param stockID
+     */
     public void removeStock(String stockID){
         for (Stock stock : stocks) {
             if(stock.getStockID() == stockID){
@@ -73,6 +104,9 @@ public class StockManager {
 
     }
     
+    /**
+     * Updates and saves the stock list.
+     */
     public void save() {
     	dao.write(stocks);
     }
