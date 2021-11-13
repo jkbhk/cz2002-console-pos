@@ -1,6 +1,19 @@
 package pos;
 import java.util.Scanner;
 
+import interactables.CustomerInteractable;
+import interactables.IInteractable;
+import interactables.InteractableComponent;
+import interactables.LoginInteractable;
+import interactables.ManagementToolsInteractable;
+import interactables.MenuInteractable;
+import interactables.OccupyInteractable;
+import interactables.OrderInteractable;
+import interactables.ReserveInteractable;
+import interactables.SalesInteractable;
+import interactables.StaffInteractable;
+import interactables.StockInteractable;
+
 
 public class Application {
 

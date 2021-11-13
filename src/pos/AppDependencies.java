@@ -1,5 +1,24 @@
 package pos;
 
+import dao.CustomerDao;
+import dao.InvoiceDao;
+import dao.MenuItemDao;
+import dao.OrderDao;
+import dao.ReservationDao;
+import dao.StaffDao;
+import dao.StockDao;
+import dao.TableDao;
+import managers.CustomerManager;
+import managers.InvoiceManager;
+import managers.MenuManager;
+import managers.OrderManager;
+import managers.PaymentManager;
+import managers.ReservationManager;
+import managers.StaffManager;
+import managers.StockManager;
+import managers.TableManager;
+import payment.CardPaymentMethod;
+
 public class AppDependencies {
 
 	public static void initilializeDependencies() {

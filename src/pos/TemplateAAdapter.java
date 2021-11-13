@@ -1,5 +1,12 @@
 package pos;
 
+import entities.Invoice;
+import entities.Order;
+import entities.OrderItemWrapper;
+import managers.MenuManager;
+import managers.OrderManager;
+import managers.StaffManager;
+
 public class TemplateAAdapter implements ITemplateA{
 	
 	private Invoice invoice;
@@ -33,7 +40,7 @@ public class TemplateAAdapter implements ITemplateA{
 		int i = 0;
 		
 		for (OrderItemWrapper oiw : o.getMenuItemIDList()) {
-			menuItems[i] = MenuManager.instance.getMenuItem(oiw.menuItemID).getName();
+			menuItems[i] = MenuManager.instance.getMenuItem(oiw.getMenuItemID()).getName();
 			menuQuantity[i] = (""+ oiw.getQuantity());
 			menuUnitPrice[i] = (""+ String.format("%.2f",oiw.getItemPrices()));
 			menuAmount[i] = ("" + String.format("%.2f",(oiw.getQuantity() * oiw.getItemPrices())));

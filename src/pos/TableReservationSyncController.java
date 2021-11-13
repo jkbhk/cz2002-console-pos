@@ -5,7 +5,10 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-import pos.Table.STATUS;
+import entities.Table;
+import entities.Table.STATUS;
+import managers.ReservationManager;
+import managers.TableManager;
 
 public class TableReservationSyncController {
 
