@@ -137,9 +137,32 @@ public class ReserveInteractable implements IInteractable {
                if(timeNew == null)
             	   return;
                else
-            	   current.setTime(timeNew);
+               {
+            	   if(ReservationManager.instance.reservationChecker(dateNew, timeNew, current.getTableNo()))
+            	   {
+            		   ArrayList<Table> tableList = getAvailableTable(dateNew,timeNew);
+       				
+	       				if (tableList == null) {
+	       					System.out.println("No tables ");
+	       					return;
+	       				}
+	       				else 
+	       				{
+	       					printFilterTableList(tableList);
+	       					Table T = requestValidTable(tableList);
+	       					current.setTime(timeNew);
+	       					current.setTableNo(T.getTableNo());
+	       				}
+            		   
+            	   }
+            	   else 
+            	   {
+            		   current.setTime(timeNew);
+            		   System.out.println("Reservation Date have been successfully changed to " + dateNew + " at " + timeNew + " Hrs");
+            	   }
+               }
                
-               System.out.println("Reservation Date have been successfully changed to " + dateNew + " at " + timeNew + " Hrs");
+               
 			
                TableReservationSyncController.sync();
                      
