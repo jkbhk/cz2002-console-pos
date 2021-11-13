@@ -10,9 +10,17 @@ import entities.Table.STATUS;
 import managers.ReservationManager;
 import managers.TableManager;
 
+/**
+ * 
+ * Controller class that synchronise the entire application to refresh and updates the reservation list and table list.
+ *
+ */
 public class TableReservationSyncController {
 
 	// refresh the status of tables based on the reservation dates and time
+	/**
+	 * Refreshes and synchronise to set the table status with reference to the reservation list.
+	 */
 	public static void sync() {
 		
 		

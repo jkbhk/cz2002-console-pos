@@ -5,6 +5,11 @@ import managers.CustomerManager;
 import pos.Application;
 import pos.IDGenerator;
 
+/**
+ * 
+ * Facade objects that facilitates the creation, deletion, editing and viewing of stocks.
+ *
+ */
 public class CustomerInteractable implements IInteractable {
 	
 	InteractableComponent customerAssistant = new InteractableComponent("Back",true);

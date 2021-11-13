@@ -5,6 +5,11 @@ import managers.StaffManager;
 import pos.Application;
 import pos.IDGenerator;
 
+/**
+ * 
+ * Facade that facilitates the log in of staff into the POS system.
+ *
+ */
 public class LoginInteractable implements IInteractable{
 
 	@Override

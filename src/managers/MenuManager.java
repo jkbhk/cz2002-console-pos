@@ -7,7 +7,15 @@ import java.util.Comparator;
 import dao.GenericDao;
 import entities.MenuItem;
 
+/**
+ * 
+ * Manages menu objects.
+ *
+ */
 public class MenuManager{
+	/**
+	 * Globally accessed instance.
+	 */
 
 	public static MenuManager instance;	
 	private GenericDao<MenuItem> dao;
@@ -21,7 +29,15 @@ public class MenuManager{
 		
 	}
 
-
+	/**
+	 * Creates MenuItem given the following parameters
+	 * @param id Uniquely generated ID of MenuItem.
+	 * @param name Name of MenuItem.
+	 * @param description Descriptions of MenuItem.
+	 * @param price Price of MenuItem.
+	 * @param tag Value to sort MenuItem.
+	 * @param stockReferenceIDs Uniquely generated stock id.
+	 */
 	public void createNewMenuItem(String id, String name, String description, double price, String tag, ArrayList<String> stockReferenceIDs) {
 		MenuItem item = new MenuItem(id, name, description, price, tag, stockReferenceIDs);
 		menuItems.add(item);
@@ -29,7 +45,9 @@ public class MenuManager{
 		sortMenuItems();
 	}
 	
-	
+	/**
+	 * Sort the MenuItem via their tags.
+	 */
 	private void sortMenuItems() {
 		Collections.sort(menuItems, new Comparator<MenuItem>() {
 		    @Override
@@ -39,7 +57,9 @@ public class MenuManager{
 		});
 	}
 	
-	
+	/**
+	 * Display the Menu of the restaurant.
+	 */
 	public void displayMenu() {
 		
 		
@@ -73,6 +93,11 @@ public class MenuManager{
 	}
 	
 	
+	/**
+	 * @return MenuItem given index relative to its list.
+	 * @param index
+	 * 
+	 */
 	public MenuItem getMenuItem(int index) {
 		if (index >= 0 && index < menuItems.size())
 			return menuItems.get(index);
@@ -80,6 +105,11 @@ public class MenuManager{
 		return null;
 	}
 
+	/**
+	 * @return MenuItem given a MenuItem id.
+	 * @param id
+	 * 
+	 */
 	public MenuItem getMenuItem(String id) {
 		for (MenuItem m : menuItems) {
 			if (m.getMenuItemID().equals(id))
@@ -88,12 +118,21 @@ public class MenuManager{
 
 		return null;
 	}
+	
+	/**
+	 * Remove MenuItem given index relative to its list.
+	 * @param index
+	 */
 
 	public void removeMenuItem(int index) {
 		if (index >= 0 && index < menuItems.size())
 			menuItems.remove(index);
 	}
 
+	/**
+	 * Remove MenuItem given MenuItem id.
+	 * @param id
+	 */
 	public void removeMenuItem(String id) {
 		for (MenuItem m : menuItems) {
 			if (m.getMenuItemID() == id) {
@@ -102,6 +141,9 @@ public class MenuManager{
 		}
 	}
 	
+	/**
+	 * Updates and saves the menuItems list.
+	 */
 	public void save() {
 		dao.write(menuItems);
 	}

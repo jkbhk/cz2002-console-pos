@@ -7,6 +7,11 @@ import managers.MenuManager;
 import managers.OrderManager;
 import managers.StaffManager;
 
+/**
+ * 
+ * Template adapter that implements ITemplateA to provide a invoice a printing template.
+ *
+ */
 public class TemplateAAdapter implements ITemplateA{
 	
 	private Invoice invoice;
@@ -17,11 +22,19 @@ public class TemplateAAdapter implements ITemplateA{
 	
 	private Order o;
 	
+	/**
+	 * Given an invoice retrieve the relative orders and splits them.
+	 * @param i Invoice Object
+	 */
 	public TemplateAAdapter(Invoice i) {
 		invoice = i;
 		o = OrderManager.instance.getOrder(i.getOrderID());
 		splittingArrayList(o);
 	}
+	/**
+	 * Splits value of OrderItemWrapper and store it into different ArrayList<String>.
+	 * @param o Order Object.
+	 */
 
 	public void splittingArrayList(Order o) {
 		
@@ -49,6 +62,7 @@ public class TemplateAAdapter implements ITemplateA{
 
 	}
 
+	
 	@Override
 	public String getOrderID() {
 		
@@ -61,11 +75,13 @@ public class TemplateAAdapter implements ITemplateA{
 		return invoice.getDate();
 	}
 
+	
 	@Override
 	public String getGSTRate() {
 		
 		return (""+invoice.getGstRate());
 	}
+	
 	
 	@Override
 	public String getGSTPrice() {

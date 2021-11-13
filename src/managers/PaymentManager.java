@@ -5,7 +5,15 @@ import java.util.ArrayList;
 import payment.IPaymentMethod;
 import pos.Application;
 
+/**
+ * 
+ * Manages payment object.
+ *
+ */
 public class PaymentManager {
+	/**
+	 * Globally accessed instances.
+	 */
 
 	public static PaymentManager instance;
 	
@@ -22,6 +30,11 @@ public class PaymentManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param total Total amount payable by the customer.
+	 * @return Boolean by requesting type of payment given total payment.
+	 */
 	public boolean requestPayment(double total) {
 		
 		if(paymentMethods.size() == 0) {

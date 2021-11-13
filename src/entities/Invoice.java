@@ -1,5 +1,19 @@
 package entities;
 
+/**
+ * 
+ * Invoice class entity stores a variety of information such as invoiceID, orderID, staffID, date, time, gstRate, gstPrice, membershipRate, membershipDiscountPrice,
+ * serviceRate, servicePrice, totalPrice, netTotal, isMember. 
+ * 
+ * 
+ * The invoice is managed by the InvoiceManager.
+ * 
+ * @param invoiceID invoiceID is a randomly generated unique code that is designated for each Invoices.
+ * @param membershipRate membershipRate is rate of discount off totalPrice for all members
+ * @param gstRate gstRate is the rate additional of totalPrice for all orders.
+ * @param serivceRate serviceRate is the rate additional of totalPrice for all orders.
+ */
+
 public class Invoice {
 	
 	private String invoiceID;

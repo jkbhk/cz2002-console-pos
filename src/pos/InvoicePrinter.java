@@ -3,8 +3,16 @@ package pos;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * 
+ * Class that prints the invoice and sales revenue report.
+ *
+ */
 public class InvoicePrinter {
-	
+	/**
+	 * Prints the invoice given ITemplateA a.
+	 * @param a ITemplateA
+	 */
 	public static void printTemplate(ITemplateA a) {
 		String x = "=";
 		String m = "";

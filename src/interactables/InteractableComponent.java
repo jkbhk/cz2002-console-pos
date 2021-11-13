@@ -15,10 +15,15 @@ public class InteractableComponent {
 		this.exit_option_title = exitOption;
 	}
 
+	
 	public InteractableComponent(boolean loopable){
 		this.loopable = loopable;
 		this.exit_option_title = "Exit";
 	}
+	
+	/**
+	 * Starts the interactable component.
+	 */
 
 	public void start(){
 		
@@ -28,10 +33,17 @@ public class InteractableComponent {
 			showInteractables();
 	}
 
+	/**
+	 * Adds a IInteractable.
+	 * @param i
+	 */
 	public void addInteractable(IInteractable i){
 		interactables.add(i);
 	}
 
+	/**
+	 * Loops through all IInteractables and displays them as options.
+	 */
 	protected void showInteractables()
 	{
 		int x = 1; 
@@ -59,11 +71,17 @@ public class InteractableComponent {
 		interactables.get(choice-1).handleInput();
 	}
 
+	/**
+	 * Terminate the interactable.
+	 */
 	public void terminate(){
 		this.enabled = false;
 		onTerminate();
 	}
 
+	/**
+	 * Start the loop of the interactable list.
+	 */
 	protected void startLoop(){
 		enabled = true;
 
@@ -72,6 +90,9 @@ public class InteractableComponent {
 		}
 	}
 
+	/*
+	 * Called when interactable is terminated.
+	 */
 	protected void onTerminate(){
 	}
 }

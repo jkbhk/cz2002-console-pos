@@ -2,6 +2,12 @@ package entities;
 
 import java.util.ArrayList;
 
+/**
+ * 
+ * Order is an entity class containing orderID, totalPrice, tableNo and menuItemIDList.
+ * Order is composed of OrderItemWrapper. Information of each entry is retrieved from the OrderItemWrapper.
+ *
+ */
 public class Order {
 	
 	private String orderID;

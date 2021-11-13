@@ -1,5 +1,10 @@
 package interactables;
 
+/**
+ * 
+ * Groups several interactables under ManagementTools.
+ *
+ */
 public class ManagementToolsInteractable implements IInteractable{
 
 	public InteractableComponent managementTools = new InteractableComponent("Back", true);
