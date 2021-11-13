@@ -2,7 +2,16 @@ package entities;
 
 import java.util.ArrayList;
 
+/**
+ * 
+ * MenuItem is an entity class that contains menuItemID, name, description, price, tag, stockReferenceIDs.
+ * MenuItem is composed of {@link Stock} and references them using stockReferenceIDs.
+ * 
+ * 
+ *
+ */
 public class MenuItem {
+	
     private String menuItemID;
     private String name;
     private String description;

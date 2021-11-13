@@ -12,6 +12,11 @@ import pos.Application;
 import pos.Reservation;
 import pos.TableReservationSyncController;
 
+/**
+ * 
+ * Facade object that facilitates the change in the status of the table.
+ *
+ */
 public class OccupyInteractable implements IInteractable {
 
 	@Override

@@ -9,6 +9,11 @@ import managers.StockManager;
 import pos.Application;
 import pos.IDGenerator;
 
+/**
+ * 
+ * Facade object that facilitates the creation, deletion, viewing of MenuItems.
+ *
+ */
 public class MenuInteractable implements IInteractable{
 
     InteractableComponent menuAssistant = new InteractableComponent("Back", true);

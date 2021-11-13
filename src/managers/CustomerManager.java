@@ -4,11 +4,18 @@ import java.util.*;
 
 import dao.GenericDao;
 import entities.Customer;
-
+/**
+ * 
+ * Manages Customer objects.
+ *
+ */
 public class CustomerManager {
 	
 	private GenericDao<Customer> customerDao;
 	private ArrayList<Customer> customerList = new ArrayList<Customer>();
+	/**
+	 * Globally accessible instance.
+	 */
 	public static CustomerManager instance;
 	
 	public CustomerManager(GenericDao<Customer> customerDao)
@@ -18,6 +25,11 @@ public class CustomerManager {
 		customerList = customerDao.read();
 	}
 	
+	/**
+	 * 
+	 * @param customerID Unique customer ID.
+	 * @returns a Customer given a customerID. 
+	 */
 	public Customer getCustomer(String customerID)
 	{
 		int x = 0;
@@ -39,11 +51,14 @@ public class CustomerManager {
 		
 		return currcust;
 		
-			
-		
-		
 	}
 	
+	/**
+	 * 
+	 * @param name name of customer.
+	 * @param contactNo Contact number of customer.
+	 * @return a Customer given name and contactNo.
+	 */
 	public Customer getCustomer(String name, String contactNo)
 	{
 		int x = 0;
@@ -70,6 +85,15 @@ public class CustomerManager {
 		
 	}
 	
+	/**
+	 * Creates a Customer object given the parameters.
+	 * @param name Name of Customer.
+	 * @param contactNo Contact Number of Customer.
+	 * @param membershipID 5 Alphanumeric generate ID for membership.
+	 * @param customerID Unique randomly generated ID for customer.
+	 * @param isMember Membership status for member.
+	 */
+	
 	public void createCustomer(String name, String contactNo, String membershipID, String customerID, boolean isMember) // TO-DO to review again of creating customer
 	{
 		
@@ -85,6 +109,11 @@ public class CustomerManager {
 		
 	}
 	
+	/**
+	 * Deletes a Customer object given the parameter.
+	 * @param index Index is the index number of customer list.
+	 */
+	
 	public void deleteCustomer(int index) 
 	{
 		
@@ -99,6 +128,10 @@ public class CustomerManager {
 			customerList.remove(index);
 		}
 	}
+	
+	/**
+	 * Displays all customers in the customer list.
+	 */
 	
 	public void displayCustomerList()
 	{
@@ -120,7 +153,14 @@ public class CustomerManager {
 				
 			}
 		}
+	
 	}
+	
+	/**
+	 * 
+	 * @param name Customer's name.
+	 * @return String customer ID given the parameter.
+	 */
 	
 	public String getCustomerID(String name)
 	{
@@ -143,7 +183,10 @@ public class CustomerManager {
 		return null;
 	}
 	
-	
+	/**
+	 * 
+	 * @return ArrayList of customers.
+	 */
 	public ArrayList<Customer> getCustomerList()
 	{
 		return customerList;
@@ -170,6 +213,11 @@ public class CustomerManager {
 		return checker;
 	}
 	
+	/**
+	 * 
+	 * @param customerID Uniquely randomly generated customerID for each customer.
+	 * @return a boolean by checking the membership status of Customer given a customerID.
+	 */
 	public boolean checkMembership(String customerID)
 	{
 		boolean checker = false;
@@ -184,7 +232,9 @@ public class CustomerManager {
 		return checker;
 	}
 
-	
+	/**
+	 * Updates and saves the customer list.
+	 */
 	public void save() {
 		customerDao.write(customerList);
 	}

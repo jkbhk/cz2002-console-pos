@@ -1,7 +1,11 @@
 package payment;
 
 import pos.Application;
-
+/**
+ * 
+ * Implements payment method that uses card.
+ *
+ */
 public class CardPaymentMethod implements IPaymentMethod{
 
 	@Override

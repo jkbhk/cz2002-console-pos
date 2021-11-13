@@ -1,5 +1,15 @@
 package entities;
 
+/**
+ * 
+ * 
+ * Customer class entity that stores customer's information such as name, contact number, membership ID, customer ID and if Customer is a member. 
+ * @param membeshipID Membership ID is a 5 alphanumeric code that is randomly generated for each customer member.
+ * @param customerID Customer ID is a randomly generate unique code that is given to each customer.
+ * 
+ * 
+ */
+
 public class Customer {
 	
 	private String name;
