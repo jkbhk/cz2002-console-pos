@@ -68,6 +68,8 @@ public class InteractableComponent {
 			if(choice == interactables.size()+1){
 				terminate();
 				return;
+			}else if(choice -1 < 0 || choice -1 > interactables.size() - 1) {
+				System.out.println("Invalid Selection.");
 			}
 		}
 		

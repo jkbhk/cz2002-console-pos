@@ -104,7 +104,7 @@ public class CustomerManager {
 		customer.setCustomerID(customerID);
 		customer.setMember(isMember);
 		customerList.add(customer);
-		System.out.println("Customer has been created. " + "Customer's ID is " +membershipID + ".");
+		System.out.println("Customer has been created. " + "Member ID is " +membershipID + ".");
 			
 		
 	}
