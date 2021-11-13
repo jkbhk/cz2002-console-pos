@@ -214,7 +214,7 @@ public class ReserveInteractable implements IInteractable {
 
 			@Override
 			public void handleInput() {
-				TableReservationSyncController.refreshReservationList();
+				TableReservationSyncController.sync();
 				ReservationManager.instance.displayReservationList();
 			}
 
